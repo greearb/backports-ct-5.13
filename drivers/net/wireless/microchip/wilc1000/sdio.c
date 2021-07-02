@@ -10,6 +10,7 @@
 #include <linux/mmc/host.h>
 #include <linux/mmc/sdio.h>
 #include <linux/of_irq.h>
+#include <linux/module.h>
 
 #include "netdev.h"
 #include "cfg80211.h"

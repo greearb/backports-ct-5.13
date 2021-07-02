@@ -8,6 +8,7 @@
 #include <linux/spi/spi.h>
 #include <linux/crc7.h>
 #include <linux/crc-itu-t.h>
+#include <linux/module.h>
 
 #include "netdev.h"
 #include "cfg80211.h"
