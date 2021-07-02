@@ -182,7 +182,11 @@ int bcma_gpio_init(struct bcma_drv_cc *cc)
 	chip->direction_input	= bcma_gpio_direction_input;
 	chip->direction_output	= bcma_gpio_direction_output;
 	chip->owner		= THIS_MODULE;
+#if LINUX_VERSION_IS_GEQ(4,5,0)
 	chip->parent		= bus->dev;
+#else
+	chip->dev = bus->dev;
+#endif /* LINUX_VERSION_IS_GEQ(4,5,0) */
 #if IS_BUILTIN(CONFIG_OF)
 	chip->of_node		= cc->core->dev.of_node;
 #endif
