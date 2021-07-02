@@ -198,14 +198,15 @@ static int qtnf_netdev_port_parent_id(struct net_device *ndev,
 
 static int qtnf_netdev_alloc_pcpu_stats(struct net_device *dev)
 {
-	dev->tstats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
+	netdev_assign_tstats(dev,
+			     netdev_alloc_pcpu_stats(struct pcpu_sw_netstats));
 
-	return dev->tstats ? 0 : -ENOMEM;
+	return netdev_tstats(dev) ? 0 : -ENOMEM;
 }
 
 static void qtnf_netdev_free_pcpu_stats(struct net_device *dev)
 {
-	free_percpu(dev->tstats);
+	free_percpu(netdev_tstats(dev));
 }
 
 /* Network device ops handlers */

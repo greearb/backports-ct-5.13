@@ -257,8 +257,9 @@ static int qmimux_register_device(struct net_device *real_dev, u8 mux_id)
 	priv->mux_id = mux_id;
 	priv->real_dev = real_dev;
 
-	new_dev->tstats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
-	if (!new_dev->tstats) {
+	netdev_assign_tstats(new_dev,
+			     netdev_alloc_pcpu_stats(struct pcpu_sw_netstats));
+	if (!netdev_tstats(new_dev)) {
 		err = -ENOBUFS;
 		goto out_free_newdev;
 	}
@@ -295,7 +296,7 @@ static void qmimux_unregister_device(struct net_device *dev,
 	struct qmimux_priv *priv = netdev_priv(dev);
 	struct net_device *real_dev = priv->real_dev;
 
-	free_percpu(dev->tstats);
+	free_percpu(netdev_tstats(dev));
 	netdev_upper_dev_unlink(real_dev, dev);
 	unregister_netdevice_queue(dev, head);
 

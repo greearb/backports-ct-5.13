@@ -775,7 +775,7 @@ static u16 ieee80211_netdev_select_queue(struct net_device *dev,
 static void
 ieee80211_get_stats64(struct net_device *dev, struct rtnl_link_stats64 *stats)
 {
-	dev_fetch_sw_netstats(stats, dev->tstats);
+	dev_fetch_sw_netstats(stats, netdev_tstats(dev));
 }
 
 static const struct net_device_ops ieee80211_dataif_ops = {
@@ -1390,7 +1390,7 @@ int ieee80211_do_open(struct wireless_dev *wdev, bool coming_up)
 
 static void ieee80211_if_free(struct net_device *dev)
 {
-	free_percpu(dev->tstats);
+	free_percpu(netdev_tstats(dev));
 }
 
 static void ieee80211_if_setup(struct net_device *dev)
@@ -1981,8 +1981,9 @@ int ieee80211_if_add(struct ieee80211_local *local, const char *name,
 
 		dev_net_set(ndev, wiphy_net(local->hw.wiphy));
 
-		ndev->tstats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
-		if (!ndev->tstats) {
+		netdev_assign_tstats(ndev,
+				     netdev_alloc_pcpu_stats(struct pcpu_sw_netstats));
+		if (!netdev_tstats(ndev)) {
 			free_netdev(ndev);
 			return -ENOMEM;
 		}

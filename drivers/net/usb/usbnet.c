@@ -304,7 +304,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
  */
 void usbnet_skb_return (struct usbnet *dev, struct sk_buff *skb)
 {
-	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
+	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(netdev_tstats(dev->net));
 	unsigned long flags;
 	int	status;
 
@@ -1237,7 +1237,7 @@ static void tx_complete (struct urb *urb)
 	struct usbnet		*dev = entry->dev;
 
 	if (urb->status == 0) {
-		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
+		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(netdev_tstats(dev->net));
 		unsigned long flags;
 
 		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
@@ -1631,7 +1631,7 @@ void usbnet_disconnect (struct usb_interface *intf)
 	usb_free_urb(dev->interrupt);
 	kfree(dev->padding_pkt);
 
-	free_percpu(net->tstats);
+	free_percpu(netdev_tstats(net));
 	free_netdev(net);
 }
 EXPORT_SYMBOL_GPL(usbnet_disconnect);
@@ -1708,8 +1708,9 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	dev->rx_speed = SPEED_UNSET;
 	dev->tx_speed = SPEED_UNSET;
 
-	net->tstats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
-	if (!net->tstats)
+	netdev_assign_tstats(net,
+			     netdev_alloc_pcpu_stats(struct pcpu_sw_netstats));
+	if (!netdev_tstats(net))
 		goto out0;
 
 	dev->msg_enable = netif_msg_init (msg_level, NETIF_MSG_DRV
@@ -1848,7 +1849,7 @@ out1:
 	 */
 	cancel_work_sync(&dev->kevent);
 	del_timer_sync(&dev->delay);
-	free_percpu(net->tstats);
+	free_percpu(netdev_tstats(net));
 out0:
 	free_netdev(net);
 out:
