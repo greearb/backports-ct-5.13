@@ -7,6 +7,7 @@
 #include <linux/refcount.h>
 #include <linux/spinlock.h>
 #include <linux/bug.h>
+#include <linux/export.h>
 
 #define REFCOUNT_WARN(str)	WARN_ONCE(1, "refcount_t: " str ".\n")
 
@@ -152,6 +153,8 @@ bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock)
 		return false;
 	}
 
+	__release(lock);
+
 	return true;
 }
 EXPORT_SYMBOL(refcount_dec_and_lock);
@@ -180,6 +183,8 @@ bool refcount_dec_and_lock_irqsave(refcount_t *r, spinlock_t *lock,
 		spin_unlock_irqrestore(lock, *flags);
 		return false;
 	}
+
+	__release(lock);
 
 	return true;
 }
