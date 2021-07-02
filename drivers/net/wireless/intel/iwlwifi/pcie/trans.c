@@ -1974,6 +1974,9 @@ static void iwl_trans_pcie_removal_wk(struct work_struct *wk)
 	struct iwl_trans_pcie_removal *removal =
 		container_of(wk, struct iwl_trans_pcie_removal, work);
 	struct pci_dev *pdev = removal->pdev;
+#if LINUX_VERSION_IS_LESS(3,14,0)
+	dev_err(&pdev->dev, "Device gone - can't remove on old kernels.\n");
+#else
 	static char *prop[] = {"EVENT=INACCESSIBLE", NULL};
 
 	dev_err(&pdev->dev, "Device gone - attempting removal\n");
@@ -1982,6 +1985,7 @@ static void iwl_trans_pcie_removal_wk(struct work_struct *wk)
 	pci_dev_put(pdev);
 	pci_stop_and_remove_bus_device(pdev);
 	pci_unlock_rescan_remove();
+#endif /* LINUX_VERSION_IS_LESS(3,14,0) */
 
 	kfree(removal);
 	module_put(THIS_MODULE);
