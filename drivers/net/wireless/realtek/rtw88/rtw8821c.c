@@ -14,6 +14,7 @@
 #include "reg.h"
 #include "debug.h"
 #include "bf.h"
+#include <linux/module.h>
 
 static const s8 lna_gain_table_0[8] = {22, 8, -6, -22, -31, -40, -46, -52};
 static const s8 lna_gain_table_1[16] = {10, 6, 2, -2, -6, -10, -14, -17,
