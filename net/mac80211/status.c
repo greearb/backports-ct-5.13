@@ -720,8 +720,10 @@ static void ieee80211_report_used_skb(struct ieee80211_local *local,
 	}
 
 	if (!dropped && skb->destructor) {
+#if LINUX_VERSION_IS_GEQ(3,3,0)
 		skb->wifi_acked_valid = 1;
 		skb->wifi_acked = acked;
+#endif
 	}
 
 	ieee80211_led_tx(local);

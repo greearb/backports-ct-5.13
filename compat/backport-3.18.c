@@ -178,8 +178,10 @@ void skb_complete_wifi_ack(struct sk_buff *skb, bool acked)
 	struct sock_exterr_skb *serr;
 	int err;
 
+#if LINUX_VERSION_IS_GEQ(3,3,0)
 	skb->wifi_acked_valid = 1;
 	skb->wifi_acked = acked;
+#endif
 
 	serr = SKB_EXT_ERR(skb);
 	memset(serr, 0, sizeof(*serr));
