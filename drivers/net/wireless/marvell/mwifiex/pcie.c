@@ -558,14 +558,28 @@ static void mwifiex_pcie_reset_done(struct pci_dev *pdev)
 
 	card->pci_reset_ongoing = false;
 }
+#if LINUX_VERSION_IS_LESS(4,13,0)
+static void mwifiex_pcie_reset_prepare_notify(struct pci_dev *dev,
+					      bool prepare){
+	if (prepare)
+		mwifiex_pcie_reset_prepare(dev);
+	else
+		mwifiex_pcie_reset_done(dev);
+}
+#endif
 
 static 
 #if LINUX_VERSION_IS_GEQ(3,7,0)
 const 
 #endif /* LINUX_VERSION_IS_GEQ(3,7,0) */
 struct pci_error_handlers mwifiex_pcie_err_handler = {
+#if LINUX_VERSION_IS_GEQ(4,13,0)
 	.reset_prepare		= mwifiex_pcie_reset_prepare,
 	.reset_done		= mwifiex_pcie_reset_done,
+#else
+	.reset_notify = mwifiex_pcie_reset_prepare_notify,
+#endif
+
 };
 
 #ifdef CONFIG_PM_SLEEP
