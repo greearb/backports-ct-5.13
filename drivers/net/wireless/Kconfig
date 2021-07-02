@@ -81,6 +81,7 @@ config MAC80211_HWSIM
 	  called mac80211_hwsim.  If unsure, say N.
 
 config USB_NET_RNDIS_WLAN
+	depends on !KERNEL_4_6
 	tristate "Wireless RNDIS USB support"
 	depends on m
 	depends on USB

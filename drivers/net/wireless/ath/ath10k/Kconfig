@@ -79,6 +79,7 @@ config ATH10K_SPECTRAL
 	  Say Y to enable access to the FFT/spectral data via debugfs.
 
 config ATH10K_TRACING
+	depends on !KERNEL_3_4
 	bool "Atheros ath10k tracing support"
 	depends on ATH10K
 	depends on EVENT_TRACING

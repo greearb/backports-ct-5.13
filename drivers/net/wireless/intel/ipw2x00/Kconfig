@@ -4,6 +4,7 @@
 #
 
 config IPW2100
+	depends on !KERNEL_3_11
 	tristate "Intel PRO/Wireless 2100 Network Connection"
 	depends on m
 	depends on PCI && CFG80211
@@ -66,6 +67,7 @@ config IPW2100_DEBUG
 	  most likely want to say N here.
 
 config IPW2200
+	depends on !KERNEL_3_11
 	tristate "Intel PRO/Wireless 2200BG and 2915ABG Network Connection"
 	depends on m
 	depends on PCI && CFG80211

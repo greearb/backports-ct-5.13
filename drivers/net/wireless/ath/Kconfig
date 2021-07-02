@@ -31,6 +31,7 @@ config ATH_DEBUG
 	  Right now only ath9k makes use of this.
 
 config ATH_TRACEPOINTS
+	depends on !KERNEL_3_1
 	bool "Atheros wireless tracing"
 	depends on ATH_DEBUG
 	depends on EVENT_TRACING

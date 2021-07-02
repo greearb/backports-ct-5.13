@@ -13,6 +13,8 @@ config WLAN_VENDOR_CISCO
 if WLAN_VENDOR_CISCO
 
 config AIRO
+	depends on !KERNEL_3_9
+	depends on !KERNEL_4_20
 	tristate "Cisco/Aironet 34X/35X/4500/4800 ISA and PCI cards"
 	depends on m
 	depends on CFG80211 && ISA_DMA_API && (PCI || BROKEN)
@@ -35,6 +37,8 @@ config AIRO
 	  The driver can be compiled as a module and will be named "airo".
 
 config AIRO_CS
+	depends on !KERNEL_3_9
+	depends on !KERNEL_4_20
 	tristate "Cisco/Aironet 34X/35X/4500/4800 PCMCIA cards"
 	depends on m
 	depends on CFG80211 && PCMCIA
