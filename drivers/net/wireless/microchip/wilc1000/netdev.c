@@ -964,7 +964,7 @@ struct wilc_vif *wilc_netdev_ifc_init(struct wilc *wl, const char *name,
 		return ERR_PTR(-EFAULT);
 	}
 
-	ndev->needs_free_netdev = true;
+	netdev_set_def_destructor(ndev);
 	vif->iftype = vif_type;
 	vif->idx = wilc_get_available_idx(wl);
 	vif->mac_opened = 0;

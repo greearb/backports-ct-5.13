@@ -684,7 +684,7 @@ int brcmf_net_attach(struct brcmf_if *ifp, bool locked)
 
 	netif_carrier_off(ndev);
 
-	ndev->priv_destructor = brcmf_cfg80211_free_netdev;
+	netdev_set_priv_destructor(ndev, brcmf_cfg80211_free_netdev);
 	brcmf_dbg(INFO, "%s: Broadcom Dongle Host Driver\n", ndev->name);
 	return 0;
 
@@ -901,9 +901,9 @@ struct brcmf_if *brcmf_add_if(struct brcmf_pub *drvr, s32 bsscfgidx, s32 ifidx,
 			return ERR_PTR(-ENOMEM);
 
 #if LINUX_VERSION_IS_LESS(4,12,0)
-		ndev->priv_destructor = __brcmf_cfg80211_free_netdev;
+		netdev_set_priv_destructor(ndev, __brcmf_cfg80211_free_netdev);
 #else
-		ndev->needs_free_netdev = true;
+		netdev_set_def_destructor(ndev);
 #endif
 		ifp = netdev_priv(ndev);
 		ifp->ndev = ndev;

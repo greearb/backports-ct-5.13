@@ -1348,7 +1348,7 @@ void mwifiex_init_priv_params(struct mwifiex_private *priv,
 			      struct net_device *dev)
 {
 	dev->netdev_ops = &mwifiex_netdev_ops;
-	dev->needs_free_netdev = true;
+	netdev_set_def_destructor(dev);
 	/* Initialize private structure */
 	priv->current_key_index = 0;
 	priv->media_connected = false;

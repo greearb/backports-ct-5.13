@@ -2236,6 +2236,13 @@ static const struct net_device_ops rtw_cfg80211_monitor_if_ops = {
 	.ndo_start_xmit = rtw_cfg80211_monitor_if_xmit_entry,
 };
 
+#if LINUX_VERSION_IS_LESS(4,12,0)
+static void __rtw_ndev_destructor(struct net_device *ndev){
+	rtw_ndev_destructor(ndev);
+	free_netdev(ndev);
+}
+#endif
+
 static int rtw_cfg80211_add_monitor_if(struct adapter *padapter, char *name, struct net_device **ndev)
 {
 	int ret = 0;
@@ -2263,8 +2270,7 @@ static int rtw_cfg80211_add_monitor_if(struct adapter *padapter, char *name, str
 	mon_ndev->type = ARPHRD_IEEE80211_RADIOTAP;
 	strncpy(mon_ndev->name, name, IFNAMSIZ);
 	mon_ndev->name[IFNAMSIZ - 1] = 0;
-	mon_ndev->needs_free_netdev = true;
-	mon_ndev->priv_destructor = rtw_ndev_destructor;
+	netdev_set_priv_destructor(mon_ndev, rtw_ndev_destructor);
 
 	mon_ndev->netdev_ops = &rtw_cfg80211_monitor_if_ops;
 

@@ -624,6 +624,13 @@ static bool brcmf_is_ibssmode(struct brcmf_cfg80211_vif *vif)
 	return vif->wdev.iftype == NL80211_IFTYPE_ADHOC;
 }
 
+#if LINUX_VERSION_IS_LESS(4,12,0)
+static void __brcmf_cfg80211_free_netdev(struct net_device *ndev){
+	brcmf_cfg80211_free_netdev(ndev);
+	free_netdev(ndev);
+}
+#endif
+
 /**
  * brcmf_mon_add_vif() - create monitor mode virtual interface
  *
@@ -657,8 +664,7 @@ static struct wireless_dev *brcmf_mon_add_vif(struct wiphy *wiphy,
 	}
 	ndev->type = ARPHRD_IEEE80211_RADIOTAP;
 	ndev->ieee80211_ptr = &vif->wdev;
-	ndev->needs_free_netdev = true;
-	ndev->priv_destructor = brcmf_cfg80211_free_netdev;
+	netdev_set_priv_destructor(ndev, brcmf_cfg80211_free_netdev);
 	SET_NETDEV_DEV(ndev, wiphy_dev(cfg->wiphy));
 
 	ifp = netdev_priv(ndev);

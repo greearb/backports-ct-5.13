@@ -296,6 +296,13 @@ static u8 wil_vif_find_free_mid(struct wil6210_priv *wil)
 	return U8_MAX;
 }
 
+#if LINUX_VERSION_IS_LESS(4,12,0)
+static void __wil_ndev_destructor(struct net_device *ndev){
+	wil_ndev_destructor(ndev);
+	free_netdev(ndev);
+}
+#endif
+
 struct wil6210_vif *
 wil_vif_alloc(struct wil6210_priv *wil, const char *name,
 	      unsigned char name_assign_type, enum nl80211_iftype iftype)
@@ -320,8 +327,7 @@ wil_vif_alloc(struct wil6210_priv *wil, const char *name,
 	if (mid == 0) {
 		wil->main_ndev = ndev;
 	} else {
-		ndev->priv_destructor = wil_ndev_destructor;
-		ndev->needs_free_netdev = true;
+		netdev_set_priv_destructor(ndev, wil_ndev_destructor);
 	}
 
 	vif = ndev_to_vif(ndev);

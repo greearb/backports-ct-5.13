@@ -69,7 +69,7 @@ struct net_device * hostap_add_interface(struct local_info *local,
 	dev->mem_end = mdev->mem_end;
 
 	hostap_setup_dev(dev, local, type);
-	dev->needs_free_netdev = true;
+	netdev_set_def_destructor(dev);
 
 	sprintf(dev->name, "%s%s", prefix, name);
 	if (!rtnl_locked)

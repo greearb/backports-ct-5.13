@@ -481,7 +481,7 @@ int qtnf_core_net_attach(struct qtnf_wmac *mac, struct qtnf_vif *vif,
 	vif->netdev = dev;
 
 	dev->netdev_ops = &qtnf_netdev_ops;
-	dev->needs_free_netdev = true;
+	netdev_set_def_destructor(dev);
 	dev_net_set(dev, wiphy_net(wiphy));
 	dev->ieee80211_ptr = &vif->wdev;
 	ether_addr_copy(dev->dev_addr, vif->mac_addr);
