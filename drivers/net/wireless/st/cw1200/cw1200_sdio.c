@@ -244,6 +244,12 @@ static size_t cw1200_sdio_align_size(struct hwbus_priv *self, size_t size)
 	else
 		size = sdio_align_size(self->func, size);
 
+#if LINUX_VERSION_IS_LESS(3, 2, 0)
+	/* A quirk to handle this was committed in 3.2-rc */
+	if (size == SDIO_BLOCK_SIZE)
+		size += SDIO_BLOCK_SIZE;  /* HW bug; force use of block mode */
+#endif
+
 	return size;
 }
 
