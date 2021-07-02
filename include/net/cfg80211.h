@@ -23,6 +23,7 @@
 #include <linux/ieee80211.h>
 #include <linux/net.h>
 #include <net/regulatory.h>
+#include <net/netlink.h>
 
 /**
  * DOC: Introduction
