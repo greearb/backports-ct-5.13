@@ -8066,7 +8066,7 @@ int ath10k_wmi_request_powerctl_tbl(struct ath10k *ar);
 int ath10k_wmi_set_power_ctrl_tbl(struct ath10k *ar, int len, u8 *data);
 int ath10k_wmi_check_apply_board_power_ctl_table(struct ath10k *ar);
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 /* TODO:  Should really enable this all the time, not just when DEBUGFS is enabled. --Ben */
 /* CT Firmware only */
 int ath10k_wmi_request_nop(struct ath10k *ar);

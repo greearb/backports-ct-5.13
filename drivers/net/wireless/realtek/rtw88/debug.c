@@ -12,7 +12,7 @@
 #include "phy.h"
 #include "reg.h"
 
-#ifdef CONFIG_RTW88_DEBUGFS
+#ifdef CPTCFG_RTW88_DEBUGFS
 
 struct rtw_debugfs_priv {
 	struct rtw_dev *rtwdev;
@@ -1128,9 +1128,9 @@ void rtw_debugfs_init(struct rtw_dev *rtwdev)
 	rtw_debugfs_add_rw(dm_cap);
 }
 
-#endif /* CONFIG_RTW88_DEBUGFS */
+#endif /* CPTCFG_RTW88_DEBUGFS */
 
-#ifdef CONFIG_RTW88_DEBUG
+#ifdef CPTCFG_RTW88_DEBUG
 
 void __rtw_dbg(struct rtw_dev *rtwdev, enum rtw_debug_mask mask,
 	       const char *fmt, ...)
@@ -1150,4 +1150,4 @@ void __rtw_dbg(struct rtw_dev *rtwdev, enum rtw_debug_mask mask,
 }
 EXPORT_SYMBOL(__rtw_dbg);
 
-#endif /* CONFIG_RTW88_DEBUG */
+#endif /* CPTCFG_RTW88_DEBUG */

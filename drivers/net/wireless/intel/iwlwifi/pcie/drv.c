@@ -34,7 +34,7 @@ extern int _invalid_type;
 
 /* Hardware specific file defines the PCI IDs table for that hardware module */
 static const struct pci_device_id iwl_hw_card_ids[] = {
-#if IS_ENABLED(CONFIG_IWLDVM)
+#if IS_ENABLED(CPTCFG_IWLDVM)
 	{IWL_PCI_DEVICE(0x4232, 0x1201, iwl5100_agn_cfg)}, /* Mini Card */
 	{IWL_PCI_DEVICE(0x4232, 0x1301, iwl5100_agn_cfg)}, /* Half Mini Card */
 	{IWL_PCI_DEVICE(0x4232, 0x1204, iwl5100_agn_cfg)}, /* Mini Card */
@@ -221,9 +221,9 @@ static const struct pci_device_id iwl_hw_card_ids[] = {
 	{IWL_PCI_DEVICE(0x0892, 0x0062, iwl135_bgn_cfg)},
 	{IWL_PCI_DEVICE(0x0893, 0x0262, iwl135_bgn_cfg)},
 	{IWL_PCI_DEVICE(0x0892, 0x0462, iwl135_bgn_cfg)},
-#endif /* CONFIG_IWLDVM */
+#endif /* CPTCFG_IWLDVM */
 
-#if IS_ENABLED(CONFIG_IWLMVM)
+#if IS_ENABLED(CPTCFG_IWLMVM)
 /* 7260 Series */
 	{IWL_PCI_DEVICE(0x08B1, 0x4070, iwl7260_2ac_cfg)},
 	{IWL_PCI_DEVICE(0x08B1, 0x4072, iwl7260_2ac_cfg)},
@@ -502,7 +502,7 @@ static const struct pci_device_id iwl_hw_card_ids[] = {
 
 /* Bz devices */
 	{IWL_PCI_DEVICE(0x2727, PCI_ANY_ID, iwl_bz_trans_cfg)},
-#endif /* CONFIG_IWLMVM */
+#endif /* CPTCFG_IWLMVM */
 
 	{0}
 };
@@ -521,7 +521,7 @@ MODULE_DEVICE_TABLE(pci, iwl_hw_card_ids);
 		      IWL_CFG_NO_CDB, _cfg, _name)
 
 static const struct iwl_dev_info iwl_dev_info_table[] = {
-#if IS_ENABLED(CONFIG_IWLMVM)
+#if IS_ENABLED(CPTCFG_IWLMVM)
 /* 9000 */
 	IWL_DEV_INFO(0x2526, 0x1550, iwl9260_2ac_cfg, iwl9260_killer_1550_name),
 	IWL_DEV_INFO(0x2526, 0x1551, iwl9560_2ac_cfg_soc, iwl9560_killer_1550s_name),
@@ -1110,7 +1110,7 @@ static const struct iwl_dev_info iwl_dev_info_table[] = {
 		      IWL_CFG_160, IWL_CFG_ANY, IWL_CFG_NO_CDB,
 		      iwlax211_2ax_cfg_so_gf_a0, iwl_ax211_name)
 
-#endif /* CONFIG_IWLMVM */
+#endif /* CPTCFG_IWLMVM */
 };
 
 /* PCI registers */
@@ -1177,7 +1177,7 @@ static int iwl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 		}
 	}
 
-#if IS_ENABLED(CONFIG_IWLMVM)
+#if IS_ENABLED(CPTCFG_IWLMVM)
 
 	/*
 	 * Workaround for problematic SnJ device: sometimes when

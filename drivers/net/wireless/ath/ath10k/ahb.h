@@ -29,7 +29,7 @@ struct ath10k_ahb {
 	struct reset_control *cpu_init_rst;
 };
 
-#ifdef CONFIG_ATH10K_AHB
+#ifdef CPTCFG_ATH10K_AHB
 
 #define ATH10K_GCC_REG_BASE                  0x1800000
 #define ATH10K_GCC_REG_SIZE                  0x60000
@@ -60,7 +60,7 @@ struct ath10k_ahb {
 int ath10k_ahb_init(void);
 void ath10k_ahb_exit(void);
 
-#else /* CONFIG_ATH10K_AHB */
+#else /* CPTCFG_ATH10K_AHB */
 
 static inline int ath10k_ahb_init(void)
 {
@@ -71,6 +71,6 @@ static inline void ath10k_ahb_exit(void)
 {
 }
 
-#endif /* CONFIG_ATH10K_AHB */
+#endif /* CPTCFG_ATH10K_AHB */
 
 #endif /* _AHB_H_ */

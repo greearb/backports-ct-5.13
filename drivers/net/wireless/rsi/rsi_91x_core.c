@@ -305,7 +305,7 @@ void rsi_core_qos_processor(struct rsi_common *common)
 			status = rsi_send_pkt_to_bus(common, skb);
 			dev_kfree_skb(skb);
 		} else {
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 			if (common->coex_mode > 1) {
 				status = rsi_coex_send_pkt(common, skb,
 							   RSI_WLAN_Q);
@@ -315,7 +315,7 @@ void rsi_core_qos_processor(struct rsi_common *common)
 					status = rsi_send_mgmt_pkt(common, skb);
 				else
 					status = rsi_send_data_pkt(common, skb);
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 			}
 #endif
 		}

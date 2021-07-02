@@ -73,7 +73,7 @@ exit:
 	return res;
 }
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 static void rtw_free_mlme_ie_data(u8 **ppie, u32 *plen)
 {
 	kfree(*ppie);
@@ -1086,7 +1086,7 @@ void rtw_joinbss_event_callback(struct adapter *adapter, u8 *pbuf)
 static u8 search_max_mac_id(struct adapter *padapter)
 {
 	u8 mac_id;
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	u8 aid;
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 	struct sta_priv *pstapriv = &padapter->stapriv;
@@ -1094,7 +1094,7 @@ static u8 search_max_mac_id(struct adapter *padapter)
 	struct mlme_ext_priv *pmlmeext = &padapter->mlmeextpriv;
 	struct mlme_ext_info *pmlmeinfo = &pmlmeext->mlmext_info;
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE)) {
 		for (aid = pstapriv->max_num_sta; aid > 0; aid--) {
 			if (pstapriv->sta_aid[aid - 1])
@@ -1138,7 +1138,7 @@ void rtw_stassoc_event_callback(struct adapter *adapter, u8 *pbuf)
 	if (!rtw_access_ctrl(adapter, pstassoc->macaddr))
 		return;
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE)) {
 		psta = rtw_get_stainfo(&adapter->stapriv, pstassoc->macaddr);
 		if (psta) {

@@ -2917,7 +2917,7 @@ void ath_tx_node_cleanup(struct ath_softc *sc, struct ath_node *an)
 	rcu_read_unlock();
 }
 
-#ifdef CONFIG_ATH9K_TX99
+#ifdef CPTCFG_ATH9K_TX99
 
 int ath9k_tx99_send(struct ath_softc *sc, struct sk_buff *skb,
 		    struct ath_tx_control *txctl)
@@ -2962,4 +2962,4 @@ int ath9k_tx99_send(struct ath_softc *sc, struct sk_buff *skb,
 	return 0;
 }
 
-#endif /* CONFIG_ATH9K_TX99 */
+#endif /* CPTCFG_ATH9K_TX99 */

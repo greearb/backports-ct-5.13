@@ -135,7 +135,7 @@ static int wilc_sdio_probe(struct sdio_func *func,
 		return ret;
 	}
 
-	if (IS_ENABLED(CONFIG_WILC1000_HW_OOB_INTR)) {
+	if (IS_ENABLED(CPTCFG_WILC1000_HW_OOB_INTR)) {
 		struct device_node *np = func->card->dev.of_node;
 		int irq_num = of_irq_get(np, 0);
 

@@ -31,7 +31,7 @@ struct ftm_payload {
 
 #define MSG_GET_BUILD_RELEASE_NUMBER 0x32A2
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 int wcn36xx_tm_cmd(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 		   void *data, int len);
 

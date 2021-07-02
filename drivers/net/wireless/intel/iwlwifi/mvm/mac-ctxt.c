@@ -1004,7 +1004,7 @@ int iwl_mvm_mac_ctxt_beacon_changed(struct iwl_mvm *mvm,
 	if (!beacon)
 		return -ENOMEM;
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	if (mvm->beacon_inject_active)
 		return -EBUSY;
 #endif

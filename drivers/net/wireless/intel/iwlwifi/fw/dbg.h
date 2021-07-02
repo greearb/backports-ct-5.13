@@ -174,7 +174,7 @@ void iwl_fw_dbg_stop_restart_recording(struct iwl_fw_runtime *fwrt,
 				       struct iwl_fw_dbg_params *params,
 				       bool stop);
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 static inline void iwl_fw_set_dbg_rec_on(struct iwl_fw_runtime *fwrt)
 {
 	if (fwrt->cur_fw_img == IWL_UCODE_REGULAR &&
@@ -226,7 +226,7 @@ static inline void iwl_fw_flush_dumps(struct iwl_fw_runtime *fwrt)
 		flush_delayed_work(&fwrt->dump.wks[i].wk);
 }
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 static inline void iwl_fw_cancel_timestamp(struct iwl_fw_runtime *fwrt)
 {
 	fwrt->timestamp.delay = 0;
@@ -260,7 +260,7 @@ static inline void iwl_fw_suspend_timestamp(struct iwl_fw_runtime *fwrt) {}
 
 static inline void iwl_fw_resume_timestamp(struct iwl_fw_runtime *fwrt) {}
 
-#endif /* CONFIG_IWLWIFI_DEBUGFS */
+#endif /* CPTCFG_IWLWIFI_DEBUGFS */
 
 void iwl_fw_dbg_stop_sync(struct iwl_fw_runtime *fwrt);
 

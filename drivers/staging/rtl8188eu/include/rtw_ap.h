@@ -10,7 +10,7 @@
 #include <osdep_service.h>
 #include <drv_types.h>
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 /* external function */
 void rtw_indicate_sta_assoc_event(struct adapter *padapter,
@@ -40,6 +40,6 @@ u8 ap_free_sta(struct adapter *padapter, struct sta_info *psta,
 int rtw_sta_flush(struct adapter *padapter);
 void start_ap_mode(struct adapter *padapter);
 void stop_ap_mode(struct adapter *padapter);
-#endif /* end of CONFIG_88EU_AP_MODE */
+#endif /* end of CPTCFG_88EU_AP_MODE */
 
 #endif

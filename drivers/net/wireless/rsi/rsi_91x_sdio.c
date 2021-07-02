@@ -881,7 +881,7 @@ static int rsi_init_sdio_interface(struct rsi_hw *adapter,
 	adapter->determine_event_timeout = rsi_sdio_determine_event_timeout;
 	adapter->check_hw_queue_status = rsi_sdio_check_buffer_status;
 
-#ifdef CONFIG_RSI_DEBUGFS
+#ifdef CPTCFG_RSI_DEBUGFS
 	adapter->num_debugfs_entries = MAX_DEBUGFS_ENTRIES;
 #endif
 	return 0;
@@ -1235,7 +1235,7 @@ static void rsi_disconnect(struct sdio_func *pfunction)
 	rsi_mac80211_detach(adapter);
 	mdelay(10);
 
-	if (IS_ENABLED(CONFIG_RSI_COEX) && adapter->priv->coex_mode > 1 &&
+	if (IS_ENABLED(CPTCFG_RSI_COEX) && adapter->priv->coex_mode > 1 &&
 	    adapter->priv->bt_adapter) {
 		rsi_bt_ops.detach(adapter->priv->bt_adapter);
 		adapter->priv->bt_adapter = NULL;
@@ -1417,7 +1417,7 @@ static int rsi_freeze(struct device *dev)
 		rsi_dbg(ERR_ZONE,
 			"##### Device can not wake up through WLAN\n");
 
-	if (IS_ENABLED(CONFIG_RSI_COEX) && common->coex_mode > 1 &&
+	if (IS_ENABLED(CPTCFG_RSI_COEX) && common->coex_mode > 1 &&
 	    common->bt_adapter) {
 		rsi_bt_ops.detach(common->bt_adapter);
 		common->bt_adapter = NULL;
@@ -1473,7 +1473,7 @@ static void rsi_shutdown(struct device *dev)
 			rsi_dbg(ERR_ZONE, "Failed to configure WoWLAN\n");
 	}
 
-	if (IS_ENABLED(CONFIG_RSI_COEX) && adapter->priv->coex_mode > 1 &&
+	if (IS_ENABLED(CPTCFG_RSI_COEX) && adapter->priv->coex_mode > 1 &&
 	    adapter->priv->bt_adapter) {
 		rsi_bt_ops.detach(adapter->priv->bt_adapter);
 		adapter->priv->bt_adapter = NULL;

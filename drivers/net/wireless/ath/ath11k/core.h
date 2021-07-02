@@ -369,7 +369,7 @@ struct ath11k_sta {
 	struct ath11k_htt_tx_stats *tx_stats;
 	struct ath11k_rx_peer_stats *rx_stats;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	/* protected by conf_mutex */
 	bool aggr_mode;
 #endif
@@ -558,10 +558,10 @@ struct ath11k {
 	struct ath11k_per_peer_tx_stats cached_stats;
 	u32 last_ppdu_id;
 	u32 cached_ppdu_id;
-#ifdef CONFIG_ATH11K_DEBUGFS
+#ifdef CPTCFG_ATH11K_DEBUGFS
 	struct ath11k_debug debug;
 #endif
-#ifdef CONFIG_ATH11K_SPECTRAL
+#ifdef CPTCFG_ATH11K_SPECTRAL
 	struct ath11k_spectral spectral;
 #endif
 	bool dfs_block_radar_events;
@@ -723,7 +723,7 @@ struct ath11k_base {
 
 	/* Current DFS Regulatory */
 	enum ath11k_dfs_region dfs_region;
-#ifdef CONFIG_ATH11K_DEBUGFS
+#ifdef CPTCFG_ATH11K_DEBUGFS
 	struct dentry *debugfs_soc;
 	struct dentry *debugfs_ath11k;
 #endif

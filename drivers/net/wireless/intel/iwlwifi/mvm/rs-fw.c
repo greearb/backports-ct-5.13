@@ -430,7 +430,7 @@ void rs_fw_rate_init(struct iwl_mvm *mvm, struct ieee80211_sta *sta,
 
 	memset(lq_sta, 0, offsetof(typeof(*lq_sta), pers));
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	iwl_mvm_reset_frame_stats(mvm);
 #endif
 	rs_fw_set_supp_rates(sta, sband, &cfg_cmd);
@@ -468,7 +468,7 @@ void iwl_mvm_rs_add_sta(struct iwl_mvm *mvm, struct iwl_mvm_sta *mvmsta)
 	lq_sta->pers.last_rssi = S8_MIN;
 	lq_sta->last_rate_n_flags = 0;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	lq_sta->pers.dbg_fixed_rate = 0;
 #endif
 }

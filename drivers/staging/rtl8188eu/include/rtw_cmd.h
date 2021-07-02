@@ -319,7 +319,7 @@ u8 rtw_rpt_timer_cfg_cmd(struct adapter *padapter, u16 minRptTime);
 u8 rtw_antenna_select_cmd(struct adapter *padapter, u8 antenna, u8 enqueue);
 u8 rtw_ps_cmd(struct adapter *padapter);
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 u8 rtw_chk_hi_queue_cmd(struct adapter *padapter);
 #endif
 

@@ -1317,7 +1317,7 @@ int ath10k_htt_mgmt_tx(struct ath10k_htt *htt, struct sk_buff *msdu)
 	if (res)
 		goto err_unmap_msdu;
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	ar->debug.tx_bytes += skb_len;
 #endif
 
@@ -1805,7 +1805,7 @@ skip_fixed_rate:
 	if (res)
 		goto err_unmap_msdu;
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	ar->debug.tx_bytes += skb_len;
 #endif
 

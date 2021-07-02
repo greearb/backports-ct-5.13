@@ -4516,7 +4516,7 @@ static void ath10k_dfs_radar_report(struct ath10k *ar,
 radar_detected:
 
 /* so we can compile out-of-tree easier */
-#if defined(ATH_HAVE_PULSE_EVENT_MSG) && defined(CONFIG_ATH10K_DEBUGFS)
+#if defined(ATH_HAVE_PULSE_EVENT_MSG) && defined(CPTCFG_ATH10K_DEBUGFS)
 	if (pe.msg[0]) {
 		strncpy(ar->debug.dfs_last_msg, pe.msg,
 			sizeof(ar->debug.dfs_last_msg));
@@ -4583,7 +4583,7 @@ void ath10k_wmi_event_dfs(struct ath10k *ar,
 		   phyerr->tsf_timestamp, tsf, buf_len);
 
 	/* Skip event if DFS disabled */
-	if (!IS_ENABLED(CONFIG_ATH10K_DFS_CERTIFIED))
+	if (!IS_ENABLED(CPTCFG_ATH10K_DFS_CERTIFIED))
 		return;
 
 	ATH10K_DFS_STAT_INC(ar, pulses_total);
@@ -6227,7 +6227,7 @@ static void ath10k_wmi_process_generic_buffer(struct ath10k* ar, const struct wm
 	u32 type = __le32_to_cpu(ev->buf_type);
 	switch (type) {
 	case WMI_BUFFER_TYPE_RATEPWR_TABLE:
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 		if (len > sizeof(ar->debug.ratepwr_tbl)) {
 			ath10k_err(ar, "wmi-generic, len: %u > ratepwr-table length: %d\n",
 				   len, (int)(sizeof(ar->debug.ratepwr_tbl)));
@@ -6240,7 +6240,7 @@ static void ath10k_wmi_process_generic_buffer(struct ath10k* ar, const struct wm
 		break;
 #endif
 	case WMI_BUFFER_TYPE_CTL_TABLE:
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 		if (len > sizeof(ar->debug.powerctl_tbl)) {
 			ath10k_err(ar, "wmi-generic, len: %u > powerctl-table length: %d\n",
 				   len, (int)(sizeof(ar->debug.powerctl_tbl)));
@@ -8096,7 +8096,7 @@ ath10k_wmi_op_gen_vdev_start(struct ath10k *ar,
 	return skb;
 }
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 /* TODO:  Should really enable this all the time, not just when DEBUGFS is enabled. --Ben */
 /* CT firmware only:
  * (re) start wmi keep-alive timer in firmware.  Once we start

@@ -439,7 +439,7 @@ struct ieee80211_sta_rx_stats {
 	u64 bytes;
 	u64 msdu[IEEE80211_NUM_TIDS + 1];
 
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	/* these take liberty with how things are defined, and are
 	 * designed to give a rough idea of how things are going.
 	 */
@@ -609,7 +609,7 @@ struct sta_info {
 	struct ieee80211_fast_rx __rcu *fast_rx;
 	struct ieee80211_sta_rx_stats __percpu *pcpu_rx_stats;
 
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	struct mesh_sta *mesh;
 #endif
 
@@ -668,7 +668,7 @@ struct sta_info {
 		struct ieee80211_tx_rate last_rate;
 		struct rate_info last_rate_info;
 		u64 msdu[IEEE80211_NUM_TIDS + 1];
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 		/* these take liberty with how things are defined, and are
 		 * designed to give a rough idea of how things are going.
 		 */
@@ -694,7 +694,7 @@ struct sta_info {
 	 */
 	struct sta_ampdu_mlme ampdu_mlme;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	struct dentry *debugfs_dir;
 #endif
 
@@ -717,7 +717,7 @@ struct sta_info {
 
 static inline enum nl80211_plink_state sta_plink_state(struct sta_info *sta)
 {
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	return sta->mesh->plink_state;
 #endif
 	return NL80211_PLINK_LISTEN;

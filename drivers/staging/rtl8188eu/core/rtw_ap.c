@@ -14,7 +14,7 @@
 #include <ieee80211.h>
 #include <asm/unaligned.h>
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 void init_mlme_ap_info(struct adapter *padapter)
 {
@@ -1770,4 +1770,4 @@ void stop_ap_mode(struct adapter *padapter)
 	rtw_free_mlme_priv_ie_data(pmlmepriv);
 }
 
-#endif /* CONFIG_88EU_AP_MODE */
+#endif /* CPTCFG_88EU_AP_MODE */

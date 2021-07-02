@@ -355,7 +355,7 @@ mt76_alloc_phy(struct mt76_dev *dev, unsigned int size,
 	hw->wiphy->interface_modes =
 		BIT(NL80211_IFTYPE_STATION) |
 		BIT(NL80211_IFTYPE_AP) |
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 		BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -448,7 +448,7 @@ mt76_alloc_device(struct device *pdev, unsigned int size,
 	hw->wiphy->interface_modes =
 		BIT(NL80211_IFTYPE_STATION) |
 		BIT(NL80211_IFTYPE_AP) |
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 		BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -499,7 +499,7 @@ int mt76_register_device(struct mt76_dev *dev, bool vht,
 	mt76_check_sband(&dev->phy, &phy->sband_2g, NL80211_BAND_2GHZ);
 	mt76_check_sband(&dev->phy, &phy->sband_5g, NL80211_BAND_5GHZ);
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		ret = mt76_led_init(dev);
 		if (ret)
 			return ret;
@@ -520,7 +520,7 @@ void mt76_unregister_device(struct mt76_dev *dev)
 {
 	struct ieee80211_hw *hw = dev->hw;
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS))
+	if (IS_ENABLED(CPTCFG_MT76_LEDS))
 		mt76_led_cleanup(dev);
 	mt76_tx_status_check(dev, NULL, true);
 	ieee80211_unregister_hw(hw);
@@ -607,7 +607,7 @@ void mt76_rx(struct mt76_dev *dev, enum mt76_rxq_id q, struct sk_buff *skb)
 		return;
 	}
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	if (phy->test.state == MT76_TM_STATE_RX_FRAMES) {
 		phy->test.rx_stats.packets[q]++;
 		if (status->flag & RX_FLAG_FAILED_FCS_CRC)

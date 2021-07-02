@@ -426,7 +426,7 @@ static int mt7915_config(struct ieee80211_hw *hw, u32 changed)
 	int ret;
 
 	if (changed & IEEE80211_CONF_CHANGE_CHANNEL) {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 		if (phy->mt76->test.state != MT76_TM_STATE_OFF) {
 			mutex_lock(&dev->mt76.mutex);
 			mt76_testmode_reset(phy->mt76, false);
@@ -1069,7 +1069,7 @@ const struct ieee80211_ops mt7915_ops = {
 	.sta_set_decap_offload = mt7915_sta_set_decap_offload,
 	CFG80211_TESTMODE_CMD(mt76_testmode_cmd)
 	CFG80211_TESTMODE_DUMP(mt76_testmode_dump)
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	.sta_add_debugfs = mt7915_sta_add_debugfs,
 #endif
 };

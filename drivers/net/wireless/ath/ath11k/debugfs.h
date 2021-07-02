@@ -103,7 +103,7 @@ enum ath11k_dbg_aggr_mode {
 	ATH11K_DBG_AGGR_MODE_MAX,
 };
 
-#ifdef CONFIG_ATH11K_DEBUGFS
+#ifdef CPTCFG_ATH11K_DEBUGFS
 int ath11k_debugfs_soc_create(struct ath11k_base *ab);
 void ath11k_debugfs_soc_destroy(struct ath11k_base *ab);
 int ath11k_debugfs_pdev_create(struct ath11k_base *ab);
@@ -212,6 +212,6 @@ static inline int ath11k_debugfs_rx_filter(struct ath11k *ar)
 	return 0;
 }
 
-#endif /* CONFIG_MAC80211_DEBUGFS*/
+#endif /* CPTCFG_MAC80211_DEBUGFS*/
 
 #endif /* _ATH11K_DEBUGFS_H_ */

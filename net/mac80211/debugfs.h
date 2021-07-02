@@ -4,7 +4,7 @@
 
 #include "ieee80211_i.h"
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 void debugfs_hw_add(struct ieee80211_local *local);
 int __printf(4, 5) mac80211_format_buffer(char __user *userbuf, size_t count,
 					  loff_t *ppos, char *fmt, ...);

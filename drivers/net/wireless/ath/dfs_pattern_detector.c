@@ -356,7 +356,7 @@ dfs_pattern_detector_init(struct ath_common *common,
 {
 	struct dfs_pattern_detector *dpd;
 
-	if (!IS_ENABLED(CONFIG_CFG80211_CERTIFICATION_ONUS))
+	if (!IS_ENABLED(CPTCFG_CFG80211_CERTIFICATION_ONUS))
 		return NULL;
 
 	dpd = kmalloc(sizeof(*dpd), GFP_KERNEL);

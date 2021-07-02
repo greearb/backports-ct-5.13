@@ -3356,7 +3356,7 @@ int mt7915_mcu_set_chan_info(struct mt7915_phy *phy, int cmd)
 		.channel_band = chandef->chan->band,
 	};
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	if (phy->mt76->test.tx_antenna_mask &&
 	    (phy->mt76->test.state == MT76_TM_STATE_TX_FRAMES ||
 	     phy->mt76->test.state == MT76_TM_STATE_RX_FRAMES ||

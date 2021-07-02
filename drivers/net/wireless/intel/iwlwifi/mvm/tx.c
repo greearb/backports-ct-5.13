@@ -1241,7 +1241,7 @@ static void iwl_mvm_check_ratid_empty(struct iwl_mvm *mvm,
 	}
 }
 
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 const char *iwl_mvm_get_tx_fail_reason(u32 status)
 {
 #define TX_STATUS_FAIL(x) case TX_STATUS_FAIL_ ## x: return #x
@@ -1279,7 +1279,7 @@ const char *iwl_mvm_get_tx_fail_reason(u32 status)
 #undef TX_STATUS_FAIL
 #undef TX_STATUS_POSTPONE
 }
-#endif /* CONFIG_IWLWIFI_DEBUG */
+#endif /* CPTCFG_IWLWIFI_DEBUG */
 
 void iwl_mvm_hwrate_to_tx_rate(u32 rate_n_flags,
 			       enum nl80211_band band,
@@ -1620,7 +1620,7 @@ out:
 	rcu_read_unlock();
 }
 
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 #define AGG_TX_STATE_(x) case AGG_TX_STATE_ ## x: return #x
 static const char *iwl_get_agg_tx_status(u16 status)
 {
@@ -1675,7 +1675,7 @@ static void iwl_mvm_rx_tx_cmd_agg_dbg(struct iwl_mvm *mvm,
 static void iwl_mvm_rx_tx_cmd_agg_dbg(struct iwl_mvm *mvm,
 				      struct iwl_rx_packet *pkt)
 {}
-#endif /* CONFIG_IWLWIFI_DEBUG */
+#endif /* CPTCFG_IWLWIFI_DEBUG */
 
 static void iwl_mvm_rx_tx_cmd_agg(struct iwl_mvm *mvm,
 				  struct iwl_rx_packet *pkt)

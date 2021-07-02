@@ -4031,7 +4031,7 @@ static int mwifiex_cfg80211_get_channel(struct wiphy *wiphy,
 	return ret;
 }
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 
 enum mwifiex_tm_attr {
 	__MWIFIEX_TM_ATTR_INVALID	= 0,

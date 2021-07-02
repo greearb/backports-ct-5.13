@@ -528,7 +528,7 @@ struct wiphy *wiphy_new_nm(const struct cfg80211_ops *ops, int sizeof_priv,
 	INIT_WORK(&rdev->mgmt_registrations_update_wk,
 		  cfg80211_mgmt_registrations_update_wk);
 
-#ifdef CONFIG_CFG80211_DEFAULT_PS
+#ifdef CPTCFG_CFG80211_DEFAULT_PS
 	rdev->wiphy.flags |= WIPHY_FLAG_PS_ON_BY_DEFAULT;
 #endif
 
@@ -1174,7 +1174,7 @@ static void _cfg80211_unregister_wdev(struct wireless_dev *wdev,
 		break;
 	}
 
-#ifdef CONFIG_CFG80211_WEXT
+#ifdef CPTCFG_CFG80211_WEXT
 	kfree_sensitive(wdev->wext.keys);
 	wdev->wext.keys = NULL;
 #endif
@@ -1240,7 +1240,7 @@ void __cfg80211_leave(struct cfg80211_registered_device *rdev,
 				cfg80211_stop_sched_scan_req(rdev, pos, false);
 		}
 
-#ifdef CONFIG_CFG80211_WEXT
+#ifdef CPTCFG_CFG80211_WEXT
 		kfree(wdev->wext.ie);
 		wdev->wext.ie = NULL;
 		wdev->wext.ie_len = 0;
@@ -1316,7 +1316,7 @@ void cfg80211_init_wdev(struct wireless_dev *wdev)
 	spin_lock_init(&wdev->pmsr_lock);
 	INIT_WORK(&wdev->pmsr_free_wk, cfg80211_pmsr_free_wk);
 
-#ifdef CONFIG_CFG80211_WEXT
+#ifdef CPTCFG_CFG80211_WEXT
 #ifdef CONFIG_WIRELESS_EXT
 	if (!wdev->netdev->wireless_handlers)
 		wdev->netdev->wireless_handlers = &cfg80211_wext_handler;
@@ -1473,7 +1473,7 @@ static int cfg80211_netdev_notifier_call(struct notifier_block *nb,
 		cfg80211_update_iface_num(rdev, wdev->iftype, 1);
 		wdev_lock(wdev);
 		switch (wdev->iftype) {
-#ifdef CONFIG_CFG80211_WEXT
+#ifdef CPTCFG_CFG80211_WEXT
 		case NL80211_IFTYPE_ADHOC:
 			cfg80211_ibss_wext_join(rdev, wdev);
 			break;
@@ -1481,7 +1481,7 @@ static int cfg80211_netdev_notifier_call(struct notifier_block *nb,
 			cfg80211_mgd_wext_connect(rdev, wdev);
 			break;
 #endif
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		case NL80211_IFTYPE_MESH_POINT:
 			{
 				/* backward compat code... */

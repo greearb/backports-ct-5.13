@@ -5,7 +5,7 @@
 #include <linux/tracepoint.h>
 
 
-#if !defined(CONFIG_ATH5K_TRACER) || defined(__CHECKER__)
+#if !defined(CPTCFG_ATH5K_TRACER) || defined(__CHECKER__)
 #undef TRACE_EVENT
 #define TRACE_EVENT(name, proto, ...) \
 static inline void trace_ ## name(proto) {}
@@ -95,7 +95,7 @@ TRACE_EVENT(ath5k_tx_complete,
 
 #endif /* __TRACE_ATH5K_H */
 
-#if defined(CONFIG_ATH5K_TRACER) && !defined(__CHECKER__)
+#if defined(CPTCFG_ATH5K_TRACER) && !defined(__CHECKER__)
 
 #undef TRACE_INCLUDE_PATH
 #define TRACE_INCLUDE_PATH .

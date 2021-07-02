@@ -37,7 +37,7 @@ static const struct ieee80211_iface_limit mt76x02_if_limits[] = {
 	}, {
 		.max = 8,
 		.types = BIT(NL80211_IFTYPE_STATION) |
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 			 BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 			 BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -53,7 +53,7 @@ static const struct ieee80211_iface_limit mt76x02u_if_limits[] = {
 	}, {
 		.max = 2,
 		.types = BIT(NL80211_IFTYPE_STATION) |
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 			 BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 			 BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -166,7 +166,7 @@ void mt76x02_init_device(struct mt76x02_dev *dev)
 		wiphy->n_iface_combinations = ARRAY_SIZE(mt76x02_if_comb);
 
 		/* init led callbacks */
-		if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+		if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 			dev->mt76.led_cdev.brightness_set =
 					mt76x02_led_set_brightness;
 			dev->mt76.led_cdev.blink_set = mt76x02_led_set_blink;

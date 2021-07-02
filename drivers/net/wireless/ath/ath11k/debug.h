@@ -34,7 +34,7 @@ __printf(2, 3) void ath11k_warn(struct ath11k_base *ab, const char *fmt, ...);
 
 extern unsigned int ath11k_debug_mask;
 
-#ifdef CONFIG_ATH11K_DEBUG
+#ifdef CPTCFG_ATH11K_DEBUG
 __printf(3, 4) void __ath11k_dbg(struct ath11k_base *ab,
 				 enum ath11k_debug_mask mask,
 				 const char *fmt, ...);
@@ -42,7 +42,7 @@ void ath11k_dbg_dump(struct ath11k_base *ab,
 		     enum ath11k_debug_mask mask,
 		     const char *msg, const char *prefix,
 		     const void *buf, size_t len);
-#else /* CONFIG_ATH11K_DEBUG */
+#else /* CPTCFG_ATH11K_DEBUG */
 static inline int __ath11k_dbg(struct ath11k_base *ab,
 			       enum ath11k_debug_mask dbg_mask,
 			       const char *fmt, ...)
@@ -56,7 +56,7 @@ static inline void ath11k_dbg_dump(struct ath11k_base *ab,
 				   const void *buf, size_t len)
 {
 }
-#endif /* CONFIG_ATH11K_DEBUG */
+#endif /* CPTCFG_ATH11K_DEBUG */
 
 #define ath11k_dbg(ar, dbg_mask, fmt, ...)			\
 do {								\

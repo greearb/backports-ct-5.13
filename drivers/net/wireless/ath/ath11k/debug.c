@@ -52,7 +52,7 @@ void ath11k_warn(struct ath11k_base *ab, const char *fmt, ...)
 }
 EXPORT_SYMBOL(ath11k_warn);
 
-#ifdef CONFIG_ATH11K_DEBUG
+#ifdef CPTCFG_ATH11K_DEBUG
 
 void __ath11k_dbg(struct ath11k_base *ab, enum ath11k_debug_mask mask,
 		  const char *fmt, ...)
@@ -103,4 +103,4 @@ void ath11k_dbg_dump(struct ath11k_base *ab,
 }
 EXPORT_SYMBOL(ath11k_dbg_dump);
 
-#endif /* CONFIG_ATH11K_DEBUG */
+#endif /* CPTCFG_ATH11K_DEBUG */

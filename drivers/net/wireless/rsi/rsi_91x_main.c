@@ -36,7 +36,7 @@ u32 rsi_zone_enabled = /* INFO_ZONE |
 			0;
 EXPORT_SYMBOL_GPL(rsi_zone_enabled);
 
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 static struct rsi_proto_ops g_proto_ops = {
 	.coex_send_pkt = rsi_coex_send_pkt,
 	.get_host_intf = rsi_get_host_intf,
@@ -159,7 +159,7 @@ int rsi_read_pkt(struct rsi_common *common, u8 *rx_pkt, s32 rcv_pkt_len)
 	u32 index, length = 0, queueno = 0;
 	u16 actual_length = 0, offset;
 	struct sk_buff *skb = NULL;
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 	u8 bt_pkt_type;
 #endif
 
@@ -179,7 +179,7 @@ int rsi_read_pkt(struct rsi_common *common, u8 *rx_pkt, s32 rcv_pkt_len)
 
 		switch (queueno) {
 		case RSI_COEX_Q:
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 			if (common->coex_mode > 1)
 				rsi_coex_recv_pkt(common, frame_desc + offset);
 			else
@@ -203,7 +203,7 @@ int rsi_read_pkt(struct rsi_common *common, u8 *rx_pkt, s32 rcv_pkt_len)
 			rsi_mgmt_pkt_recv(common, (frame_desc + offset));
 			break;
 
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 		case RSI_BT_MGMT_Q:
 		case RSI_BT_DATA_Q:
 #define BT_RX_PKT_TYPE_OFST	14
@@ -262,7 +262,7 @@ static void rsi_tx_scheduler_thread(struct rsi_common *common)
 	complete_and_exit(&common->tx_thread.completion, 0);
 }
 
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 enum rsi_host_intf rsi_get_host_intf(void *priv)
 {
 	struct rsi_common *common = (struct rsi_common *)priv;
@@ -355,7 +355,7 @@ struct rsi_hw *rsi_91x_init(u16 oper_mode)
 		__func__, common->oper_mode, common->coex_mode);
 
 	adapter->device_model = RSI_DEV_9113;
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 	if (common->coex_mode > 1) {
 		if (rsi_coex_attach(common)) {
 			rsi_dbg(ERR_ZONE, "Failed to init coex module\n");
@@ -392,7 +392,7 @@ void rsi_91x_deinit(struct rsi_hw *adapter)
 	for (ii = 0; ii < NUM_SOFT_QUEUES; ii++)
 		skb_queue_purge(&common->tx_queue[ii]);
 
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 	if (common->coex_mode > 1) {
 		if (common->bt_adapter) {
 			rsi_bt_ops.detach(common->bt_adapter);

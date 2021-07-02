@@ -1114,7 +1114,7 @@ void ieee80211_tx_status_ext(struct ieee80211_hw *hw,
 
 	if (pubsta) {
 		struct ieee80211_sub_if_data *sdata = sta->sdata;
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 		bool do_stats = false;
 #endif
 
@@ -1129,7 +1129,7 @@ void ieee80211_tx_status_ext(struct ieee80211_hw *hw,
 							acked, info->status.tx_time);
 
 			if (acked) {
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 				do_stats = true;
 #endif
 				sta->status_stats.last_ack = jiffies;
@@ -1162,7 +1162,7 @@ void ieee80211_tx_status_ext(struct ieee80211_hw *hw,
 				return;
 			} else if (noack_success) {
 				/* nothing to do here, do not account as lost */
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 				do_stats = true;
 #endif
 			} else {
@@ -1170,7 +1170,7 @@ void ieee80211_tx_status_ext(struct ieee80211_hw *hw,
 			}
 		}
 
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 		if (do_stats && (rates_idx != -1)) {
 			u8 nss = 0;
 			u8 mcs = 0;

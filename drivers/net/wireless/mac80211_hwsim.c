@@ -2215,7 +2215,7 @@ static int mac80211_hwsim_get_survey(struct ieee80211_hw *hw, int idx,
 	return 0;
 }
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 /*
  * This section contains example code for using netlink
  * attributes with the testmode command in nl80211.
@@ -2877,7 +2877,7 @@ static const struct ieee80211_sband_iftype_data he_capa_2ghz[] = {
 			},
 		},
 	},
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	{
 		/* TODO: should we support other types, e.g., IBSS?*/
 		.types_mask = BIT(NL80211_IFTYPE_MESH_POINT),
@@ -2971,7 +2971,7 @@ static const struct ieee80211_sband_iftype_data he_capa_5ghz[] = {
 			},
 		},
 	},
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	{
 		/* TODO: should we support other types, e.g., IBSS?*/
 		.types_mask = BIT(NL80211_IFTYPE_MESH_POINT),
@@ -3036,7 +3036,7 @@ static void mac80211_hwsim_he_capab(struct ieee80211_supported_band *sband)
 	sband->n_iftype_data = n_iftype_data;
 }
 
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 #define HWSIM_MESH_BIT BIT(NL80211_IFTYPE_MESH_POINT)
 #else
 #define HWSIM_MESH_BIT 0

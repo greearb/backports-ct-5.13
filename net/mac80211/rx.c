@@ -797,7 +797,7 @@ ieee80211_rx_monitor(struct ieee80211_radiotap_he *radiotap_he, struct ieee80211
 		return NULL;
 	}
 
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	if (status->flag & RX_FLAG_RADIOTAP_HE) {
 		/* Store this for later so we can gather stats.
 		 * This depends on drivers putting the radiotap_he header
@@ -934,7 +934,7 @@ static void ieee80211_parse_qos(struct ieee80211_rx_data *rx)
  */
 static void ieee80211_verify_alignment(struct ieee80211_rx_data *rx)
 {
-#ifdef CONFIG_MAC80211_VERBOSE_DEBUG
+#ifdef CPTCFG_MAC80211_VERBOSE_DEBUG
 	WARN_ON_ONCE((unsigned long)rx->skb->data & 1);
 #endif
 }
@@ -1732,7 +1732,7 @@ static void ieee80211_update_data_rx_stats(struct ieee80211_rx_data *rx,
 					   struct ieee80211_rx_status *status,
 					   int skb_len)
 {
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	u8 nss;
 	u8 rix;
 #endif
@@ -1752,7 +1752,7 @@ static void ieee80211_update_data_rx_stats(struct ieee80211_rx_data *rx,
 	stats->bytes += skb_len;
 	u64_stats_update_end(&stats->syncp);
 
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	/* This code has a lot in common with ieee80211_add_rx_radiotap_header */
 	switch (status->bw) {
 	case RATE_INFO_BW_20:
@@ -2927,7 +2927,7 @@ ieee80211_rx_h_amsdu(struct ieee80211_rx_data *rx)
 	return __ieee80211_rx_h_amsdu(rx, 0);
 }
 
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 static ieee80211_rx_result
 ieee80211_rx_h_mesh_fwding(struct ieee80211_rx_data *rx)
 {
@@ -3972,7 +3972,7 @@ static void ieee80211_rx_handlers(struct ieee80211_rx_data *rx,
 		CALL_RXH(ieee80211_rx_h_defragment);
 		CALL_RXH(ieee80211_rx_h_michael_mic_verify);
 		/* must be after MMIC verify so header is counted in MPDU mic */
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		if (ieee80211_vif_is_mesh(&rx->sdata->vif))
 			CALL_RXH(ieee80211_rx_h_mesh_fwding);
 #endif
@@ -4803,7 +4803,7 @@ static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
 	rx.skb = skb;
 	rx.local = local;
 	rx.list = list;
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	rx.radiotap_he = *radiotap_he;
 #endif
 

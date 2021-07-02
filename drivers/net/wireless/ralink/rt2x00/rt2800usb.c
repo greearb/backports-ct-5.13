@@ -763,9 +763,9 @@ static const struct rt2x00_ops rt2800usb_ops = {
 	.lib			= &rt2800usb_rt2x00_ops,
 	.drv			= &rt2800usb_rt2800_ops,
 	.hw			= &rt2800usb_mac80211_ops,
-#ifdef CONFIG_RT2X00_LIB_DEBUGFS
+#ifdef CPTCFG_RT2X00_LIB_DEBUGFS
 	.debugfs		= &rt2800_rt2x00debug,
-#endif /* CONFIG_RT2X00_LIB_DEBUGFS */
+#endif /* CPTCFG_RT2X00_LIB_DEBUGFS */
 };
 
 /*
@@ -1006,7 +1006,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	{ USB_DEVICE(0x0586, 0x341a) },
 	{ USB_DEVICE(0x0586, 0x341e) },
 	{ USB_DEVICE(0x0586, 0x343e) },
-#ifdef CONFIG_RT2800USB_RT33XX
+#ifdef CPTCFG_RT2800USB_RT33XX
 	/* Belkin */
 	{ USB_DEVICE(0x050d, 0x945b) },
 	/* D-Link */
@@ -1026,7 +1026,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	{ USB_DEVICE(0x177f, 0x0163) },
 	{ USB_DEVICE(0x177f, 0x0165) },
 #endif
-#ifdef CONFIG_RT2800USB_RT35XX
+#ifdef CPTCFG_RT2800USB_RT35XX
 	/* Allwin */
 	{ USB_DEVICE(0x8516, 0x3572) },
 	/* Askey */
@@ -1059,7 +1059,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	/* Zinwell */
 	{ USB_DEVICE(0x5a57, 0x0284) },
 #endif
-#ifdef CONFIG_RT2800USB_RT3573
+#ifdef CPTCFG_RT2800USB_RT3573
 	/* AirLive */
 	{ USB_DEVICE(0x1b75, 0x7733) },
 	/* ASUS */
@@ -1098,7 +1098,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	/* ZyXEL */
 	{ USB_DEVICE(0x0586, 0x3421) },
 #endif
-#ifdef CONFIG_RT2800USB_RT53XX
+#ifdef CPTCFG_RT2800USB_RT53XX
 	/* Arcadyan */
 	{ USB_DEVICE(0x043e, 0x7a12) },
 	{ USB_DEVICE(0x043e, 0x7a32) },
@@ -1133,7 +1133,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	{ USB_DEVICE(0x148f, 0x5370) },
 	{ USB_DEVICE(0x148f, 0x5372) },
 #endif
-#ifdef CONFIG_RT2800USB_RT55XX
+#ifdef CPTCFG_RT2800USB_RT55XX
 	/* Arcadyan */
 	{ USB_DEVICE(0x043e, 0x7a32) },
 	/* AVM GmbH */
@@ -1151,7 +1151,7 @@ static const struct usb_device_id rt2800usb_device_table[] = {
 	/* TRENDnet */
 	{ USB_DEVICE(0x20f4, 0x724a) },
 #endif
-#ifdef CONFIG_RT2800USB_UNKNOWN
+#ifdef CPTCFG_RT2800USB_UNKNOWN
 	/*
 	 * Unclear what kind of devices these are (they aren't supported by the
 	 * vendor linux driver).

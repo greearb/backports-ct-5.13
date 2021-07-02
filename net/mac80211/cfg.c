@@ -481,7 +481,7 @@ static int ieee80211_add_key(struct wiphy *wiphy, struct net_device *dev,
 		/* no MFP (yet) */
 		break;
 	case NL80211_IFTYPE_MESH_POINT:
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		if (sdata->u.mesh.security != IEEE80211_MESH_SEC_NONE)
 			key->conf.flags |= IEEE80211_KEY_FLAG_RX_MGMT;
 		break;
@@ -1395,7 +1395,7 @@ static void sta_apply_mesh_params(struct ieee80211_local *local,
 				  struct sta_info *sta,
 				  struct station_parameters *params)
 {
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	struct ieee80211_sub_if_data *sdata = sta->sdata;
 	u32 changed = 0;
 
@@ -1845,7 +1845,7 @@ out_err:
 	return err;
 }
 
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 static int ieee80211_add_mpath(struct wiphy *wiphy, struct net_device *dev,
 			       const u8 *dst, const u8 *next_hop)
 {
@@ -2737,7 +2737,7 @@ static void ieee80211_rfkill_poll(struct wiphy *wiphy)
 	drv_rfkill_poll(local);
 }
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 static int ieee80211_testmode_cmd(struct wiphy *wiphy,
 				  struct wireless_dev *wdev,
 				  void *data, int len)
@@ -3167,7 +3167,7 @@ static int ieee80211_set_after_csa_beacon(struct ieee80211_sub_if_data *sdata,
 			return err;
 		*changed |= err;
 		break;
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	case NL80211_IFTYPE_MESH_POINT:
 		err = ieee80211_mesh_finish_csa(sdata);
 		if (err < 0)
@@ -3365,7 +3365,7 @@ static int ieee80211_set_csa_beacon(struct ieee80211_sub_if_data *sdata,
 		ieee80211_send_action_csa(sdata, params);
 
 		break;
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	case NL80211_IFTYPE_MESH_POINT: {
 		struct ieee80211_if_mesh *ifmsh = &sdata->u.mesh;
 
@@ -4149,7 +4149,7 @@ const struct cfg80211_ops mac80211_config_ops = {
 	.get_station = ieee80211_get_station,
 	.dump_station = ieee80211_dump_station,
 	.dump_survey = ieee80211_dump_survey,
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	.add_mpath = ieee80211_add_mpath,
 	.del_mpath = ieee80211_del_mpath,
 	.change_mpath = ieee80211_change_mpath,

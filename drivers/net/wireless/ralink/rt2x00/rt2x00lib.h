@@ -272,7 +272,7 @@ void rt2x00link_register(struct rt2x00_dev *rt2x00dev);
 /*
  * Firmware handlers.
  */
-#ifdef CONFIG_RT2X00_LIB_FIRMWARE
+#ifdef CPTCFG_RT2X00_LIB_FIRMWARE
 int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev);
 void rt2x00lib_free_firmware(struct rt2x00_dev *rt2x00dev);
 #else
@@ -283,12 +283,12 @@ static inline int rt2x00lib_load_firmware(struct rt2x00_dev *rt2x00dev)
 static inline void rt2x00lib_free_firmware(struct rt2x00_dev *rt2x00dev)
 {
 }
-#endif /* CONFIG_RT2X00_LIB_FIRMWARE */
+#endif /* CPTCFG_RT2X00_LIB_FIRMWARE */
 
 /*
  * Debugfs handlers.
  */
-#ifdef CONFIG_RT2X00_LIB_DEBUGFS
+#ifdef CPTCFG_RT2X00_LIB_DEBUGFS
 void rt2x00debug_register(struct rt2x00_dev *rt2x00dev);
 void rt2x00debug_deregister(struct rt2x00_dev *rt2x00dev);
 void rt2x00debug_update_crypto(struct rt2x00_dev *rt2x00dev,
@@ -306,12 +306,12 @@ static inline void rt2x00debug_update_crypto(struct rt2x00_dev *rt2x00dev,
 					     struct rxdone_entry_desc *rxdesc)
 {
 }
-#endif /* CONFIG_RT2X00_LIB_DEBUGFS */
+#endif /* CPTCFG_RT2X00_LIB_DEBUGFS */
 
 /*
  * Crypto handlers.
  */
-#ifdef CONFIG_RT2X00_LIB_CRYPTO
+#ifdef CPTCFG_RT2X00_LIB_CRYPTO
 enum cipher rt2x00crypto_key_to_cipher(struct ieee80211_key_conf *key);
 void rt2x00crypto_create_tx_descriptor(struct rt2x00_dev *rt2x00dev,
 				       struct sk_buff *skb,
@@ -364,7 +364,7 @@ static inline void rt2x00crypto_rx_insert_iv(struct sk_buff *skb,
 					     struct rxdone_entry_desc *rxdesc)
 {
 }
-#endif /* CONFIG_RT2X00_LIB_CRYPTO */
+#endif /* CPTCFG_RT2X00_LIB_CRYPTO */
 
 /*
  * RFkill handlers.
@@ -384,7 +384,7 @@ static inline void rt2x00rfkill_unregister(struct rt2x00_dev *rt2x00dev)
 /*
  * LED handlers
  */
-#ifdef CONFIG_RT2X00_LIB_LEDS
+#ifdef CPTCFG_RT2X00_LIB_LEDS
 void rt2x00leds_led_quality(struct rt2x00_dev *rt2x00dev, int rssi);
 void rt2x00led_led_activity(struct rt2x00_dev *rt2x00dev, bool enabled);
 void rt2x00leds_led_assoc(struct rt2x00_dev *rt2x00dev, bool enabled);
@@ -429,6 +429,6 @@ static inline void rt2x00leds_suspend(struct rt2x00_dev *rt2x00dev)
 static inline void rt2x00leds_resume(struct rt2x00_dev *rt2x00dev)
 {
 }
-#endif /* CONFIG_RT2X00_LIB_LEDS */
+#endif /* CPTCFG_RT2X00_LIB_LEDS */
 
 #endif /* RT2X00LIB_H */

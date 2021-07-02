@@ -20,7 +20,7 @@
 
 static inline bool iwl_have_debug_level(u32 level)
 {
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 	return iwlwifi_mod_params.debug_level & level;
 #else
 	return false;
@@ -61,7 +61,7 @@ void __iwl_crit(struct device *dev, const char *fmt, ...) __printf(2, 3);
 		__iwl_crit((m)->dev, f, ## a);				\
 	} while (0)
 
-#if defined(CONFIG_IWLWIFI_DEBUG) || defined(CONFIG_IWLWIFI_DEVICE_TRACING)
+#if defined(CPTCFG_IWLWIFI_DEBUG) || defined(CPTCFG_IWLWIFI_DEVICE_TRACING)
 void __iwl_dbg(struct device *dev,
 	       u32 level, bool limit, const char *function,
 	       const char *fmt, ...) __printf(5, 6);
@@ -91,7 +91,7 @@ do {									\
 #define IWL_DEBUG_LIMIT(m, level, fmt, args...)				\
 	__IWL_DEBUG_DEV((m)->dev, level, true, fmt, ##args)
 
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 #define iwl_print_hex_dump(m, level, p, len)				\
 do {                                            			\
 	if (iwl_have_debug_level(level))				\
@@ -100,7 +100,7 @@ do {                                            			\
 } while (0)
 #else
 #define iwl_print_hex_dump(m, level, p, len)
-#endif				/* CONFIG_IWLWIFI_DEBUG */
+#endif				/* CPTCFG_IWLWIFI_DEBUG */
 
 /*
  * To use the debug system:
@@ -119,10 +119,10 @@ do {                                            			\
  * The active debug levels can be accessed via files
  *
  *	/sys/module/iwlwifi/parameters/debug
- * when CONFIG_IWLWIFI_DEBUG=y.
+ * when CPTCFG_IWLWIFI_DEBUG=y.
  *
  *	/sys/kernel/debug/phy0/iwlwifi/debug/debug_level
- * when CONFIG_IWLWIFI_DEBUGFS=y.
+ * when CPTCFG_IWLWIFI_DEBUGFS=y.
  *
  */
 

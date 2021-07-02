@@ -124,7 +124,7 @@ void init_mlme_ext_timer(struct adapter *padapter)
 	timer_setup(&pmlmeext->link_timer, link_timer_hdl, 0);
 }
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 void rtw_indicate_sta_assoc_event(struct adapter *padapter, struct sta_info *psta)
 {

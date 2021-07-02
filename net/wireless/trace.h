@@ -1544,7 +1544,7 @@ TRACE_EVENT(rdev_return_int_int,
 		  WIPHY_PR_ARG, __entry->func_ret, __entry->func_fill)
 );
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 TRACE_EVENT(rdev_testmode_cmd,
 	TP_PROTO(struct wiphy *wiphy, struct wireless_dev *wdev),
 	TP_ARGS(wiphy, wdev),
@@ -1570,7 +1570,7 @@ TRACE_EVENT(rdev_testmode_dump,
 	),
 	TP_printk(WIPHY_PR_FMT, WIPHY_PR_ARG)
 );
-#endif /* CONFIG_NL80211_TESTMODE */
+#endif /* CPTCFG_NL80211_TESTMODE */
 
 TRACE_EVENT(rdev_set_bitrate_mask,
 	TP_PROTO(struct wiphy *wiphy, struct net_device *netdev,

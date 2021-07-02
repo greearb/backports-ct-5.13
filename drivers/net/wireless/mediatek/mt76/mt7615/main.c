@@ -434,7 +434,7 @@ static int mt7615_config(struct ieee80211_hw *hw, u32 changed)
 
 	if (changed & (IEEE80211_CONF_CHANGE_CHANNEL |
 		       IEEE80211_CONF_CHANGE_POWER)) {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 		if (phy->mt76->test.state != MT76_TM_STATE_OFF) {
 			mt7615_mutex_acquire(dev);
 			mt76_testmode_reset(phy->mt76, false);

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: ISC
 
-obj-$(CONFIG_MT7921E) += mt7921e.o
+obj-$(CPTCFG_MT7921E) += mt7921e.o
 
 CFLAGS_trace.o := -I$(src)
 

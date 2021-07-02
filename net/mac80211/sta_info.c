@@ -70,7 +70,7 @@ static const struct rhashtable_params sta_rht_params = {
 	.head_offset = offsetof(struct sta_info, hash_node),
 	.key_offset = offsetof(struct sta_info, addr),
 	.key_len = ETH_ALEN,
-	.max_size = CONFIG_MAC80211_STA_HASH_MAX_SIZE,
+	.max_size = CPTCFG_MAC80211_STA_HASH_MAX_SIZE,
 };
 
 /* Caller must hold local->sta_mtx */
@@ -344,7 +344,7 @@ void sta_info_free(struct ieee80211_local *local, struct sta_info *sta)
 	if (sta->sta.txq[0])
 		kfree(to_txq_info(sta->sta.txq[0]));
 	kfree(rcu_dereference_raw(sta->sta.rates));
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	kfree(sta->mesh);
 #endif
 	free_percpu(sta->pcpu_rx_stats);
@@ -425,7 +425,7 @@ struct sta_info *sta_info_alloc(struct ieee80211_sub_if_data *sdata,
 	INIT_WORK(&sta->drv_deliver_wk, sta_deliver_ps_frames);
 	INIT_WORK(&sta->ampdu_mlme.work, ieee80211_ba_session_work);
 	mutex_init(&sta->ampdu_mlme.mtx);
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	if (ieee80211_vif_is_mesh(&sdata->vif)) {
 		sta->mesh = kzalloc(sizeof(*sta->mesh), gfp);
 		if (!sta->mesh)
@@ -598,7 +598,7 @@ free_txq:
 		kfree(to_txq_info(sta->sta.txq[0]));
 free:
 	free_percpu(sta->pcpu_rx_stats);
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	kfree(sta->mesh);
 #endif
 	kfree(sta);
@@ -875,7 +875,7 @@ static void __sta_info_recalc_tim(struct sta_info *sta, bool ignore_pending)
 			return;
 
 		ps = &sta->sdata->bss->ps;
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	} else if (ieee80211_vif_is_mesh(&sta->sdata->vif)) {
 		ps = &sta->sdata->u.mesh.ps;
 #endif
@@ -2547,7 +2547,7 @@ void sta_set_sinfo(struct sta_info *sta, struct station_info *sinfo,
 	}
 
 	if (ieee80211_vif_is_mesh(&sdata->vif)) {
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		sinfo->filled |= BIT_ULL(NL80211_STA_INFO_LLID) |
 				 BIT_ULL(NL80211_STA_INFO_PLID) |
 				 BIT_ULL(NL80211_STA_INFO_PLINK_STATE) |
@@ -2709,7 +2709,7 @@ void sta_accum_rx_stats(struct sta_info *sta,
 		for (i = 0; i<=IEEE80211_NUM_TIDS; i++) {
 			rx_stats->msdu[i] += sta_get_tidstats_msdu(cpurxs, i);
 		}
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 		rx_stats->msdu_20 += cpurxs->msdu_20;
 		rx_stats->msdu_40 += cpurxs->msdu_40;
 		rx_stats->msdu_80 += cpurxs->msdu_80;

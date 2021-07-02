@@ -182,7 +182,7 @@ static ssize_t sta_stats_read(struct file *file, char __user *userbuf,
 		PRINT_MY_STATS(tmp, rx_stats.msdu[i]);
 	}
 
-#ifdef CONFIG_MAC80211_DEBUG_STA_COUNTERS
+#ifdef CPTCFG_MAC80211_DEBUG_STA_COUNTERS
 	PRINT_MY_STATS("rx-bw-20", rx_stats.msdu_20);
 	PRINT_MY_STATS("rx-bw-40", rx_stats.msdu_40);
 	PRINT_MY_STATS("rx-bw-80", rx_stats.msdu_80);

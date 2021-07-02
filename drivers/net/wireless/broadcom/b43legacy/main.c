@@ -49,13 +49,13 @@ MODULE_LICENSE("GPL");
 MODULE_FIRMWARE("b43legacy/ucode2.fw");
 MODULE_FIRMWARE("b43legacy/ucode4.fw");
 
-#if defined(CONFIG_B43LEGACY_DMA) && defined(CONFIG_B43LEGACY_PIO)
+#if defined(CPTCFG_B43LEGACY_DMA) && defined(CPTCFG_B43LEGACY_PIO)
 static int modparam_pio;
 module_param_named(pio, modparam_pio, int, 0444);
 MODULE_PARM_DESC(pio, "enable(1) / disable(0) PIO mode");
-#elif defined(CONFIG_B43LEGACY_DMA)
+#elif defined(CPTCFG_B43LEGACY_DMA)
 # define modparam_pio	0
-#elif defined(CONFIG_B43LEGACY_PIO)
+#elif defined(CPTCFG_B43LEGACY_PIO)
 # define modparam_pio	1
 #endif
 
@@ -1907,7 +1907,7 @@ static int b43legacy_gpio_init(struct b43legacy_wldev *dev)
 	if (dev->dev->id.revision >= 2)
 		mask  |= 0x0010; /* FIXME: This is redundant. */
 
-#ifdef CONFIG_SSB_DRIVER_PCICORE
+#ifdef CPTCFG_SSB_DRIVER_PCICORE
 	pcidev = bus->pcicore.dev;
 #endif
 	gpiodev = bus->chipco.dev ? : pcidev;
@@ -1926,7 +1926,7 @@ static void b43legacy_gpio_cleanup(struct b43legacy_wldev *dev)
 	struct ssb_bus *bus = dev->dev->bus;
 	struct ssb_device *gpiodev, *pcidev = NULL;
 
-#ifdef CONFIG_SSB_DRIVER_PCICORE
+#ifdef CPTCFG_SSB_DRIVER_PCICORE
 	pcidev = bus->pcicore.dev;
 #endif
 	gpiodev = bus->chipco.dev ? : pcidev;
@@ -2395,7 +2395,7 @@ static void b43legacy_security_init(struct b43legacy_wldev *dev)
 				  dev->max_nr_keys - 8);
 }
 
-#ifdef CONFIG_B43LEGACY_HWRNG
+#ifdef CPTCFG_B43LEGACY_HWRNG
 static int b43legacy_rng_read(struct hwrng *rng, u32 *data)
 {
 	struct b43legacy_wl *wl = (struct b43legacy_wl *)rng->priv;
@@ -2415,7 +2415,7 @@ static int b43legacy_rng_read(struct hwrng *rng, u32 *data)
 
 static void b43legacy_rng_exit(struct b43legacy_wl *wl)
 {
-#ifdef CONFIG_B43LEGACY_HWRNG
+#ifdef CPTCFG_B43LEGACY_HWRNG
 	if (wl->rng_initialized)
 		hwrng_unregister(&wl->rng);
 #endif
@@ -2425,7 +2425,7 @@ static int b43legacy_rng_init(struct b43legacy_wl *wl)
 {
 	int err = 0;
 
-#ifdef CONFIG_B43LEGACY_HWRNG
+#ifdef CPTCFG_B43LEGACY_HWRNG
 	snprintf(wl->rng_name, ARRAY_SIZE(wl->rng_name),
 		 "%s_%s", KBUILD_MODNAME, wiphy_name(wl->hw->wiphy));
 	wl->rng.name = wl->rng_name;
@@ -3983,16 +3983,16 @@ static void b43legacy_print_driverinfo(void)
 	const char *feat_pci = "", *feat_leds = "",
 		   *feat_pio = "", *feat_dma = "";
 
-#ifdef CONFIG_B43LEGACY_PCI_AUTOSELECT
+#ifdef CPTCFG_B43LEGACY_PCI_AUTOSELECT
 	feat_pci = "P";
 #endif
-#ifdef CONFIG_B43LEGACY_LEDS
+#ifdef CPTCFG_B43LEGACY_LEDS
 	feat_leds = "L";
 #endif
-#ifdef CONFIG_B43LEGACY_PIO
+#ifdef CPTCFG_B43LEGACY_PIO
 	feat_pio = "I";
 #endif
-#ifdef CONFIG_B43LEGACY_DMA
+#ifdef CPTCFG_B43LEGACY_DMA
 	feat_dma = "D";
 #endif
 	printk(KERN_INFO "Broadcom 43xx-legacy driver loaded "

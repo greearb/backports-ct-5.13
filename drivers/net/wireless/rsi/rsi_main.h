@@ -360,7 +360,7 @@ struct rsi_hw {
 	struct rsi_ps_info ps_info;
 	spinlock_t ps_lock; /*To protect power save config*/
 	u32 usb_buffer_status_reg;
-#ifdef CONFIG_RSI_DEBUGFS
+#ifdef CPTCFG_RSI_DEBUGFS
 	struct rsi_debugfs *dfsentry;
 	u8 num_debugfs_entries;
 #endif

@@ -11,7 +11,7 @@
 #include "core.h"
 #include "hal_tx.h"
 
-#ifdef CONFIG_ATH11K_DEBUGFS
+#ifdef CPTCFG_ATH11K_DEBUGFS
 
 void ath11k_debugfs_sta_op_add(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 			       struct ieee80211_sta *sta, struct dentry *dir);
@@ -22,7 +22,7 @@ void ath11k_debugfs_sta_update_txcompl(struct ath11k *ar,
 				       struct sk_buff *msdu,
 				       struct hal_tx_status *ts);
 
-#else /* CONFIG_ATH11K_DEBUGFS */
+#else /* CPTCFG_ATH11K_DEBUGFS */
 
 #define ath11k_debugfs_sta_op_add NULL
 
@@ -39,6 +39,6 @@ static inline void ath11k_debugfs_sta_update_txcompl(struct ath11k *ar,
 {
 }
 
-#endif /* CONFIG_ATH11K_DEBUGFS */
+#endif /* CPTCFG_ATH11K_DEBUGFS */
 
 #endif /* _ATH11K_DEBUGFS_STA_H_ */

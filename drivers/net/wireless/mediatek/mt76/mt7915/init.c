@@ -17,7 +17,7 @@ static const struct ieee80211_iface_limit if_limits[] = {
 	}, {
 		.max = 16,
 		.types = BIT(NL80211_IFTYPE_AP)
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 			 | BIT(NL80211_IFTYPE_MESH_POINT)
 #endif
 	}, {
@@ -528,7 +528,7 @@ mt7915_set_stream_he_txbf_caps(struct ieee80211_sta_he_cap *he_cap,
 	struct ieee80211_he_mcs_nss_supp *mcs = &he_cap->he_mcs_nss_supp;
 	u8 c;
 
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 	if (vif == NL80211_IFTYPE_MESH_POINT)
 		return;
 #endif
@@ -631,7 +631,7 @@ mt7915_init_he_caps(struct mt7915_phy *phy, enum nl80211_band band,
 		switch (i) {
 		case NL80211_IFTYPE_STATION:
 		case NL80211_IFTYPE_AP:
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 		case NL80211_IFTYPE_MESH_POINT:
 #endif
 			break;
@@ -812,7 +812,7 @@ int mt7915_register_device(struct mt7915_dev *dev)
 	dev->mphy.hw->wiphy->available_antennas_tx = dev->mphy.chainmask;
 	dev->phy.dfs_state = -1;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	dev->mt76.test_ops = &mt7915_testmode_ops;
 #endif
 

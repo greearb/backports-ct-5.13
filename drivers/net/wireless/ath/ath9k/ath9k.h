@@ -263,7 +263,7 @@ struct ath_node {
 	bool sleeping;
 	bool no_ps_filter;
 
-#ifdef CONFIG_ATH9K_STATION_STATISTICS
+#ifdef CPTCFG_ATH9K_STATION_STATISTICS
 	struct ath_rx_rate_stats rx_rate_stats;
 #endif
 	u8 key_idx[4];
@@ -453,7 +453,7 @@ void ath_chanctx_init(struct ath_softc *sc);
 void ath_chanctx_set_channel(struct ath_softc *sc, struct ath_chanctx *ctx,
 			     struct cfg80211_chan_def *chandef);
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 
 static inline struct ath_chanctx *
 ath_chanctx_get(struct ieee80211_chanctx_conf *ctx)
@@ -563,7 +563,7 @@ static inline void ath_chanctx_check_active(struct ath_softc *sc,
 {
 }
 
-#endif /* CONFIG_ATH9K_CHANNEL_CONTEXT */
+#endif /* CPTCFG_ATH9K_CHANNEL_CONTEXT */
 
 static inline void ath_txq_lock(struct ath_softc *sc, struct ath_txq *txq)
 {
@@ -790,7 +790,7 @@ struct ath_btcoex {
 	u8 stomp_audio;
 };
 
-#ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
+#ifdef CPTCFG_ATH9K_BTCOEX_SUPPORT
 int ath9k_init_btcoex(struct ath_softc *sc);
 void ath9k_deinit_btcoex(struct ath_softc *sc);
 void ath9k_start_btcoex(struct ath_softc *sc);
@@ -831,7 +831,7 @@ static inline int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size)
 {
 	return 0;
 }
-#endif /* CONFIG_ATH9K_BTCOEX_SUPPORT */
+#endif /* CPTCFG_ATH9K_BTCOEX_SUPPORT */
 
 /********************/
 /*   LED Control    */
@@ -843,7 +843,7 @@ static inline int ath9k_dump_btcoex(struct ath_softc *sc, u8 *buf, u32 size)
 #define ATH_LED_PIN_9485		6
 #define ATH_LED_PIN_9462		4
 
-#ifdef CONFIG_MAC80211_LEDS
+#ifdef CPTCFG_MAC80211_LEDS
 void ath_init_leds(struct ath_softc *sc);
 void ath_deinit_leds(struct ath_softc *sc);
 #else
@@ -860,7 +860,7 @@ static inline void ath_deinit_leds(struct ath_softc *sc)
 /* Wake on Wireless LAN */
 /************************/
 
-#ifdef CONFIG_ATH9K_WOW
+#ifdef CPTCFG_ATH9K_WOW
 void ath9k_init_wow(struct ieee80211_hw *hw);
 void ath9k_deinit_wow(struct ieee80211_hw *hw);
 int ath9k_suspend(struct ieee80211_hw *hw,
@@ -886,7 +886,7 @@ static inline int ath9k_resume(struct ieee80211_hw *hw)
 static inline void ath9k_set_wakeup(struct ieee80211_hw *hw, bool enabled)
 {
 }
-#endif /* CONFIG_ATH9K_WOW */
+#endif /* CPTCFG_ATH9K_WOW */
 
 /*******************************/
 /* Antenna diversity/combining */
@@ -1004,7 +1004,7 @@ struct ath_softc {
 	struct completion paprd_complete;
 	wait_queue_head_t tx_wait;
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 	struct work_struct chanctx_work;
 	struct ath_gen_timer *p2p_ps_timer;
 	struct ath_vif *p2p_ps_vif;
@@ -1034,20 +1034,20 @@ struct ath_softc {
 	struct ath_chanctx *cur_chan;
 	spinlock_t chan_lock;
 
-#ifdef CONFIG_MAC80211_LEDS
+#ifdef CPTCFG_MAC80211_LEDS
 	bool led_registered;
 	char led_name[32];
 	struct led_classdev led_cdev;
 #endif
 
-#ifdef CONFIG_ATH9K_DEBUGFS
+#ifdef CPTCFG_ATH9K_DEBUGFS
 	struct ath9k_debug debug;
 #endif
 	struct delayed_work hw_check_work;
 	struct delayed_work hw_pll_work;
 	struct timer_list sleep_timer;
 
-#ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
+#ifdef CPTCFG_ATH9K_BTCOEX_SUPPORT
 	struct ath_btcoex btcoex;
 	struct ath_mci_coex mci_coex;
 	struct work_struct mci_work;
@@ -1068,12 +1068,12 @@ struct ath_softc {
 	bool tx99_state;
 	s16 tx99_power;
 
-#ifdef CONFIG_ATH9K_WOW
+#ifdef CPTCFG_ATH9K_WOW
 	u32 wow_intr_before_sleep;
 	bool force_wow;
 #endif
 
-#ifdef CONFIG_ATH9K_HWRNG
+#ifdef CPTCFG_ATH9K_HWRNG
 	u32 rng_last;
 	struct task_struct *rng_task;
 #endif
@@ -1083,7 +1083,7 @@ struct ath_softc {
 /* TX99 */
 /********/
 
-#ifdef CONFIG_ATH9K_TX99
+#ifdef CPTCFG_ATH9K_TX99
 void ath9k_tx99_init_debug(struct ath_softc *sc);
 int ath9k_tx99_send(struct ath_softc *sc, struct sk_buff *skb,
 		    struct ath_tx_control *txctl);
@@ -1097,12 +1097,12 @@ static inline int ath9k_tx99_send(struct ath_softc *sc,
 {
 	return 0;
 }
-#endif /* CONFIG_ATH9K_TX99 */
+#endif /* CPTCFG_ATH9K_TX99 */
 
 /***************************/
 /* Random Number Generator */
 /***************************/
-#ifdef CONFIG_ATH9K_HWRNG
+#ifdef CPTCFG_ATH9K_HWRNG
 void ath9k_rng_start(struct ath_softc *sc);
 void ath9k_rng_stop(struct ath_softc *sc);
 #else
@@ -1137,7 +1137,7 @@ void ath9k_rfkill_poll_state(struct ieee80211_hw *hw);
 void ath9k_ps_wakeup(struct ath_softc *sc);
 void ath9k_ps_restore(struct ath_softc *sc);
 
-#ifdef CONFIG_ATH9K_PCI
+#ifdef CPTCFG_ATH9K_PCI
 int ath_pci_init(void);
 void ath_pci_exit(void);
 #else
@@ -1145,7 +1145,7 @@ static inline int ath_pci_init(void) { return 0; };
 static inline void ath_pci_exit(void) {};
 #endif
 
-#ifdef CONFIG_ATH9K_AHB
+#ifdef CPTCFG_ATH9K_AHB
 int ath_ahb_init(void);
 void ath_ahb_exit(void);
 #else

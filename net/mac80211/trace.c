@@ -11,7 +11,7 @@
 #include "trace.h"
 #include "trace_msg.h"
 
-#ifdef CONFIG_MAC80211_MESSAGE_TRACING
+#ifdef CPTCFG_MAC80211_MESSAGE_TRACING
 void __sdata_info(const char *fmt, ...)
 {
 	struct va_format vaf = {

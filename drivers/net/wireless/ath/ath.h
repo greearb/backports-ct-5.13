@@ -290,7 +290,7 @@ enum ATH_DEBUG {
 #define ATH_DBG_DEFAULT (ATH_DBG_FATAL)
 #define ATH_DBG_MAX_LEN 512
 
-#ifdef CONFIG_ATH_DEBUG
+#ifdef CPTCFG_ATH_DEBUG
 
 #define ath_dbg(common, dbg_mask, fmt, ...)				\
 do {									\
@@ -317,10 +317,10 @@ void _ath_dbg(struct ath_common *common, enum ATH_DEBUG dbg_mask,
 	unlikely(__ret_warn_once);				\
 })
 
-#endif /* CONFIG_ATH_DEBUG */
+#endif /* CPTCFG_ATH_DEBUG */
 
 /** Returns string describing opmode, or NULL if unknown mode. */
-#ifdef CONFIG_ATH_DEBUG
+#ifdef CPTCFG_ATH_DEBUG
 const char *ath_opmode_to_string(enum nl80211_iftype opmode);
 #else
 static inline const char *ath_opmode_to_string(enum nl80211_iftype opmode)

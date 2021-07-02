@@ -46,9 +46,9 @@
 /* Debug definitions.
  * Debug output has to be enabled during compile time.
  */
-#ifdef CONFIG_RT2X00_DEBUG
+#ifdef CPTCFG_RT2X00_DEBUG
 #define DEBUG
-#endif /* CONFIG_RT2X00_DEBUG */
+#endif /* CPTCFG_RT2X00_DEBUG */
 
 /* Utility printing macros
  * rt2x00_probe_err is for messages when rt2x00_dev is uninitialized
@@ -647,9 +647,9 @@ struct rt2x00_ops {
 	const struct rt2x00lib_ops *lib;
 	const void *drv;
 	const struct ieee80211_ops *hw;
-#ifdef CONFIG_RT2X00_LIB_DEBUGFS
+#ifdef CPTCFG_RT2X00_LIB_DEBUGFS
 	const struct rt2x00debug *debugfs;
-#endif /* CONFIG_RT2X00_LIB_DEBUGFS */
+#endif /* CPTCFG_RT2X00_LIB_DEBUGFS */
 };
 
 /*
@@ -769,20 +769,20 @@ struct rt2x00_dev {
 	 * If enabled, the debugfs interface structures
 	 * required for deregistration of debugfs.
 	 */
-#ifdef CONFIG_RT2X00_LIB_DEBUGFS
+#ifdef CPTCFG_RT2X00_LIB_DEBUGFS
 	struct rt2x00debug_intf *debugfs_intf;
-#endif /* CONFIG_RT2X00_LIB_DEBUGFS */
+#endif /* CPTCFG_RT2X00_LIB_DEBUGFS */
 
 	/*
 	 * LED structure for changing the LED status
 	 * by mac8011 or the kernel.
 	 */
-#ifdef CONFIG_RT2X00_LIB_LEDS
+#ifdef CPTCFG_RT2X00_LIB_LEDS
 	struct rt2x00_led led_radio;
 	struct rt2x00_led led_assoc;
 	struct rt2x00_led led_qual;
 	u16 led_mcu_reg;
-#endif /* CONFIG_RT2X00_LIB_LEDS */
+#endif /* CPTCFG_RT2X00_LIB_LEDS */
 
 	/*
 	 * Device state flags.
@@ -1409,7 +1409,7 @@ void rt2x00queue_flush_queues(struct rt2x00_dev *rt2x00dev, bool drop);
  * @type: The type of frame that is being dumped.
  * @entry: The queue entry containing the frame to be dumped.
  */
-#ifdef CONFIG_RT2X00_LIB_DEBUGFS
+#ifdef CPTCFG_RT2X00_LIB_DEBUGFS
 void rt2x00debug_dump_frame(struct rt2x00_dev *rt2x00dev,
 			    enum rt2x00_dump_type type, struct queue_entry *entry);
 #else
@@ -1418,7 +1418,7 @@ static inline void rt2x00debug_dump_frame(struct rt2x00_dev *rt2x00dev,
 					  struct queue_entry *entry)
 {
 }
-#endif /* CONFIG_RT2X00_LIB_DEBUGFS */
+#endif /* CPTCFG_RT2X00_LIB_DEBUGFS */
 
 /*
  * Utility functions.
@@ -1462,13 +1462,13 @@ void rt2x00mac_configure_filter(struct ieee80211_hw *hw,
 				u64 multicast);
 int rt2x00mac_set_tim(struct ieee80211_hw *hw, struct ieee80211_sta *sta,
 		      bool set);
-#ifdef CONFIG_RT2X00_LIB_CRYPTO
+#ifdef CPTCFG_RT2X00_LIB_CRYPTO
 int rt2x00mac_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
 		      struct ieee80211_vif *vif, struct ieee80211_sta *sta,
 		      struct ieee80211_key_conf *key);
 #else
 #define rt2x00mac_set_key	NULL
-#endif /* CONFIG_RT2X00_LIB_CRYPTO */
+#endif /* CPTCFG_RT2X00_LIB_CRYPTO */
 void rt2x00mac_sw_scan_start(struct ieee80211_hw *hw,
 			     struct ieee80211_vif *vif,
 			     const u8 *mac_addr);

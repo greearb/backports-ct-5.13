@@ -203,7 +203,7 @@ void free_libipw(struct net_device *dev, int monitor)
 }
 EXPORT_SYMBOL(free_libipw);
 
-#ifdef CONFIG_LIBIPW_DEBUG
+#ifdef CPTCFG_LIBIPW_DEBUG
 
 static int debug = 0;
 u32 libipw_debug_level = 0;
@@ -247,11 +247,11 @@ static const struct proc_ops debug_level_proc_ops = {
 	.proc_release	= single_release,
 	.proc_write	= debug_level_proc_write,
 };
-#endif				/* CONFIG_LIBIPW_DEBUG */
+#endif				/* CPTCFG_LIBIPW_DEBUG */
 
 static int __init libipw_init(void)
 {
-#ifdef CONFIG_LIBIPW_DEBUG
+#ifdef CPTCFG_LIBIPW_DEBUG
 	struct proc_dir_entry *e;
 
 	libipw_debug_level = debug;
@@ -268,7 +268,7 @@ static int __init libipw_init(void)
 		libipw_proc = NULL;
 		return -EIO;
 	}
-#endif				/* CONFIG_LIBIPW_DEBUG */
+#endif				/* CPTCFG_LIBIPW_DEBUG */
 
 	printk(KERN_INFO DRV_NAME ": " DRV_DESCRIPTION ", " DRV_VERSION "\n");
 	printk(KERN_INFO DRV_NAME ": " DRV_COPYRIGHT "\n");
@@ -278,20 +278,20 @@ static int __init libipw_init(void)
 
 static void __exit libipw_exit(void)
 {
-#ifdef CONFIG_LIBIPW_DEBUG
+#ifdef CPTCFG_LIBIPW_DEBUG
 	if (libipw_proc) {
 		remove_proc_entry("debug_level", libipw_proc);
 		remove_proc_entry(DRV_PROCNAME, init_net.proc_net);
 		libipw_proc = NULL;
 	}
-#endif				/* CONFIG_LIBIPW_DEBUG */
+#endif				/* CPTCFG_LIBIPW_DEBUG */
 }
 
-#ifdef CONFIG_LIBIPW_DEBUG
+#ifdef CPTCFG_LIBIPW_DEBUG
 #include <linux/moduleparam.h>
 module_param(debug, int, 0444);
 MODULE_PARM_DESC(debug, "debug output mask");
-#endif				/* CONFIG_LIBIPW_DEBUG */
+#endif				/* CPTCFG_LIBIPW_DEBUG */
 
 module_exit(libipw_exit);
 module_init(libipw_init);

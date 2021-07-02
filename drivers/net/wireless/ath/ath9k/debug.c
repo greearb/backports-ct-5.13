@@ -81,7 +81,7 @@ static int ath9k_debugfs_release_buf(struct inode *inode, struct file *file)
 	return 0;
 }
 
-#ifdef CONFIG_ATH_DEBUG
+#ifdef CPTCFG_ATH_DEBUG
 
 static ssize_t read_file_debug(struct file *file, char __user *user_buf,
 			     size_t count, loff_t *ppos)
@@ -225,7 +225,7 @@ static const struct file_operations fops_ani = {
 	.llseek = default_llseek,
 };
 
-#ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
+#ifdef CPTCFG_ATH9K_BTCOEX_SUPPORT
 
 static ssize_t read_file_bt_ant_diversity(struct file *file,
 					  char __user *user_buf,
@@ -990,7 +990,7 @@ static int read_file_dump_nfcal(struct seq_file *file, void *data)
 	return 0;
 }
 
-#ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
+#ifdef CPTCFG_ATH9K_BTCOEX_SUPPORT
 static ssize_t read_file_btcoex(struct file *file, char __user *user_buf,
 				size_t count, loff_t *ppos)
 {
@@ -1025,7 +1025,7 @@ static const struct file_operations fops_btcoex = {
 };
 #endif
 
-#ifdef CONFIG_ATH9K_DYNACK
+#ifdef CPTCFG_ATH9K_DYNACK
 static ssize_t read_file_ackto(struct file *file, char __user *user_buf,
 			       size_t count, loff_t *ppos)
 {
@@ -1048,7 +1048,7 @@ static const struct file_operations fops_ackto = {
 };
 #endif
 
-#ifdef CONFIG_ATH9K_WOW
+#ifdef CPTCFG_ATH9K_WOW
 
 static ssize_t read_file_wow(struct file *file, char __user *user_buf,
 			     size_t count, loff_t *ppos)
@@ -1464,7 +1464,7 @@ int ath9k_init_debug(struct ath_hw *ah)
 	if (!sc->debug.debugfs_phy)
 		return -ENOMEM;
 
-#ifdef CONFIG_ATH_DEBUG
+#ifdef CPTCFG_ATH_DEBUG
 	debugfs_create_file("debug", 0600, sc->debug.debugfs_phy,
 			    sc, &fops_debug);
 #endif
@@ -1523,18 +1523,18 @@ int ath9k_init_debug(struct ath_hw *ah)
 			   sc->debug.debugfs_phy, &sc->sc_ah->gpio_val);
 	debugfs_create_file("antenna_diversity", 0400,
 			    sc->debug.debugfs_phy, sc, &fops_antenna_diversity);
-#ifdef CONFIG_ATH9K_BTCOEX_SUPPORT
+#ifdef CPTCFG_ATH9K_BTCOEX_SUPPORT
 	debugfs_create_file("bt_ant_diversity", 0600,
 			    sc->debug.debugfs_phy, sc, &fops_bt_ant_diversity);
 	debugfs_create_file("btcoex", 0400, sc->debug.debugfs_phy, sc,
 			    &fops_btcoex);
 #endif
 
-#ifdef CONFIG_ATH9K_WOW
+#ifdef CPTCFG_ATH9K_WOW
 	debugfs_create_file("wow", 0600, sc->debug.debugfs_phy, sc, &fops_wow);
 #endif
 
-#ifdef CONFIG_ATH9K_DYNACK
+#ifdef CPTCFG_ATH9K_DYNACK
 	debugfs_create_file("ack_to", 0400, sc->debug.debugfs_phy,
 			    sc, &fops_ackto);
 #endif

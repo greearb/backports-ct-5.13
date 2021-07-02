@@ -63,7 +63,7 @@ ath11k_reg_notifier(struct wiphy *wiphy, struct regulatory_request *request)
 		return;
 	}
 
-	if (!IS_ENABLED(CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS)) {
+	if (!IS_ENABLED(CPTCFG_ATH_REG_DYNAMIC_USER_REG_HINTS)) {
 		ath11k_dbg(ar->ab, ATH11K_DBG_REG,
 			   "Country Setting is not allowed\n");
 		return;

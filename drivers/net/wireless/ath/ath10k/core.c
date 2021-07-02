@@ -3382,7 +3382,7 @@ static int ath10k_core_copy_target_iram(struct ath10k *ar)
 /* Get noise floor of chain-1, ie for mgmt frames over wmi */
 int ath10k_get_noisefloor(int chain, struct ath10k *ar)
 {
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	struct ath10k_pdev_ext_stats_ct *pes = &ar->debug.pdev_ext_stats;
 	s32* nfa = &(pes->chan_nf_0);
 	if (nfa[chain] != 0x80) {

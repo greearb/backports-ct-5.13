@@ -14,7 +14,7 @@
 #include "debug.h"
 #include "hw.h"
 
-#if ((defined CONFIG_DEV_COREDUMP) || defined (CONFIG_ATH10K_DEBUGFS))
+#if ((defined CONFIG_DEV_COREDUMP) || defined (CPTCFG_ATH10K_DEBUGFS))
 
 static const struct ath10k_mem_section qca6174_hw21_register_sections[] = {
 	{0x800, 0x810},
@@ -1491,7 +1491,7 @@ static struct ath10k_dump_file_data *ath10k_coredump_build(struct ath10k *ar)
 	struct ath10k_ce_crash_hdr *ce_hdr;
 	struct ath10k_dump_file_data *dump_data;
 	struct ath10k_tlv_dump_data *dump_tlv;
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	struct ath10k_dbglog_entry_storage_user *dbglog_storage;
 #endif
 	size_t hdr_len = sizeof(*dump_data);
@@ -1514,7 +1514,7 @@ static struct ath10k_dump_file_data *ath10k_coredump_build(struct ath10k *ar)
 	if (test_bit(ATH10K_FW_CRASH_DUMP_RAM_DATA, &ath10k_coredump_mask))
 		len += sizeof(*dump_tlv) + crash_data->ramdump_buf_len;
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	len += sizeof(*dump_tlv) + sizeof(ar->debug.dbglog_entry_data);
 #endif
 	len += sizeof(*dump_tlv) + sizeof(crash_data->stack_buf);
@@ -1612,7 +1612,7 @@ static struct ath10k_dump_file_data *ath10k_coredump_build(struct ath10k *ar)
 		}
 	}
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	/* Gather dbg-log */
 	tmp = sizeof(ar->debug.dbglog_entry_data);
 	dump_tlv = (struct ath10k_tlv_dump_data *)(buf + sofar);
@@ -1688,7 +1688,7 @@ int ath10k_coredump_submit(struct ath10k *ar)
 		return -ENODATA;
 	}
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 #ifdef CONFIG_DEV_COREDUMP
 	if (ar->coredump.dump)
 		vfree(ar->coredump.dump); /* guess nothing read the last one, clean it up. */

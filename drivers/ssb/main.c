@@ -52,7 +52,7 @@ static void ssb_buses_lock(void);
 static void ssb_buses_unlock(void);
 
 
-#ifdef CONFIG_SSB_PCIHOST
+#ifdef CPTCFG_SSB_PCIHOST
 struct ssb_bus *ssb_pci_dev_to_bus(struct pci_dev *pdev)
 {
 	struct ssb_bus *bus;
@@ -69,9 +69,9 @@ found:
 
 	return bus;
 }
-#endif /* CONFIG_SSB_PCIHOST */
+#endif /* CPTCFG_SSB_PCIHOST */
 
-#ifdef CONFIG_SSB_PCMCIAHOST
+#ifdef CPTCFG_SSB_PCMCIAHOST
 struct ssb_bus *ssb_pcmcia_dev_to_bus(struct pcmcia_device *pdev)
 {
 	struct ssb_bus *bus;
@@ -88,7 +88,7 @@ found:
 
 	return bus;
 }
-#endif /* CONFIG_SSB_PCMCIAHOST */
+#endif /* CPTCFG_SSB_PCMCIAHOST */
 
 int ssb_for_each_bus_call(unsigned long data,
 			  int (*func)(struct ssb_bus *bus, unsigned long data))
@@ -163,7 +163,7 @@ int ssb_bus_resume(struct ssb_bus *bus)
 	/* Reset HW state information in memory, so that HW is
 	 * completely reinitialized. */
 	bus->mapped_device = NULL;
-#ifdef CONFIG_SSB_DRIVER_PCICORE
+#ifdef CPTCFG_SSB_DRIVER_PCICORE
 	bus->pcicore.setup_done = 0;
 #endif
 
@@ -191,7 +191,7 @@ int ssb_bus_suspend(struct ssb_bus *bus)
 }
 EXPORT_SYMBOL(ssb_bus_suspend);
 
-#ifdef CONFIG_SSB_SPROM
+#ifdef CPTCFG_SSB_SPROM
 /** ssb_devices_freeze - Freeze all devices on the bus.
  *
  * After freezing no device driver will be handling a device
@@ -266,7 +266,7 @@ int ssb_devices_thaw(struct ssb_freeze_context *ctx)
 
 	return result;
 }
-#endif /* CONFIG_SSB_SPROM */
+#endif /* CPTCFG_SSB_SPROM */
 
 static void ssb_device_shutdown(struct device *dev)
 {
@@ -430,7 +430,7 @@ static void ssb_devices_unregister(struct ssb_bus *bus)
 			device_unregister(sdev->dev);
 	}
 
-#ifdef CONFIG_SSB_EMBEDDED
+#ifdef CPTCFG_SSB_EMBEDDED
 	if (bus->bustype == SSB_BUSTYPE_SSB)
 		platform_device_unregister(bus->watchdog);
 #endif
@@ -503,20 +503,20 @@ static int ssb_devices_register(struct ssb_bus *bus)
 
 		switch (bus->bustype) {
 		case SSB_BUSTYPE_PCI:
-#ifdef CONFIG_SSB_PCIHOST
+#ifdef CPTCFG_SSB_PCIHOST
 			sdev->irq = bus->host_pci->irq;
 			dev->parent = &bus->host_pci->dev;
 			sdev->dma_dev = dev->parent;
 #endif
 			break;
 		case SSB_BUSTYPE_PCMCIA:
-#ifdef CONFIG_SSB_PCMCIAHOST
+#ifdef CPTCFG_SSB_PCMCIAHOST
 			sdev->irq = bus->host_pcmcia->irq;
 			dev->parent = &bus->host_pcmcia->dev;
 #endif
 			break;
 		case SSB_BUSTYPE_SDIO:
-#ifdef CONFIG_SSB_SDIOHOST
+#ifdef CPTCFG_SSB_SDIOHOST
 			dev->parent = &bus->host_sdio->dev;
 #endif
 			break;
@@ -539,7 +539,7 @@ static int ssb_devices_register(struct ssb_bus *bus)
 		dev_idx++;
 	}
 
-#ifdef CONFIG_SSB_DRIVER_MIPS
+#ifdef CPTCFG_SSB_DRIVER_MIPS
 	if (bus->mipscore.pflash.present) {
 		err = platform_device_register(&ssb_pflash_dev);
 		if (err)
@@ -547,7 +547,7 @@ static int ssb_devices_register(struct ssb_bus *bus)
 	}
 #endif
 
-#ifdef CONFIG_SSB_SFLASH
+#ifdef CPTCFG_SSB_SFLASH
 	if (bus->mipscore.sflash.present) {
 		err = platform_device_register(&ssb_sflash_dev);
 		if (err)
@@ -632,7 +632,7 @@ ssb_bus_register(struct ssb_bus *bus,
 
 	spin_lock_init(&bus->bar_lock);
 	INIT_LIST_HEAD(&bus->list);
-#ifdef CONFIG_SSB_EMBEDDED
+#ifdef CPTCFG_SSB_EMBEDDED
 	spin_lock_init(&bus->gpio_lock);
 #endif
 
@@ -707,7 +707,7 @@ err_disable_xtal:
 	return err;
 }
 
-#ifdef CONFIG_SSB_PCIHOST
+#ifdef CPTCFG_SSB_PCIHOST
 int ssb_bus_pcibus_register(struct ssb_bus *bus, struct pci_dev *host_pci)
 {
 	int err;
@@ -729,9 +729,9 @@ int ssb_bus_pcibus_register(struct ssb_bus *bus, struct pci_dev *host_pci)
 
 	return err;
 }
-#endif /* CONFIG_SSB_PCIHOST */
+#endif /* CPTCFG_SSB_PCIHOST */
 
-#ifdef CONFIG_SSB_PCMCIAHOST
+#ifdef CPTCFG_SSB_PCMCIAHOST
 int ssb_bus_pcmciabus_register(struct ssb_bus *bus,
 			       struct pcmcia_device *pcmcia_dev,
 			       unsigned long baseaddr)
@@ -751,9 +751,9 @@ int ssb_bus_pcmciabus_register(struct ssb_bus *bus,
 
 	return err;
 }
-#endif /* CONFIG_SSB_PCMCIAHOST */
+#endif /* CPTCFG_SSB_PCMCIAHOST */
 
-#ifdef CONFIG_SSB_SDIOHOST
+#ifdef CPTCFG_SSB_SDIOHOST
 int ssb_bus_sdiobus_register(struct ssb_bus *bus, struct sdio_func *func,
 			     unsigned int quirks)
 {
@@ -774,9 +774,9 @@ int ssb_bus_sdiobus_register(struct ssb_bus *bus, struct sdio_func *func,
 	return err;
 }
 EXPORT_SYMBOL(ssb_bus_sdiobus_register);
-#endif /* CONFIG_SSB_PCMCIAHOST */
+#endif /* CPTCFG_SSB_PCMCIAHOST */
 
-#ifdef CONFIG_SSB_HOST_SOC
+#ifdef CPTCFG_SSB_HOST_SOC
 int ssb_bus_host_soc_register(struct ssb_bus *bus, unsigned long baseaddr)
 {
 	int err;
@@ -1211,7 +1211,7 @@ EXPORT_SYMBOL(ssb_bus_powerup);
 static void ssb_broadcast_value(struct ssb_device *dev,
 				u32 address, u32 data)
 {
-#ifdef CONFIG_SSB_DRIVER_PCICORE
+#ifdef CPTCFG_SSB_DRIVER_PCICORE
 	/* This is used for both, PCI and ChipCommon core, so be careful. */
 	BUILD_BUG_ON(SSB_PCICORE_BCAST_ADDR != SSB_CHIPCO_BCAST_ADDR);
 	BUILD_BUG_ON(SSB_PCICORE_BCAST_DATA != SSB_CHIPCO_BCAST_DATA);
@@ -1227,7 +1227,7 @@ void ssb_commit_settings(struct ssb_bus *bus)
 {
 	struct ssb_device *dev;
 
-#ifdef CONFIG_SSB_DRIVER_PCICORE
+#ifdef CPTCFG_SSB_DRIVER_PCICORE
 	dev = bus->chipco.dev ? bus->chipco.dev : bus->pcicore.dev;
 #else
 	dev = bus->chipco.dev;

@@ -44,7 +44,7 @@
 					BIT_DMA_PSEUDO_CAUSE_TX | \
 					BIT_DMA_PSEUDO_CAUSE_MISC))
 
-#if defined(CONFIG_WIL6210_ISR_COR)
+#if defined(CPTCFG_WIL6210_ISR_COR)
 /* configure to Clear-On-Read mode */
 #define WIL_ICR_ICC_VALUE	(0xFFFFFFFFUL)
 #define WIL_ICR_ICC_MISC_VALUE	(0xF7FFFFFFUL)
@@ -52,7 +52,7 @@
 static inline void wil_icr_clear(u32 x, void __iomem *addr)
 {
 }
-#else /* defined(CONFIG_WIL6210_ISR_COR) */
+#else /* defined(CPTCFG_WIL6210_ISR_COR) */
 /* configure to Write-1-to-Clear mode */
 #define WIL_ICR_ICC_VALUE	(0UL)
 #define WIL_ICR_ICC_MISC_VALUE	(0UL)
@@ -61,7 +61,7 @@ static inline void wil_icr_clear(u32 x, void __iomem *addr)
 {
 	writel(x, addr);
 }
-#endif /* defined(CONFIG_WIL6210_ISR_COR) */
+#endif /* defined(CPTCFG_WIL6210_ISR_COR) */
 
 static inline u32 wil_ioread32_and_clear(void __iomem *addr)
 {

@@ -55,7 +55,7 @@ struct lbs_private {
 
 	/* Mesh */
 	struct net_device *mesh_dev; /* Virtual device */
-#ifdef CONFIG_LIBERTAS_MESH
+#ifdef CPTCFG_LIBERTAS_MESH
 	struct lbs_mesh_stats mstats;
 	uint16_t mesh_tlv;
 	u8 mesh_channel;

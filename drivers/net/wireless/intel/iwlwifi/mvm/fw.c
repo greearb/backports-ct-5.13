@@ -363,7 +363,7 @@ static int iwl_mvm_load_ucode_wait_alive(struct iwl_mvm *mvm,
 		BIT(IWL_MAX_TID_COUNT + 2);
 
 	set_bit(IWL_MVM_STATUS_FIRMWARE_RUNNING, &mvm->status);
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	iwl_fw_set_dbg_rec_on(&mvm->fwrt);
 #endif
 

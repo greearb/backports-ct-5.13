@@ -247,7 +247,7 @@ static void iwl_legacy_tt_handler(struct iwl_priv *priv, s32 temp, bool force)
 	struct iwl_tt_mgmt *tt = &priv->thermal_throttle;
 	enum iwl_tt_state old_state;
 
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 	if ((tt->tt_previous_temp) &&
 	    (temp > tt->tt_previous_temp) &&
 	    ((temp - tt->tt_previous_temp) >
@@ -268,7 +268,7 @@ static void iwl_legacy_tt_handler(struct iwl_priv *priv, s32 temp, bool force)
 	else
 		tt->state = IWL_TI_0;
 
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 	tt->tt_previous_temp = temp;
 #endif
 	/* stop ct_kill_waiting_tm timer */
@@ -371,7 +371,7 @@ static void iwl_advance_tt_handler(struct iwl_priv *priv, s32 temp, bool force)
 			((old_state * (IWL_TI_STATE_MAX - 1)) + i);
 		if (temp >= transaction->tt_low &&
 		    temp <= transaction->tt_high) {
-#ifdef CONFIG_IWLWIFI_DEBUG
+#ifdef CPTCFG_IWLWIFI_DEBUG
 			if ((tt->tt_previous_temp) &&
 			    (temp > tt->tt_previous_temp) &&
 			    ((temp - tt->tt_previous_temp) >

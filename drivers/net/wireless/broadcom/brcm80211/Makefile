@@ -6,8 +6,8 @@
 #
 
 # common flags
-subdir-ccflags-$(CONFIG_BRCMDBG)	+= -DDEBUG
+subdir-ccflags-$(CPTCFG_BRCMDBG)	+= -DDEBUG
 
-obj-$(CONFIG_BRCMUTIL)	+= brcmutil/
-obj-$(CONFIG_BRCMFMAC)	+= brcmfmac/
-obj-$(CONFIG_BRCMSMAC)	+= brcmsmac/
+obj-$(CPTCFG_BRCMUTIL)	+= brcmutil/
+obj-$(CPTCFG_BRCMFMAC)	+= brcmfmac/
+obj-$(CPTCFG_BRCMSMAC)	+= brcmsmac/

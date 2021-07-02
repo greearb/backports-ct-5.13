@@ -10,7 +10,7 @@
  * Thanks to Realtek for their support!
  */
 
-#ifdef CONFIG_RTL8187_LEDS
+#ifdef CPTCFG_RTL8187_LEDS
 
 #include <net/mac80211.h>
 #include <linux/usb.h>
@@ -238,5 +238,5 @@ void rtl8187_leds_exit(struct ieee80211_hw *dev)
 	cancel_delayed_work_sync(&priv->led_off);
 	cancel_delayed_work_sync(&priv->led_on);
 }
-#endif /* def CONFIG_RTL8187_LEDS */
+#endif /* def CPTCFG_RTL8187_LEDS */
 

@@ -798,7 +798,7 @@ out:
 	D_RATE("leave: %d\n", idx);
 }
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 
 static ssize_t
 il3945_sta_dbgfs_stats_table_read(struct file *file, char __user *user_buf,
@@ -869,7 +869,7 @@ static const struct rate_control_ops rs_ops = {
 	.free = il3945_rs_free,
 	.alloc_sta = il3945_rs_alloc_sta,
 	.free_sta = il3945_rs_free_sta,
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	.add_sta_debugfs = il3945_add_debugfs,
 #endif
 

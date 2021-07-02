@@ -274,7 +274,7 @@ void brcmf_bus_change_state(struct brcmf_bus *bus, enum brcmf_bus_state state);
 s32 brcmf_iovar_data_set(struct device *dev, char *name, void *data, u32 len);
 void brcmf_bus_add_txhdrlen(struct device *dev, uint len);
 
-#ifdef CONFIG_BRCMFMAC_SDIO
+#ifdef CPTCFG_BRCMFMAC_SDIO
 void brcmf_sdio_exit(void);
 int brcmf_sdio_register(void);
 #else
@@ -282,7 +282,7 @@ static inline void brcmf_sdio_exit(void) { }
 static inline int brcmf_sdio_register(void) { return 0; }
 #endif
 
-#ifdef CONFIG_BRCMFMAC_USB
+#ifdef CPTCFG_BRCMFMAC_USB
 void brcmf_usb_exit(void);
 int brcmf_usb_register(void);
 #else
@@ -290,7 +290,7 @@ static inline void brcmf_usb_exit(void) { }
 static inline int brcmf_usb_register(void) { return 0; }
 #endif
 
-#ifdef CONFIG_BRCMFMAC_PCIE
+#ifdef CPTCFG_BRCMFMAC_PCIE
 void brcmf_pcie_exit(void);
 int brcmf_pcie_register(void);
 #else

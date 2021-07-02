@@ -119,7 +119,7 @@ static const struct ieee80211_regdomain ath_world_regdom_67_68_6A_6C = {
 
 static bool dynamic_country_user_possible(struct ath_regulatory *reg)
 {
-	if (IS_ENABLED(CONFIG_ATH_REG_DYNAMIC_USER_CERT_TESTING))
+	if (IS_ENABLED(CPTCFG_ATH_REG_DYNAMIC_USER_CERT_TESTING))
 		return true;
 
 	switch (reg->country_code) {
@@ -191,7 +191,7 @@ static bool dynamic_country_user_possible(struct ath_regulatory *reg)
 
 static bool ath_reg_dyn_country_user_allow(struct ath_regulatory *reg)
 {
-	if (!IS_ENABLED(CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS))
+	if (!IS_ENABLED(CPTCFG_ATH_REG_DYNAMIC_USER_REG_HINTS))
 		return false;
 	if (!dynamic_country_user_possible(reg))
 		return false;

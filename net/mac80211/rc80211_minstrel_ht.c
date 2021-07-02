@@ -1110,7 +1110,7 @@ minstrel_ht_update_stats(struct minstrel_priv *mp, struct minstrel_ht_sta *mi)
 	minstrel_ht_prob_rate_reduce_streams(mi);
 	minstrel_ht_refill_sample_rates(mi);
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	/* use fixed index if set */
 	if (mp->fixed_rate_idx != -1) {
 		for (i = 0; i < 4; i++)
@@ -1504,7 +1504,7 @@ minstrel_ht_get_rate(void *priv, struct ieee80211_sta *sta, void *priv_sta,
 
 	info->flags |= mi->tx_flags;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	if (mp->fixed_rate_idx != -1)
 		return;
 #endif
@@ -1871,7 +1871,7 @@ minstrel_ht_alloc(struct ieee80211_hw *hw)
 	return mp;
 }
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 static void minstrel_ht_add_debugfs(struct ieee80211_hw *hw, void *priv,
 				    struct dentry *debugfsdir)
 {
@@ -1915,7 +1915,7 @@ static const struct rate_control_ops mac80211_minstrel_ht = {
 	.free_sta = minstrel_ht_free_sta,
 	.alloc = minstrel_ht_alloc,
 	.free = minstrel_ht_free,
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	.add_debugfs = minstrel_ht_add_debugfs,
 	.add_sta_debugfs = minstrel_ht_add_sta_debugfs,
 #endif

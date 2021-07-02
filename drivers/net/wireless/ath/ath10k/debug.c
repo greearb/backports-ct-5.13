@@ -58,11 +58,11 @@ void ath10k_debug_print_hwfw_info(struct ath10k *ar)
 		    ar->id.subsystem_vendor, ar->id.subsystem_device);
 
 	ath10k_info(ar, "kconfig debug %d debugfs %d tracing %d dfs %d testmode %d\n",
-		    IS_ENABLED(CONFIG_ATH10K_DEBUG),
-		    IS_ENABLED(CONFIG_ATH10K_DEBUGFS),
-		    IS_ENABLED(CONFIG_ATH10K_TRACING),
-		    IS_ENABLED(CONFIG_ATH10K_DFS_CERTIFIED),
-		    IS_ENABLED(CONFIG_NL80211_TESTMODE));
+		    IS_ENABLED(CPTCFG_ATH10K_DEBUG),
+		    IS_ENABLED(CPTCFG_ATH10K_DEBUGFS),
+		    IS_ENABLED(CPTCFG_ATH10K_TRACING),
+		    IS_ENABLED(CPTCFG_ATH10K_DFS_CERTIFIED),
+		    IS_ENABLED(CPTCFG_NL80211_TESTMODE));
 
 	firmware = ar->normal_mode_fw.fw_file.firmware;
 	if (firmware)
@@ -156,7 +156,7 @@ void ath10k_warn(struct ath10k *ar, const char *fmt, ...)
 }
 EXPORT_SYMBOL(ath10k_warn);
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 
 static ssize_t ath10k_read_wmi_services(struct file *file,
 					char __user *user_buf,
@@ -4504,7 +4504,7 @@ int ath10k_debug_register(struct ath10k *ar)
 	debugfs_create_file("ani_enable", 0600, ar->debug.debugfs_phy, ar,
 			    &fops_ani_enable);
 
-	if (IS_ENABLED(CONFIG_ATH10K_DFS_CERTIFIED)) {
+	if (IS_ENABLED(CPTCFG_ATH10K_DFS_CERTIFIED)) {
 		debugfs_create_file("dfs_simulate_radar", 0200, ar->debug.debugfs_phy,
 				    ar, &fops_simulate_radar);
 
@@ -4556,7 +4556,7 @@ int ath10k_debug_register(struct ath10k *ar)
 	debugfs_create_file("fw_checksums", 0400, ar->debug.debugfs_phy, ar,
 			    &fops_fw_checksums);
 
-	if (IS_ENABLED(CONFIG_MAC80211_DEBUGFS))
+	if (IS_ENABLED(CPTCFG_MAC80211_DEBUGFS))
 		debugfs_create_file("sta_tid_stats_mask", 0600,
 				    ar->debug.debugfs_phy,
 				    ar, &fops_sta_tid_stats_mask);
@@ -4586,9 +4586,9 @@ void ath10k_debug_unregister(struct ath10k *ar)
 	cancel_delayed_work_sync(&ar->debug.htt_stats_dwork);
 }
 
-#endif /* CONFIG_ATH10K_DEBUGFS */
+#endif /* CPTCFG_ATH10K_DEBUGFS */
 
-#ifdef CONFIG_ATH10K_DEBUG
+#ifdef CPTCFG_ATH10K_DEBUG
 void __ath10k_dbg(struct ath10k *ar, enum ath10k_debug_mask mask,
 		  const char *fmt, ...)
 {
@@ -4642,7 +4642,7 @@ void ath10k_dbg_dump(struct ath10k *ar,
 }
 EXPORT_SYMBOL(ath10k_dbg_dump);
 
-#endif /* CONFIG_ATH10K_DEBUG */
+#endif /* CPTCFG_ATH10K_DEBUG */
 
 void ath10k_dbg_print_fw_dbg_buffer(struct ath10k *ar, __le32 *ibuf, int len,
 				    const char* lvl)

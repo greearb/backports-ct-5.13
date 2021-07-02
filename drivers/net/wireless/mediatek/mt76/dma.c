@@ -419,7 +419,7 @@ unmap:
 				 tx_info.buf[n].len, DMA_TO_DEVICE);
 
 free:
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	/* fix tx_done accounting on queue overflow */
 	if (mt76_is_testmode_skb(dev, skb, &hw)) {
 		struct mt76_phy *phy = hw->priv;

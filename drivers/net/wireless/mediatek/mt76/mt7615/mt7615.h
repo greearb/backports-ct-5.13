@@ -180,7 +180,7 @@ struct mt7615_phy {
 	wait_queue_head_t roc_wait;
 	bool roc_grant;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	struct {
 		u32 *reg_backup;
 
@@ -350,7 +350,7 @@ extern struct pci_driver mt7615_pci_driver;
 extern struct platform_driver mt7622_wmac_driver;
 extern const struct mt76_testmode_ops mt7615_testmode_ops;
 
-#ifdef CONFIG_MT7622_WMAC
+#ifdef CPTCFG_MT7622_WMAC
 int mt7622_wmac_init(struct mt7615_dev *dev);
 #else
 static inline int mt7622_wmac_init(struct mt7615_dev *dev)
@@ -399,7 +399,7 @@ int mt7615_mcu_fw_log_2_host(struct mt7615_dev *dev, u8 ctrl);
 
 static inline bool is_mt7622(struct mt76_dev *dev)
 {
-	if (!IS_ENABLED(CONFIG_MT7622_WMAC))
+	if (!IS_ENABLED(CPTCFG_MT7622_WMAC))
 		return false;
 
 	return mt76_chip(dev) == 0x7622;

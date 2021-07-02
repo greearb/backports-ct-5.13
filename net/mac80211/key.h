@@ -120,7 +120,7 @@ struct ieee80211_key {
 		} gen;
 	} u;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	struct {
 		struct dentry *stalink;
 		struct dentry *dir;

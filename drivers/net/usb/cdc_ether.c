@@ -19,7 +19,7 @@
 #include <linux/usb/usbnet.h>
 
 
-#if IS_ENABLED(CONFIG_USB_NET_RNDIS_HOST)
+#if IS_ENABLED(CPTCFG_USB_NET_RNDIS_HOST)
 
 static int is_rndis(struct usb_interface_descriptor *desc)
 {
@@ -757,7 +757,7 @@ static const struct usb_device_id	products[] = {
 	.driver_info = 0,
 },
 
-#if IS_ENABLED(CONFIG_USB_RTL8152)
+#if IS_ENABLED(CPTCFG_USB_RTL8152)
 /* Linksys USB3GIGV1 Ethernet Adapter */
 {
 	USB_DEVICE_AND_INTERFACE_INFO(LINKSYS_VENDOR_ID, 0x0041, USB_CLASS_COMM,

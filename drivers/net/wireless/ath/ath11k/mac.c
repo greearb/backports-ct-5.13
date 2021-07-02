@@ -6193,7 +6193,7 @@ static const struct ieee80211_ops ath11k_ops = {
 	.flush				= ath11k_mac_op_flush,
 	.sta_statistics			= ath11k_mac_op_sta_statistics,
 	CFG80211_TESTMODE_CMD(ath11k_tm_cmd)
-#ifdef CONFIG_ATH11K_DEBUGFS
+#ifdef CPTCFG_ATH11K_DEBUGFS
 	.sta_add_debugfs		= ath11k_debugfs_sta_op_add,
 #endif
 };
@@ -6348,7 +6348,7 @@ static int ath11k_mac_setup_iface_combinations(struct ath11k *ar)
 	limits[1].max = 16;
 	limits[1].types |= BIT(NL80211_IFTYPE_AP);
 
-	if (IS_ENABLED(CONFIG_MAC80211_MESH) &&
+	if (IS_ENABLED(CPTCFG_MAC80211_MESH) &&
 	    ab->hw_params.interface_modes & BIT(NL80211_IFTYPE_MESH_POINT))
 		limits[1].types |= BIT(NL80211_IFTYPE_MESH_POINT);
 

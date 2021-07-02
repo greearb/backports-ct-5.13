@@ -12,7 +12,7 @@
 #include "host.h"
 #include "dev.h"
 
-#ifdef CONFIG_LIBERTAS_MESH
+#ifdef CPTCFG_LIBERTAS_MESH
 
 struct net_device;
 

@@ -856,7 +856,7 @@ static void dynamic_chk_wk_hdl(struct adapter *padapter, u8 *pbuf, int sz)
 	padapter = (struct adapter *)pbuf;
 	pmlmepriv = &padapter->mlmepriv;
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE))
 		expire_timeout_chk(padapter);
 #endif
@@ -1049,7 +1049,7 @@ u8 rtw_ps_cmd(struct adapter *padapter)
 	return rtw_enqueue_cmd(pcmdpriv, ppscmd);
 }
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 static void rtw_chk_hi_queue_hdl(struct adapter *padapter)
 {
@@ -1145,11 +1145,11 @@ u8 rtw_drvextra_cmd_hdl(struct adapter *padapter, unsigned char *pbuf)
 	case ANT_SELECT_WK_CID:
 		antenna_select_wk_hdl(padapter, pdrvextra_cmd->type_size);
 		break;
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	case CHECK_HIQ_WK_CID:
 		rtw_chk_hi_queue_hdl(padapter);
 		break;
-#endif /* CONFIG_88EU_AP_MODE */
+#endif /* CPTCFG_88EU_AP_MODE */
 	default:
 		break;
 	}

@@ -604,7 +604,7 @@ struct ath10k_sta {
 	struct ath10k_htt_tx_stats *tx_stats;
 	u32 ucast_cipher;
 
-#ifdef CONFIG_MAC80211_DEBUGFS
+#ifdef CPTCFG_MAC80211_DEBUGFS
 	/* protected by conf_mutex */
 	bool aggr_mode;
 
@@ -1537,7 +1537,7 @@ struct ath10k {
 	u32 last_wmi_jiffies[4];
 	u32 last_wmi_cmd_idx;
 
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 	struct ath10k_debug debug;
 	struct {
 		/* relay(fs) channel for spectral scan */
@@ -1554,7 +1554,7 @@ struct ath10k {
 
 	u32 pktlog_filter;
 
-#if ((defined CONFIG_DEV_COREDUMP) || defined (CONFIG_ATH10K_DEBUGFS))
+#if ((defined CONFIG_DEV_COREDUMP) || defined (CPTCFG_ATH10K_DEBUGFS))
 	struct {
 		struct ath10k_fw_crash_data *fw_crash_data;
 		struct ath10k_dump_file_data* dump; /* for debugfs */

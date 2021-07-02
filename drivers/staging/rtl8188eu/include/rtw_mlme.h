@@ -159,7 +159,7 @@ struct mlme_priv {
 	u8 *assoc_rsp;
 	u32 assoc_rsp_len;
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	/* Number of associated Non-ERP stations (i.e., stations using 802.11b
 	 * in 802.11g BSS)
 	 */
@@ -198,10 +198,10 @@ struct mlme_priv {
 
 	spinlock_t bcn_update_lock;
 	u8		update_bcn;
-#endif /* if defined (CONFIG_88EU_AP_MODE) */
+#endif /* if defined (CPTCFG_88EU_AP_MODE) */
 };
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 struct hostapd_priv {
 	struct adapter *padapter;

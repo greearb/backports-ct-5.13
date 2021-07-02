@@ -212,7 +212,7 @@ void __mt76_tx_complete_skb(struct mt76_dev *dev, u16 wcid_idx, struct sk_buff *
 
 	mt76_tx_check_non_aql(dev, wcid, skb);
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	if (mt76_is_testmode_skb(dev, skb, &hw)) {
 		struct mt76_phy *phy = hw->priv;
 
@@ -560,7 +560,7 @@ void mt76_tx_worker_run(struct mt76_dev *dev)
 	if (dev->phy2)
 		mt76_txq_schedule_all(dev->phy2);
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	if (dev->phy.test.tx_pending)
 		mt76_testmode_tx_pending(&dev->phy);
 	if (dev->phy2 && dev->phy2->test.tx_pending)

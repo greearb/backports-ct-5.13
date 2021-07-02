@@ -568,7 +568,7 @@ struct il3945_tfd {
 	u8 __pad[28];
 } __packed;
 
-#ifdef CONFIG_IWLEGACY_DEBUGFS
+#ifdef CPTCFG_IWLEGACY_DEBUGFS
 extern const struct il_debugfs_ops il3945_debugfs_ops;
 #endif
 

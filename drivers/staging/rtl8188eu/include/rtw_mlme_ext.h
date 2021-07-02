@@ -422,7 +422,7 @@ struct mlme_ext_priv {
 
 	u64 TSFValue;
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	unsigned char bstart_bss;
 #endif
 	u8 update_channel_plan_by_ap_done;

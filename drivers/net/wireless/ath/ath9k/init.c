@@ -72,13 +72,13 @@ module_param_named(override_eeprom_regdomain,
 		   modparam_override_eeprom_regdomain, int, 0444);
 MODULE_PARM_DESC(override_eeprom_regdomain, "Override regdomain hardcoded in EEPROM with this value (DANGEROUS).");
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 
 int ath9k_use_chanctx;
 module_param_named(use_chanctx, ath9k_use_chanctx, int, 0444);
 MODULE_PARM_DESC(use_chanctx, "Enable channel context for concurrency");
 
-#endif /* CONFIG_ATH9K_CHANNEL_CONTEXT */
+#endif /* CPTCFG_ATH9K_CHANNEL_CONTEXT */
 
 int ath9k_use_msi;
 module_param_named(use_msi, ath9k_use_msi, int, 0444);
@@ -86,7 +86,7 @@ MODULE_PARM_DESC(use_msi, "Use MSI instead of INTx if possible");
 
 bool is_ath9k_unloaded;
 
-#ifdef CONFIG_MAC80211_LEDS
+#ifdef CPTCFG_MAC80211_LEDS
 static const struct ieee80211_tpt_blink ath9k_tpt_blink[] = {
 	{ .throughput = 0 * 1024, .blink_time = 334 },
 	{ .throughput = 1 * 1024, .blink_time = 260 },
@@ -456,7 +456,7 @@ static void ath9k_init_pcoem_platform(struct ath_softc *sc)
 	struct ath9k_hw_capabilities *pCap = &ah->caps;
 	struct ath_common *common = ath9k_hw_common(ah);
 
-	if (!IS_ENABLED(CONFIG_ATH9K_PCOEM))
+	if (!IS_ENABLED(CPTCFG_ATH9K_PCOEM))
 		return;
 
 	if (common->bus_ops->ath_bus_type != ATH_PCI)
@@ -825,7 +825,7 @@ static void ath9k_init_txpower_limits(struct ath_softc *sc)
 static const struct ieee80211_iface_limit if_limits[] = {
 	{ .max = 2048,	.types = BIT(NL80211_IFTYPE_STATION) },
 	{ .max = 32,	.types =
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 				 BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 				 BIT(NL80211_IFTYPE_AP) },
@@ -834,7 +834,7 @@ static const struct ieee80211_iface_limit if_limits[] = {
 	{ .max = 1,     .types = BIT(NL80211_IFTYPE_ADHOC) },
 };
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 
 static const struct ieee80211_iface_limit if_limits_multi[] = {
 	{ .max = 2,	.types = BIT(NL80211_IFTYPE_STATION) |
@@ -855,7 +855,7 @@ static const struct ieee80211_iface_combination if_comb_multi[] = {
 	},
 };
 
-#endif /* CONFIG_ATH9K_CHANNEL_CONTEXT */
+#endif /* CPTCFG_ATH9K_CHANNEL_CONTEXT */
 
 static const struct ieee80211_iface_combination if_comb[] = {
 	{
@@ -864,7 +864,7 @@ static const struct ieee80211_iface_combination if_comb[] = {
 		.max_interfaces = 2048,
 		.num_different_channels = 1,
 		.beacon_int_infra_match = true,
-#ifdef CONFIG_ATH9K_DFS_CERTIFIED
+#ifdef CPTCFG_ATH9K_DFS_CERTIFIED
 		.radar_detect_widths =	BIT(NL80211_CHAN_WIDTH_20_NOHT) |
 					BIT(NL80211_CHAN_WIDTH_20) |
 					BIT(NL80211_CHAN_WIDTH_40),
@@ -872,7 +872,7 @@ static const struct ieee80211_iface_combination if_comb[] = {
 	},
 };
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 static void ath9k_set_mcc_capab(struct ath_softc *sc, struct ieee80211_hw *hw)
 {
 	struct ath_hw *ah = sc->sc_ah;
@@ -895,7 +895,7 @@ static void ath9k_set_mcc_capab(struct ath_softc *sc, struct ieee80211_hw *hw)
 
 	ath_dbg(common, CHAN_CTX, "Use channel contexts\n");
 }
-#endif /* CONFIG_ATH9K_CHANNEL_CONTEXT */
+#endif /* CPTCFG_ATH9K_CHANNEL_CONTEXT */
 
 static void ath9k_set_hw_capab(struct ath_softc *sc, struct ieee80211_hw *hw)
 {
@@ -942,7 +942,7 @@ static void ath9k_set_hw_capab(struct ath_softc *sc, struct ieee80211_hw *hw)
 			       NL80211_FEATURE_AP_MODE_CHAN_WIDTH_CHANGE |
 			       NL80211_FEATURE_P2P_GO_CTWIN;
 
-	if (!IS_ENABLED(CONFIG_ATH9K_TX99)) {
+	if (!IS_ENABLED(CPTCFG_ATH9K_TX99)) {
 		hw->wiphy->interface_modes =
 			BIT(NL80211_IFTYPE_P2P_GO) |
 			BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -995,7 +995,7 @@ static void ath9k_set_hw_capab(struct ath_softc *sc, struct ieee80211_hw *hw)
 		hw->wiphy->bands[NL80211_BAND_5GHZ] =
 			&common->sbands[NL80211_BAND_5GHZ];
 
-#ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
+#ifdef CPTCFG_ATH9K_CHANNEL_CONTEXT
 	ath9k_set_mcc_capab(sc, hw);
 #endif
 	ath9k_init_wow(hw);
@@ -1048,7 +1048,7 @@ int ath9k_init_device(u16 devid, struct ath_softc *sc,
 
 	ath9k_init_txpower_limits(sc);
 
-#ifdef CONFIG_MAC80211_LEDS
+#ifdef CPTCFG_MAC80211_LEDS
 	/* must be initialized before ieee80211_register_hw */
 	sc->led_cdev.default_trigger = ieee80211_create_tpt_led_trigger(sc->hw,
 		IEEE80211_TPT_LEDTRIG_FL_RADIO, ath9k_tpt_blink,

@@ -1053,7 +1053,7 @@ static int __iwl_mvm_suspend(struct ieee80211_hw *hw,
 	if (ret)
 		goto out;
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	if (mvm->d3_wake_sysassert)
 		d3_cfg_cmd_data.wakeup_flags |=
 			cpu_to_le32(IWL_WAKEUP_D3_CONFIG_FW_ERROR);
@@ -1073,7 +1073,7 @@ static int __iwl_mvm_suspend(struct ieee80211_hw *hw,
 	ret = iwl_mvm_send_cmd(mvm, &d3_cfg_cmd);
 	if (ret)
 		goto out;
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	len = iwl_rx_packet_payload_len(d3_cfg_cmd.resp_pkt);
 	if (len >= sizeof(u32)) {
 		mvm->d3_test_pme_ptr =
@@ -1806,7 +1806,7 @@ iwl_mvm_netdetect_query_results(struct iwl_mvm *mvm,
 	results->matched_profiles = le32_to_cpu(query->matched_profiles);
 	memcpy(results->matches, query->matches, matches_len);
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 	mvm->last_netdetect_scans = le32_to_cpu(query->n_scans_done);
 #endif
 
@@ -2125,7 +2125,7 @@ static int __iwl_mvm_resume(struct iwl_mvm *mvm, bool test)
 		goto out;
 	} else {
 		keep = iwl_mvm_query_wakeup_reasons(mvm, vif);
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 		if (keep)
 			mvm->keep_vif = vif;
 #endif
@@ -2188,7 +2188,7 @@ void iwl_mvm_set_wakeup(struct ieee80211_hw *hw, bool enabled)
 	device_set_wakeup_enable(mvm->trans->dev, enabled);
 }
 
-#ifdef CONFIG_IWLWIFI_DEBUGFS
+#ifdef CPTCFG_IWLWIFI_DEBUGFS
 static int iwl_mvm_d3_test_open(struct inode *inode, struct file *file)
 {
 	struct iwl_mvm *mvm = inode->i_private;

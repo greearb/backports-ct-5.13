@@ -11,11 +11,11 @@
 #define _TRACE_H_
 
 /* create empty functions when tracing is disabled */
-#if !defined(CONFIG_ATH11K_TRACING)
+#if !defined(CPTCFG_ATH11K_TRACING)
 #undef TRACE_EVENT
 #define TRACE_EVENT(name, proto, ...) \
 static inline void trace_ ## name(proto) {}
-#endif /* !CONFIG_ATH11K_TRACING || __CHECKER__ */
+#endif /* !CPTCFG_ATH11K_TRACING || __CHECKER__ */
 
 #undef TRACE_SYSTEM
 #define TRACE_SYSTEM ath11k

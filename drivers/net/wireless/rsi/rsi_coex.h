@@ -19,7 +19,7 @@
 
 #include "rsi_common.h"
 
-#ifdef CONFIG_RSI_COEX
+#ifdef CPTCFG_RSI_COEX
 #define COMMON_CARD_READY_IND           0
 #define NUM_COEX_TX_QUEUES              5
 

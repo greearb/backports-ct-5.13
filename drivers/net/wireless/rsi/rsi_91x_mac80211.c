@@ -319,7 +319,7 @@ void rsi_mac80211_detach(struct rsi_hw *adapter)
 		kfree(sband->channels);
 	}
 
-#ifdef CONFIG_RSI_DEBUGFS
+#ifdef CPTCFG_RSI_DEBUGFS
 	rsi_remove_dbgfs(adapter);
 	kfree(adapter->dfsentry);
 #endif

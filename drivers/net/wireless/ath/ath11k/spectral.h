@@ -37,7 +37,7 @@ struct ath11k_spectral {
 	bool enabled;
 };
 
-#ifdef CONFIG_ATH11K_SPECTRAL
+#ifdef CPTCFG_ATH11K_SPECTRAL
 
 int ath11k_spectral_init(struct ath11k_base *ab);
 void ath11k_spectral_deinit(struct ath11k_base *ab);
@@ -78,5 +78,5 @@ struct ath11k_dbring *ath11k_spectral_get_dbring(struct ath11k *ar)
 	return NULL;
 }
 
-#endif /* CONFIG_ATH11K_SPECTRAL */
+#endif /* CPTCFG_ATH11K_SPECTRAL */
 #endif /* ATH11K_SPECTRAL_H */

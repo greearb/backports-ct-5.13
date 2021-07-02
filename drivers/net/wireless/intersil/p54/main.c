@@ -805,13 +805,13 @@ int p54_register_common(struct ieee80211_hw *dev, struct device *pdev)
 	}
 	priv->registered = true;
 
-#ifdef CONFIG_P54_LEDS
+#ifdef CPTCFG_P54_LEDS
 	err = p54_init_leds(priv);
 	if (err) {
 		p54_unregister_common(dev);
 		return err;
 	}
-#endif /* CONFIG_P54_LEDS */
+#endif /* CPTCFG_P54_LEDS */
 
 	dev_info(pdev, "is registered as '%s'\n", wiphy_name(dev->wiphy));
 	return 0;
@@ -848,9 +848,9 @@ void p54_unregister_common(struct ieee80211_hw *dev)
 
 	if (priv->registered) {
 		priv->registered = false;
-#ifdef CONFIG_P54_LEDS
+#ifdef CPTCFG_P54_LEDS
 		p54_unregister_leds(priv);
-#endif /* CONFIG_P54_LEDS */
+#endif /* CPTCFG_P54_LEDS */
 		ieee80211_unregister_hw(dev);
 	}
 

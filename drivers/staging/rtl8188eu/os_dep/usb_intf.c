@@ -429,7 +429,7 @@ static void rtw_usb_if1_deinit(struct adapter *if1)
 	if (check_fwstate(pmlmepriv, _FW_LINKED))
 		rtw_disassoc_cmd(if1, 0, false);
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	free_mlme_ap_info(if1);
 #endif
 

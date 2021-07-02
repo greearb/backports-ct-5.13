@@ -231,7 +231,7 @@ static const struct ieee80211_iface_limit if_limits[] = {
 	}, {
 		.max = MT7615_MAX_INTERFACES,
 		.types = BIT(NL80211_IFTYPE_AP) |
-#ifdef CONFIG_MAC80211_MESH
+#ifdef CPTCFG_MAC80211_MESH
 			 BIT(NL80211_IFTYPE_MESH_POINT) |
 #endif
 			 BIT(NL80211_IFTYPE_P2P_CLIENT) |
@@ -551,7 +551,7 @@ void mt7615_init_device(struct mt7615_dev *dev)
 	mt7615_cap_dbdc_disable(dev);
 	dev->phy.dfs_state = -1;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	dev->mt76.test_ops = &mt7615_testmode_ops;
 #endif
 }

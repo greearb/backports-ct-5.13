@@ -266,7 +266,7 @@ static void zconf_endhelp(void)
 /*
  * Try to open specified file with following names:
  * ./name
- * $(srctree)/name
+ * $(backport_srctree)/name
  * The latter is used when srctree is separate from objtree
  * when compiling the kernel.
  * Return NULL if file is not found.

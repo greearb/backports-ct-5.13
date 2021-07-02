@@ -247,7 +247,7 @@ int ath10k_txrx_tx_unref(struct ath10k_htt *htt,
 		if ((info->flags & IEEE80211_TX_CTL_NO_ACK) ||
 		    (flags & ATH10K_SKB_F_NOACK_TID))
 			info->flags &= ~IEEE80211_TX_STAT_NOACK_TRANSMITTED;
-#ifdef CONFIG_ATH10K_DEBUG
+#ifdef CPTCFG_ATH10K_DEBUG
 		ar->debug.tx_discard++;
 		ar->debug.tx_discard_bytes += msdu->len;
 #endif
@@ -257,7 +257,7 @@ int ath10k_txrx_tx_unref(struct ath10k_htt *htt,
 	if (tx_done->status == HTT_TX_COMPL_STATE_ACK &&
 	    tx_done->ack_rssi != ATH10K_INVALID_RSSI) {
 		int nf = ATH10K_DEFAULT_NOISE_FLOOR;
-#ifdef CONFIG_ATH10K_DEBUGFS
+#ifdef CPTCFG_ATH10K_DEBUGFS
 		if (ar->debug.nf_sum[0] != 0x80)
 			nf = ar->debug.nf_sum[0];
 #endif
@@ -291,7 +291,7 @@ int ath10k_txrx_tx_unref(struct ath10k_htt *htt,
 			     ar->running_fw->fw_file.fw_features)) {
 			/* Deal with tx-completion status */
 			if ((tx_done->tx_rate_flags & 0x3) == ATH10K_RC_FLAG_XRETRY) {
-#ifdef CONFIG_ATH10K_DEBUG
+#ifdef CPTCFG_ATH10K_DEBUG
 				ar->debug.tx_noack++;
 				ar->debug.tx_noack_bytes += msdu->len;
 #endif
@@ -310,7 +310,7 @@ int ath10k_txrx_tx_unref(struct ath10k_htt *htt,
 	if (tx_failed) {
 		info->flags &= ~IEEE80211_TX_STAT_ACK;
 	}
-#ifdef CONFIG_ATH10K_DEBUG
+#ifdef CPTCFG_ATH10K_DEBUG
 	else {
 		ar->debug.tx_ok++;
 		ar->debug.tx_ok_bytes += msdu->len;

@@ -339,7 +339,7 @@ static const struct file_operations dynamic_fw_traces_ops = {
 	.llseek = default_llseek,
 };
 
-#ifdef CONFIG_CFG80211_CERTIFICATION_ONUS
+#ifdef CPTCFG_CFG80211_CERTIFICATION_ONUS
 static ssize_t radar_debug_mode_write(struct file *file,
 				      const char __user *user_buf,
 				      size_t count, loff_t *ppos)
@@ -560,7 +560,7 @@ int wl18xx_debugfs_add_files(struct wl1271 *wl,
 
 	DEBUGFS_ADD(conf, moddir);
 	DEBUGFS_ADD(radar_detection, moddir);
-#ifdef CONFIG_CFG80211_CERTIFICATION_ONUS
+#ifdef CPTCFG_CFG80211_CERTIFICATION_ONUS
 	DEBUGFS_ADD(radar_debug_mode, moddir);
 #endif
 	DEBUGFS_ADD(dynamic_fw_traces, moddir);

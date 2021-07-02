@@ -1143,7 +1143,7 @@ static bool cfg80211_ir_permissive_chan(struct wiphy *wiphy,
 
 	lockdep_assert_held(&rdev->wiphy.mtx);
 
-	if (!IS_ENABLED(CONFIG_CFG80211_REG_RELAX_NO_IR) ||
+	if (!IS_ENABLED(CPTCFG_CFG80211_REG_RELAX_NO_IR) ||
 	    !(wiphy->regulatory_flags & REGULATORY_ENABLE_RELAX_NO_IR))
 		return false;
 

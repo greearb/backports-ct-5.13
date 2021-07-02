@@ -16,12 +16,12 @@
 #define PRISM2_DOWNLOAD_SUPPORT
 
 /* Allow kernel configuration to enable download support. */
-#if !defined(PRISM2_DOWNLOAD_SUPPORT) && defined(CONFIG_HOSTAP_FIRMWARE)
+#if !defined(PRISM2_DOWNLOAD_SUPPORT) && defined(CPTCFG_HOSTAP_FIRMWARE)
 #define PRISM2_DOWNLOAD_SUPPORT
 #endif
 
 /* Allow kernel configuration to enable non-volatile download support. */
-#ifdef CONFIG_HOSTAP_FIRMWARE_NVRAM
+#ifdef CPTCFG_HOSTAP_FIRMWARE_NVRAM
 #define PRISM2_NON_VOLATILE_DOWNLOAD
 #endif
 

@@ -23,8 +23,8 @@
 /* Custom brcmf_err() that takes bus arg and passes it further */
 #define brcmf_err(bus, fmt, ...)					\
 	do {								\
-		if (IS_ENABLED(CONFIG_BRCMDBG) ||			\
-		    IS_ENABLED(CONFIG_BRCM_TRACING) ||			\
+		if (IS_ENABLED(CPTCFG_BRCMDBG) ||			\
+		    IS_ENABLED(CPTCFG_BRCM_TRACING) ||			\
 		    net_ratelimit())					\
 			__brcmf_err(bus, __func__, fmt, ##__VA_ARGS__);	\
 	} while (0)

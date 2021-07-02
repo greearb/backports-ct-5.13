@@ -64,7 +64,7 @@ struct ath_rx_stats {
 	u32 rx_spectral_sample_err;
 };
 
-#ifdef CONFIG_ATH9K_COMMON_DEBUG
+#ifdef CPTCFG_ATH9K_COMMON_DEBUG
 void ath9k_cmn_debug_modal_eeprom(struct dentry *debugfs_phy,
 				  struct ath_hw *ah);
 void ath9k_cmn_debug_base_eeprom(struct dentry *debugfs_phy,
@@ -100,4 +100,4 @@ static inline void ath9k_cmn_debug_phy_err(struct dentry *debugfs_phy,
 					   struct ath_rx_stats *rxstats)
 {
 }
-#endif /* CONFIG_ATH9K_COMMON_DEBUG */
+#endif /* CPTCFG_ATH9K_COMMON_DEBUG */

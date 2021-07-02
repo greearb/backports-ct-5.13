@@ -33,7 +33,7 @@ enum ath10k_spectral_mode {
 	SPECTRAL_MANUAL,
 };
 
-#ifdef CONFIG_ATH10K_SPECTRAL
+#ifdef CPTCFG_ATH10K_SPECTRAL
 
 int ath10k_spectral_process_fft(struct ath10k *ar,
 				struct wmi_phyerr_ev_arg *phyerr,
@@ -74,6 +74,6 @@ static inline void ath10k_spectral_destroy(struct ath10k *ar)
 {
 }
 
-#endif /* CONFIG_ATH10K_SPECTRAL */
+#endif /* CPTCFG_ATH10K_SPECTRAL */
 
 #endif /* SPECTRAL_H */

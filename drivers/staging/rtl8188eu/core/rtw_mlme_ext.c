@@ -321,7 +321,7 @@ static void issue_beacon(struct adapter *padapter, int timeout_ms)
 		DBG_88E("%s, alloc mgnt frame fail\n", __func__);
 		return;
 	}
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	spin_lock_bh(&pmlmepriv->bcn_update_lock);
 #endif
 
@@ -422,7 +422,7 @@ static void issue_beacon(struct adapter *padapter, int timeout_ms)
 	/* todo:HT for adhoc */
 _issue_bcn:
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	pmlmepriv->update_bcn = false;
 
 	spin_unlock_bh(&pmlmepriv->bcn_update_lock);
@@ -451,7 +451,7 @@ static void issue_probersp(struct adapter *padapter, unsigned char *da)
 	__le16 *fctrl;
 	unsigned char *mac, *bssid;
 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	u8 *pwps_ie;
 	uint wps_ielen;
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
@@ -496,7 +496,7 @@ static void issue_probersp(struct adapter *padapter, unsigned char *da)
 	if (cur_network->ie_length > MAX_IE_SZ)
 		return;
 
-#if defined(CONFIG_88EU_AP_MODE)
+#if defined(CPTCFG_88EU_AP_MODE)
 	if ((pmlmeinfo->state & 0x03) == WIFI_FW_AP_STATE) {
 		pwps_ie = rtw_get_wps_ie(cur_network->ies + _FIXED_IE_LENGTH_, cur_network->ie_length - _FIXED_IE_LENGTH_, NULL, &wps_ielen);
 
@@ -735,7 +735,7 @@ static void issue_auth(struct adapter *padapter, struct sta_info *psta,
 	__le16 *fctrl;
 	unsigned int val32;
 	u16 val16;
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	__le16 le_val16;
 #endif
 	int use_shared_key = 0;
@@ -768,7 +768,7 @@ static void issue_auth(struct adapter *padapter, struct sta_info *psta,
 	pattrib->pktlen = sizeof(struct ieee80211_hdr_3addr);
 
 	if (psta) {/*  for AP mode */
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 		ether_addr_copy(pwlanhdr->addr1, psta->hwaddr);
 		ether_addr_copy(pwlanhdr->addr2,
@@ -869,7 +869,7 @@ static void issue_auth(struct adapter *padapter, struct sta_info *psta,
 	dump_mgntframe(padapter, pmgntframe);
 }
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 static void issue_asocrsp(struct adapter *padapter, unsigned short status,
 			  struct sta_info *pstat, int pkt_type)
 {
@@ -993,7 +993,7 @@ static void issue_asocrsp(struct adapter *padapter, unsigned short status,
 	pattrib->last_txcmdsz = pattrib->pktlen;
 	dump_mgntframe(padapter, pmgntframe);
 }
-#endif /* CONFIG_88EU_AP_MODE */
+#endif /* CPTCFG_88EU_AP_MODE */
 
 static void issue_assocreq(struct adapter *padapter)
 {
@@ -2635,7 +2635,7 @@ _END_ONBEACON_:
 	return _SUCCESS;
 }
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 static unsigned int OnAuth(struct adapter *padapter,
 			   struct recv_frame *precv_frame)
 {
@@ -2803,7 +2803,7 @@ auth_fail:
 
 	return _FAIL;
 }
-#endif /* CONFIG_88EU_AP_MODE */
+#endif /* CPTCFG_88EU_AP_MODE */
 
 static unsigned int OnAuthClient(struct adapter *padapter,
 				 struct recv_frame *precv_frame)
@@ -2883,7 +2883,7 @@ authclnt_fail:
 static unsigned int OnAssocReq(struct adapter *padapter,
 			       struct recv_frame *precv_frame)
 {
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	u16 capab_info;
 	struct rtw_ieee802_11_elems elems;
 	struct sta_info *pstat;
@@ -3311,7 +3311,7 @@ OnAssocReqFail:
 	else
 		issue_asocrsp(padapter, status, pstat, WIFI_REASSOCRSP);
 
-#endif /* CONFIG_88EU_AP_MODE */
+#endif /* CPTCFG_88EU_AP_MODE */
 
 	return _FAIL;
 }
@@ -3422,7 +3422,7 @@ static unsigned int OnDeAuth(struct adapter *padapter,
 
 	DBG_88E("%s Reason code(%d)\n", __func__, reason);
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE)) {
 		struct sta_info *psta;
 		struct sta_priv *pstapriv = &padapter->stapriv;
@@ -3475,7 +3475,7 @@ static unsigned int OnDisassoc(struct adapter *padapter,
 
 	DBG_88E("%s Reason code(%d)\n", __func__, reason);
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	if (check_fwstate(pmlmepriv, WIFI_AP_STATE)) {
 		struct sta_info *psta;
 		struct sta_priv *pstapriv = &padapter->stapriv;
@@ -4024,7 +4024,7 @@ int init_mlme_ext_priv(struct adapter *padapter)
 
 	init_mlme_ext_timer(padapter);
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	init_mlme_ap_info(padapter);
 #endif
 
@@ -4072,7 +4072,7 @@ void mgt_dispatcher(struct adapter *padapter, struct recv_frame *precv_frame)
 {
 	int index;
 	struct mlme_handler *ptable;
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 #endif
 	u8 bc_addr[ETH_ALEN] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
@@ -4119,7 +4119,7 @@ void mgt_dispatcher(struct adapter *padapter, struct recv_frame *precv_frame)
 		psta->RxMgmtFrameSeqNum = precv_frame->attrib.seq_num;
 	}
 
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	switch (GetFrameSubType(pframe)) {
 	case WIFI_AUTH:
 		if (check_fwstate(pmlmepriv, WIFI_AP_STATE))
@@ -4855,7 +4855,7 @@ u8 createbss_hdl(struct adapter *padapter, u8 *pbuf)
 	struct wlan_bssid_ex *pparm = (struct wlan_bssid_ex *)pbuf;
 
 	if (pparm->InfrastructureMode == Ndis802_11APMode) {
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 
 		if (pmlmeinfo->state == WIFI_FW_AP_STATE) {
 			/* todo: */
@@ -5383,7 +5383,7 @@ u8 tx_beacon_hdl(struct adapter *padapter, unsigned char *pbuf)
 		DBG_88E("issue_beacon, fail!\n");
 		return H2C_PARAMETERS_ERROR;
 	}
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 	else { /* tx bc/mc frames after update TIM */
 		struct sta_info *psta_bmc;
 		struct list_head *xmitframe_plist, *xmitframe_phead;

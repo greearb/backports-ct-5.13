@@ -539,7 +539,7 @@ static void usb_write_port_complete(struct urb *purb)
 		pxmitpriv->bkq_cnt--;
 		break;
 	case HIGH_QUEUE_INX:
-#ifdef CONFIG_88EU_AP_MODE
+#ifdef CPTCFG_88EU_AP_MODE
 		rtw_chk_hi_queue_cmd(padapter);
 #endif
 		break;

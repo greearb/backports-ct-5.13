@@ -1326,7 +1326,7 @@ int wil_cfg80211_iface_combinations_from_fw(
 	const struct wil_fw_record_concurrency *conc);
 int wil_vif_prepare_stop(struct wil6210_vif *vif);
 
-#if defined(CONFIG_WIL6210_DEBUGFS)
+#if defined(CPTCFG_WIL6210_DEBUGFS)
 int wil6210_debugfs_init(struct wil6210_priv *wil);
 void wil6210_debugfs_remove(struct wil6210_priv *wil);
 #else
