@@ -20,7 +20,7 @@
 static const struct genl_family *find_family_real_ops(__genl_const struct genl_ops **ops)
 {
 	const struct genl_family *family;
-	const struct genl_ops *tmp_ops = *ops;
+	__genl_const struct genl_ops *tmp_ops = *ops;
 
 	/* find the family ... */
 	while (tmp_ops->doit || tmp_ops->dumpit)
