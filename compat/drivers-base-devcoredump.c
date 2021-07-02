@@ -160,7 +160,12 @@ static struct attribute *devcd_class_attrs[] = {
 	&class_attr_disabled.attr,
 	NULL,
 };
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 ATTRIBUTE_GROUPS(devcd_class);
+#else
+#define BP_ATTR_GRP_STRUCT class_attribute
+ATTRIBUTE_GROUPS_BACKPORT(devcd_class);
+#endif
 
 static struct class devcd_class = {
 	.name		= "devcoredump",
@@ -169,7 +174,12 @@ static struct class devcd_class = {
 #if LINUX_VERSION_IS_GEQ(3,11,0)
 	.dev_groups	= devcd_dev_groups,
 #endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	.class_groups	= devcd_class_groups,
+#else
+	.class_attrs = devcd_class_dev_attrs,
+#endif
+
 };
 
 static ssize_t devcd_readv(char *buffer, loff_t offset, size_t count,
@@ -355,6 +365,7 @@ EXPORT_SYMBOL_GPL(dev_coredumpsg);
 
 int __init devcoredump_init(void)
 {
+	init_devcd_class_attrs();
 	return class_register(&devcd_class);
 }
 
