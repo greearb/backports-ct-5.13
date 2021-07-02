@@ -2696,7 +2696,11 @@ static void ieee80211_deliver_skb_to_local_stack(struct sk_buff *skb,
 
 		/* deliver to local stack */
 		if (rx->list)
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 			list_add_tail(&skb->list, rx->list);
+#else
+			__skb_queue_tail(rx->list, skb);
+#endif
 		else
 			netif_receive_skb(skb);
 	}
@@ -4551,7 +4555,11 @@ static void ieee80211_rx_8023(struct ieee80211_rx_data *rx,
 	skb->protocol = eth_type_trans(skb, fast_rx->dev);
 	memset(skb->cb, 0, sizeof(skb->cb));
 	if (rx->list)
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 		list_add_tail(&skb->list, rx->list);
+#else
+		__skb_queue_tail(rx->list, skb);
+#endif
 	else
 		netif_receive_skb(skb);
 
@@ -4774,7 +4782,11 @@ drop:
 static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
 					 struct ieee80211_sta *pubsta,
 					 struct sk_buff *skb,
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 					 struct list_head *list,
+#else
+					 struct sk_buff_head *list,
+#endif
 					 struct ieee80211_radiotap_he *radiotap_he)
 {
 	struct ieee80211_local *local = hw_to_local(hw);
@@ -4919,7 +4931,11 @@ rx_and_done:
  * 802.11 MPDU is received from the hardware.
  */
 void ieee80211_rx_list(struct ieee80211_hw *hw, struct ieee80211_sta *pubsta,
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 		       struct sk_buff *skb, struct list_head *list)
+#else
+		       struct sk_buff *skb, struct sk_buff_head *list)
+#endif
 {
 	struct ieee80211_local *local = hw_to_local(hw);
 	struct ieee80211_rate *rate = NULL;
@@ -5043,7 +5059,13 @@ void ieee80211_rx_napi(struct ieee80211_hw *hw, struct ieee80211_sta *pubsta,
 		       struct sk_buff *skb, struct napi_struct *napi)
 {
 	struct sk_buff *tmp;
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 	LIST_HEAD(list);
+#else
+	struct sk_buff_head list;
+
+	__skb_queue_head_init(&list);
+#endif
 
 
 	/*
@@ -5060,8 +5082,13 @@ void ieee80211_rx_napi(struct ieee80211_hw *hw, struct ieee80211_sta *pubsta,
 		return;
 	}
 
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 	list_for_each_entry_safe(skb, tmp, &list, list) {
 		skb_list_del_init(skb);
+#else
+	skb_queue_walk_safe(&list, skb, tmp) {
+		__skb_unlink(skb, &list);
+#endif
 		napi_gro_receive(napi, skb);
 	}
 }
