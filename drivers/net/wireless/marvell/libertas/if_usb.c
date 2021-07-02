@@ -941,6 +941,7 @@ static int if_usb_suspend(struct usb_interface *intf, pm_message_t message)
 		goto out;
 	}
 
+#if LINUX_VERSION_IS_GEQ(3,1,0)
 #ifdef CONFIG_OLPC
 	if (machine_is_olpc()) {
 		if (priv->wol_criteria == EHS_REMOVE_WAKEUP)
@@ -948,6 +949,7 @@ static int if_usb_suspend(struct usb_interface *intf, pm_message_t message)
 		else
 			olpc_ec_wakeup_set(EC_SCI_SRC_WLAN);
 	}
+#endif
 #endif
 
 	ret = lbs_suspend(priv);
