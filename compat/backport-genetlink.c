@@ -165,7 +165,7 @@ static int backport_pre_doit(__genl_const struct genl_ops *ops,
 
 	extack->__bp_doit = ops->doit;
 #else
-	struct netlink_ext_ack *extack = info->extack;
+	struct netlink_ext_ack *extack = genl_info_extack(info);
 #endif
 
 	if (ops->validate & GENL_DONT_VALIDATE_STRICT)
