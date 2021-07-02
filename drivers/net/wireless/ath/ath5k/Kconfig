@@ -5,8 +5,8 @@ config ATH5K
 	depends on (PCI || ATH25) && MAC80211
 	select ATH_COMMON
 	select MAC80211_LEDS
-	select LEDS_CLASS
-	select NEW_LEDS
+	select BPAUTO_LEDS_CLASS
+	select BPAUTO_NEW_LEDS
 	select ATH5K_AHB if ATH25
 	select ATH5K_PCI if !ATH25
 	help

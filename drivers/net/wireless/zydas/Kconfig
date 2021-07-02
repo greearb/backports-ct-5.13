@@ -16,9 +16,9 @@ config USB_ZD1201
 	tristate "USB ZD1201 based Wireless device support"
 	depends on m
 	depends on CFG80211 && USB
-	select WIRELESS_EXT
-	select WEXT_PRIV
-	select FW_LOADER
+	depends on WIRELESS_EXT
+	depends on WEXT_PRIV
+	depends on FW_LOADER
 	help
 	  Say Y if you want to use wireless LAN adapters based on the ZyDAS
 	  ZD1201 chip.

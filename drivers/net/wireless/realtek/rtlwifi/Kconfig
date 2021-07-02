@@ -131,7 +131,7 @@ config RTL8192CU
 config RTLWIFI
 	tristate
 	depends on m
-	select FW_LOADER
+	depends on FW_LOADER
 
 config RTLWIFI_PCI
 	tristate

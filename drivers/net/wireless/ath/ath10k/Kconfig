@@ -4,8 +4,8 @@ config ATH10K
 	depends on m
 	depends on MAC80211 && HAS_DMA
 	select ATH_COMMON
-	select CRC32
-	select WANT_DEV_COREDUMP
+	depends on CRC32
+	select BPAUTO_WANT_DEV_COREDUMP
 	select ATH10K_CE
 	help
 	  This module adds support for wireless adapters based on
@@ -49,7 +49,7 @@ config ATH10K_SNOC
 	depends on m
 	depends on ATH10K
 	depends on ARCH_QCOM || COMPILE_TEST
-	select QCOM_QMI_HELPERS
+	depends on QCOM_QMI_HELPERS
 	help
 	  This module adds support for integrated WCN3990 chip connected
 	  to system NOC(SNOC).
@@ -73,7 +73,7 @@ config ATH10K_DEBUGFS
 config ATH10K_SPECTRAL
 	bool "Atheros ath10k spectral scan support"
 	depends on ATH10K_DEBUGFS
-	select RELAY
+	depends on RELAY
 	default n
 	help
 	  Say Y to enable access to the FFT/spectral data via debugfs.

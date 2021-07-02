@@ -3,7 +3,7 @@ config LIBERTAS_THINFIRM
 	tristate "Marvell 8xxx Libertas WLAN driver support with thin firmware"
 	depends on m
 	depends on MAC80211
-	select FW_LOADER
+	depends on FW_LOADER
 	help
 	  A library for Marvell Libertas 8xxx devices using thinfirm.
 

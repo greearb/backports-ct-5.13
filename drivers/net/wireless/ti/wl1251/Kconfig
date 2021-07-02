@@ -3,8 +3,8 @@ config WL1251
 	tristate "TI wl1251 driver support"
 	depends on m
 	depends on MAC80211
-	select FW_LOADER
-	select CRC7
+	depends on FW_LOADER
+	depends on CRC7
 	help
 	  This will enable TI wl1251 driver support. The drivers make
 	  use of the mac80211 stack.

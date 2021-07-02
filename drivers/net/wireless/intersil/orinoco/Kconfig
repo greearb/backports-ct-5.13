@@ -5,12 +5,12 @@ config HERMES
 	depends on (PPC_PMAC || PCI || PCMCIA)
 	depends on CFG80211
 	select CFG80211_WEXT_EXPORT
-	select WIRELESS_EXT
-	select WEXT_SPY
-	select WEXT_PRIV
-	select FW_LOADER
-	select CRYPTO
-	select CRYPTO_MICHAEL_MIC
+	depends on WIRELESS_EXT
+	depends on WEXT_SPY
+	depends on WEXT_PRIV
+	depends on FW_LOADER
+	depends on CRYPTO
+	depends on CRYPTO_MICHAEL_MIC
 	help
 	  A driver for 802.11b wireless cards based on the "Hermes" or
 	  Intersil HFA384x (Prism 2) MAC controller.  This includes the vast
@@ -147,6 +147,6 @@ config ORINOCO_USB
 	tristate "Agere Orinoco USB support"
 	depends on m
 	depends on USB && HERMES
-	select FW_LOADER
+	depends on FW_LOADER
 	help
 	  This driver is for USB versions of the Agere Orinoco card.

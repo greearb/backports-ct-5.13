@@ -3,7 +3,7 @@ config ZD1211RW
 	tristate "ZyDAS ZD1211/ZD1211B USB-wireless support"
 	depends on m
 	depends on USB && MAC80211
-	select FW_LOADER
+	depends on FW_LOADER
 	help
 	  This is a driver for the ZyDAS ZD1211/ZD1211B wireless
 	  chip, present in many USB-wireless adapters.

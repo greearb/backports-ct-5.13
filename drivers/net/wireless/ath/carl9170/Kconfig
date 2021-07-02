@@ -4,8 +4,8 @@ config CARL9170
 	depends on m
 	depends on USB && MAC80211
 	select ATH_COMMON
-	select FW_LOADER
-	select CRC32
+	depends on FW_LOADER
+	depends on CRC32
 	help
 	  This is the mainline driver for the Atheros "otus" 802.11n USB devices.
 
@@ -19,8 +19,8 @@ config CARL9170_LEDS
 	bool "SoftLED Support"
 	depends on CARL9170
 	select MAC80211_LEDS
-	select LEDS_CLASS
-	select NEW_LEDS
+	select BPAUTO_LEDS_CLASS
+	select BPAUTO_NEW_LEDS
 	default y
 	help
 	  This option is necessary, if you want your device' LEDs to blink

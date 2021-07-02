@@ -4,8 +4,8 @@ config RTL8723BS
 	depends on m
 	depends on WLAN && MMC && CFG80211
 	depends on m
-	select WIRELESS_EXT
-	select WEXT_PRIV
+	depends on WIRELESS_EXT
+	depends on WEXT_PRIV
 	help
 	This option enables support for RTL8723BS SDIO drivers, such as
 	the wifi found on the 1st gen Intel Compute Stick, the CHIP

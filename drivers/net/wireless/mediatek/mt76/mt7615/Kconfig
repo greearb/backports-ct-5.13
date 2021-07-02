@@ -3,7 +3,7 @@
 config MT7615_COMMON
 	tristate
 	depends on m
-	select WANT_DEV_COREDUMP
+	select BPAUTO_WANT_DEV_COREDUMP
 	select MT76_CONNAC_LIB
 
 config MT7615E
@@ -24,7 +24,7 @@ config MT7622_WMAC
 	bool "MT7622 (SoC) WMAC support"
 	depends on MT7615E
 	depends on ARCH_MEDIATEK || COMPILE_TEST
-	select REGMAP
+	depends on REGMAP
 	default y
 	help
 	  This adds support for the built-in WMAC on MT7622 SoC devices

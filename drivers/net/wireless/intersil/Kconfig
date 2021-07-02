@@ -20,10 +20,10 @@ config PRISM54
 	tristate 'Intersil Prism GT/Duette/Indigo PCI/Cardbus (DEPRECATED)'
 	depends on m
 	depends on PCI
-	select WIRELESS_EXT
-	select WEXT_SPY
-	select WEXT_PRIV
-	select FW_LOADER
+	depends on WIRELESS_EXT
+	depends on WEXT_SPY
+	depends on WEXT_PRIV
+	depends on FW_LOADER
 	help
 	  This enables support for FullMAC PCI/Cardbus prism54 devices. This
 	  driver is now deprecated in favor for the SoftMAC driver, p54pci.

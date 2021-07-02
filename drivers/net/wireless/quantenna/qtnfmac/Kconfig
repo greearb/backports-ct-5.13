@@ -12,8 +12,8 @@ config QTNFMAC_PCIE
 	default n
 	depends on PCI && CFG80211
 	select QTNFMAC
-	select FW_LOADER
-	select CRC32
+	depends on FW_LOADER
+	depends on CRC32
 	help
 	  This option adds support for wireless adapters based on Quantenna
 	  802.11ac QSR10g (aka Pearl) and QSR1000/QSR2000 (aka Topaz)
