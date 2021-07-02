@@ -2115,7 +2115,20 @@ int orinoco_init(struct orinoco_private *priv)
 }
 EXPORT_SYMBOL(orinoco_init);
 
+#if LINUX_VERSION_IS_LESS(4,10,0)
+static int __change_mtu(struct net_device *ndev, int new_mtu){
+	if (new_mtu < ORINOCO_MIN_MTU || new_mtu > ORINOCO_MAX_MTU)
+		return -EINVAL;
+	ndev->mtu = new_mtu;
+	return 0;
+}
+#endif
+
 static const struct net_device_ops orinoco_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_open		= orinoco_open,
 	.ndo_stop		= orinoco_stop,
 	.ndo_start_xmit		= orinoco_xmit,

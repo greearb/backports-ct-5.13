@@ -177,8 +177,21 @@ struct lsi_umts_dual {
 #define SIERRA_NET_LSI_UMTS_DS_STATUS_LEN \
 	(SIERRA_NET_LSI_UMTS_DS_LEN - SIERRA_NET_LSI_COMMON_LEN)
 
+#if LINUX_VERSION_IS_LESS(4,10,0)
+static int __change_mtu(struct net_device *ndev, int new_mtu){
+	if (new_mtu < 0 || new_mtu > SIERRA_NET_MAX_SUPPORTED_MTU)
+		return -EINVAL;
+	ndev->mtu = new_mtu;
+	return 0;
+}
+#endif
+
 /* Our own net device operations structure */
 static const struct net_device_ops sierra_net_device_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_open               = usbnet_open,
 	.ndo_stop               = usbnet_stop,
 	.ndo_start_xmit         = usbnet_start_xmit,
@@ -716,6 +729,7 @@ static int sierra_net_bind(struct usbnet *dev, struct usb_interface *intf)
 
 	dev->net->hard_header_len += SIERRA_NET_HIP_EXT_HDR_LEN;
 	dev->hard_mtu = dev->net->mtu + dev->net->hard_header_len;
+	dev->net->min_mtu = 0;
 	dev->net->max_mtu = SIERRA_NET_MAX_SUPPORTED_MTU;
 
 	/* Set up the netdev */

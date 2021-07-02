@@ -11518,7 +11518,20 @@ static netdev_tx_t ipw_prom_hard_start_xmit(struct sk_buff *skb,
 	return NETDEV_TX_OK;
 }
 
+#if LINUX_VERSION_IS_LESS(4,10,0)
+static int __change_mtu(struct net_device *ndev, int new_mtu){
+	if (new_mtu < 68 || new_mtu > LIBIPW_DATA_LEN)
+		return -EINVAL;
+	ndev->mtu = new_mtu;
+	return 0;
+}
+#endif
+
 static const struct net_device_ops ipw_prom_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_open 		= ipw_prom_open,
 	.ndo_stop		= ipw_prom_stop,
 	.ndo_start_xmit		= ipw_prom_hard_start_xmit,
@@ -11577,6 +11590,10 @@ static void ipw_prom_free(struct ipw_priv *priv)
 #endif
 
 static const struct net_device_ops ipw_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_open		= ipw_net_open,
 	.ndo_stop		= ipw_net_stop,
 	.ndo_set_rx_mode	= ipw_net_set_multicast_list,

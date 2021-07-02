@@ -6010,7 +6010,20 @@ static void ipw2100_rf_kill(struct work_struct *work)
 
 static void ipw2100_irq_tasklet(struct tasklet_struct *t);
 
+#if LINUX_VERSION_IS_LESS(4,10,0)
+static int __change_mtu(struct net_device *ndev, int new_mtu){
+	if (new_mtu < 68 || new_mtu > LIBIPW_DATA_LEN)
+		return -EINVAL;
+	ndev->mtu = new_mtu;
+	return 0;
+}
+#endif
+
 static const struct net_device_ops ipw2100_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_open		= ipw2100_open,
 	.ndo_stop		= ipw2100_close,
 	.ndo_start_xmit		= libipw_xmit,

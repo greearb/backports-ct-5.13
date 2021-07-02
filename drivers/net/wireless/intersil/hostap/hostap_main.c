@@ -791,7 +791,20 @@ const struct header_ops hostap_80211_ops = {
 EXPORT_SYMBOL(hostap_80211_ops);
 
 
+#if LINUX_VERSION_IS_LESS(4,10,0)
+static int __change_mtu(struct net_device *ndev, int new_mtu){
+	if (new_mtu < PRISM2_MIN_MTU || new_mtu > PRISM2_MAX_MTU)
+		return -EINVAL;
+	ndev->mtu = new_mtu;
+	return 0;
+}
+#endif
+
 static const struct net_device_ops hostap_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_start_xmit		= hostap_data_start_xmit,
 
 	.ndo_open		= prism2_open,
@@ -804,6 +817,10 @@ static const struct net_device_ops hostap_netdev_ops = {
 };
 
 static const struct net_device_ops hostap_mgmt_netdev_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_start_xmit		= hostap_mgmt_start_xmit,
 
 	.ndo_open		= prism2_open,
@@ -816,6 +833,10 @@ static const struct net_device_ops hostap_mgmt_netdev_ops = {
 };
 
 static const struct net_device_ops hostap_master_ops = {
+#if LINUX_VERSION_IS_LESS(4,10,0)
+	.ndo_change_mtu = __change_mtu,
+#endif
+
 	.ndo_start_xmit 	= hostap_master_start_xmit,
 
 	.ndo_open		= prism2_open,
