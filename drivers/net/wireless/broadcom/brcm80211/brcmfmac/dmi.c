@@ -58,7 +58,9 @@ static const struct dmi_system_id dmi_platform_data[] = {
 		.matches = {
 			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "To be filled by O.E.M."),
 			DMI_EXACT_MATCH(DMI_BOARD_NAME, "Cherry Trail CR"),
+#if LINUX_VERSION_IS_GEQ(4,18,0)
 			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "T8"),
+#endif
 			/* also match on somewhat unique bios-version */
 			DMI_EXACT_MATCH(DMI_BIOS_VERSION, "1.000"),
 		},
@@ -69,7 +71,9 @@ static const struct dmi_system_id dmi_platform_data[] = {
 		.matches = {
 			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "To be filled by O.E.M."),
 			DMI_EXACT_MATCH(DMI_BOARD_NAME, "Cherry Trail CR"),
+#if LINUX_VERSION_IS_GEQ(4,18,0)
 			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "T11"),
+#endif
 			/* also match on somewhat unique bios-version */
 			DMI_EXACT_MATCH(DMI_BIOS_VERSION, "1.000"),
 		},
