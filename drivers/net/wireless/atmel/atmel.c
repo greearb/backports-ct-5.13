@@ -1576,8 +1576,12 @@ struct net_device *init_atmel_card(unsigned short irq, unsigned long port,
 	dev->base_addr = port;
 
 	/* MTU range: 68 - 2312 */
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->min_mtu = 68;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = MAX_WIRELESS_BODY - ETH_FCS_LEN;
+#endif
 
 	SET_NETDEV_DEV(dev, sys_dev);
 

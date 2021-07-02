@@ -2676,8 +2676,12 @@ static void wifi_setup(struct net_device *dev)
 	dev->type               = ARPHRD_IEEE80211;
 	dev->hard_header_len    = ETH_HLEN;
 	dev->mtu                = AIRO_DEF_MTU;
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->min_mtu            = 68;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu            = MIC_MSGLEN_MAX;
+#endif
 	dev->addr_len           = ETH_ALEN;
 	dev->tx_queue_len       = 100;
 
@@ -2831,7 +2835,9 @@ static struct net_device *_init_airo_card(unsigned short irq, int port,
 	dev->irq = irq;
 	dev->base_addr = port;
 	dev->priv_flags &= ~IFF_TX_SKB_SHARING;
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = MIC_MSGLEN_MAX;
+#endif
 
 	SET_NETDEV_DEV(dev, dmdev);
 

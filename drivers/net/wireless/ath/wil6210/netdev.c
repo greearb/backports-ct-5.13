@@ -194,7 +194,9 @@ static int wil6210_netdev_poll_tx_edma(struct napi_struct *napi, int budget)
 static void wil_dev_setup(struct net_device *dev)
 {
 	ether_setup(dev);
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = mtu_max;
+#endif
 	dev->tx_queue_len = WIL_TX_Q_LEN_DEFAULT;
 }
 

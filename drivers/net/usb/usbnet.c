@@ -1749,8 +1749,12 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	 * bind() should set rx_urb_size in that case.
 	 */
 	dev->hard_mtu = net->mtu + net->hard_header_len;
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	net->min_mtu = 0;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	net->max_mtu = ETH_MAX_MTU;
+#endif
 
 	net->netdev_ops = &usbnet_netdev_ops;
 	net->watchdog_timeo = TX_TIMEOUT_JIFFIES;

@@ -2283,8 +2283,12 @@ int orinoco_if_add(struct orinoco_private *priv,
 	dev->base_addr = base_addr;
 	dev->irq = irq;
 
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->min_mtu = ORINOCO_MIN_MTU;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = ORINOCO_MAX_MTU;
+#endif
 
 	SET_NETDEV_DEV(dev, priv->dev);
 	ret = register_netdev(dev);

@@ -855,8 +855,12 @@ void hostap_setup_dev(struct net_device *dev, local_info_t *local,
 
 	iface = netdev_priv(dev);
 	ether_setup(dev);
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->min_mtu = PRISM2_MIN_MTU;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = PRISM2_MAX_MTU;
+#endif
 	dev->priv_flags &= ~IFF_TX_SKB_SHARING;
 
 	/* kernel callbacks */

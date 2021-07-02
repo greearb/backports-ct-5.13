@@ -2088,8 +2088,12 @@ int ieee80211_if_add(struct ieee80211_local *local, const char *name,
 		netdev_set_default_ethtool_ops(ndev, &ieee80211_ethtool_ops);
 
 		/* MTU range: 256 - 2304 */
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 		ndev->min_mtu = 256;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 		ndev->max_mtu = local->hw.max_mtu;
+#endif
 
 		ret = cfg80211_register_netdevice(ndev);
 		if (ret) {

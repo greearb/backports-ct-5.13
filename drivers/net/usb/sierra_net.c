@@ -729,8 +729,12 @@ static int sierra_net_bind(struct usbnet *dev, struct usb_interface *intf)
 
 	dev->net->hard_header_len += SIERRA_NET_HIP_EXT_HDR_LEN;
 	dev->hard_mtu = dev->net->mtu + dev->net->hard_header_len;
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->net->min_mtu = 0;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->net->max_mtu = SIERRA_NET_MAX_SUPPORTED_MTU;
+#endif
 
 	/* Set up the netdev */
 	dev->net->flags |= IFF_NOARP;

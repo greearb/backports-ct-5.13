@@ -6062,8 +6062,12 @@ static struct net_device *ipw2100_alloc_device(struct pci_dev *pci_dev,
 	dev->wireless_data = &priv->wireless_data;
 	dev->watchdog_timeo = 3 * HZ;
 	dev->irq = 0;
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->min_mtu = 68;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	dev->max_mtu = LIBIPW_DATA_LEN;
+#endif
 
 	/* NOTE: We don't use the wireless_handlers hook
 	 * in dev as the system will start throwing WX requests

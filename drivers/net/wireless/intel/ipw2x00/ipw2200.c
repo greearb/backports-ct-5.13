@@ -11560,8 +11560,12 @@ static int ipw_prom_alloc(struct ipw_priv *priv)
 	priv->prom_net_dev->type = ARPHRD_IEEE80211_RADIOTAP;
 	priv->prom_net_dev->netdev_ops = &ipw_prom_netdev_ops;
 
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	priv->prom_net_dev->min_mtu = 68;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	priv->prom_net_dev->max_mtu = LIBIPW_DATA_LEN;
+#endif
 
 	priv->prom_priv->ieee->iw_mode = IW_MODE_MONITOR;
 	SET_NETDEV_DEV(priv->prom_net_dev, &priv->pci_dev->dev);
@@ -11704,8 +11708,12 @@ static int ipw_pci_probe(struct pci_dev *pdev,
 	net_dev->wireless_handlers = &ipw_wx_handler_def;
 	net_dev->ethtool_ops = &ipw_ethtool_ops;
 
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	net_dev->min_mtu = 68;
+#endif
+#if LINUX_VERSION_IS_GEQ(4,10,0)
 	net_dev->max_mtu = LIBIPW_DATA_LEN;
+#endif
 
 	err = sysfs_create_group(&pdev->dev.kobj, &ipw_attribute_group);
 	if (err) {
