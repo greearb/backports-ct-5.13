@@ -633,6 +633,23 @@ static const struct net_device_ops brcmf_netdev_ops_pri = {
 	.ndo_set_rx_mode = brcmf_netdev_set_multicast_list
 };
 
+#undef netdev_set_priv_destructor
+#if LINUX_VERSION_IS_LESS(4,11,9)
+#define netdev_set_priv_destructor(_dev, _destructor) \
+	(_dev)->destructor = (_destructor)
+#else
+#define netdev_set_priv_destructor(_dev, _destructor) \
+	(_dev)->priv_destructor = (_destructor)
+#endif
+
+#if LINUX_VERSION_IS_LESS(4,12,0)
+static void __brcmf_cfg80211_free_netdev(struct net_device *ndev)
+{
+	brcmf_cfg80211_free_netdev(ndev);
+	free_netdev(ndev);
+}
+#endif
+
 int brcmf_net_attach(struct brcmf_if *ifp, bool locked)
 {
 	struct brcmf_pub *drvr = ifp->drvr;
@@ -883,7 +900,11 @@ struct brcmf_if *brcmf_add_if(struct brcmf_pub *drvr, s32 bsscfgidx, s32 ifidx,
 		if (!ndev)
 			return ERR_PTR(-ENOMEM);
 
+#if LINUX_VERSION_IS_LESS(4,12,0)
+		ndev->priv_destructor = __brcmf_cfg80211_free_netdev;
+#else
 		ndev->needs_free_netdev = true;
+#endif
 		ifp = netdev_priv(ndev);
 		ifp->ndev = ndev;
 		/* store mapping ifidx to bsscfgidx */
