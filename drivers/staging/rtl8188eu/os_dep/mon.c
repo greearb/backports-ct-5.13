@@ -146,7 +146,11 @@ static void mon_setup(struct net_device *dev)
 	dev->netdev_ops = &mon_netdev_ops;
 	dev->needs_free_netdev = true;
 	ether_setup(dev);
+#if LINUX_VERSION_IS_GEQ(4,3,0)
 	dev->priv_flags |= IFF_NO_QUEUE;
+#else
+	dev->tx_queue_len = 0;
+#endif
 	dev->type = ARPHRD_IEEE80211;
 	/*
 	 * Use a locally administered address (IEEE 802)
