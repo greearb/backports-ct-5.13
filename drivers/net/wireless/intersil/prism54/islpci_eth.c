@@ -487,3 +487,10 @@ islpci_eth_tx_timeout(struct net_device *ndev, unsigned int txqueue)
 			"%s: tx_timeout, waiting for reset", ndev->name);
 	}
 }
+
+#if LINUX_VERSION_IS_LESS(5,6,0)
+void bp_islpci_eth_tx_timeout(struct net_device *dev) {
+	islpci_eth_tx_timeout(dev, 0);
+}
+EXPORT_SYMBOL_GPL(bp_islpci_eth_tx_timeout);
+#endif
