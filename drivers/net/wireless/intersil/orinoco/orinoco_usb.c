@@ -1597,7 +1597,12 @@ static const struct net_device_ops ezusb_netdev_ops = {
 	.ndo_change_mtu		= orinoco_change_mtu,
 	.ndo_set_mac_address	= eth_mac_addr,
 	.ndo_validate_addr	= eth_validate_addr,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= orinoco_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_orinoco_tx_timeout,
+#endif
+
 };
 
 static int ezusb_probe(struct usb_interface *interface,

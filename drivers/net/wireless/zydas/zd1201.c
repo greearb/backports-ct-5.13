@@ -843,6 +843,15 @@ static void zd1201_tx_timeout(struct net_device *dev, unsigned int txqueue)
 	/* Restart the timeout to quiet the watchdog: */
 	netif_trans_update(dev); /* prevent tx timeout */
 }
+#if LINUX_VERSION_IS_LESS(5,6,0)
+/* Just declare it here to keep sparse happy */
+void bp_zd1201_tx_timeout(struct net_device *dev);
+void bp_zd1201_tx_timeout(struct net_device *dev)
+{
+	zd1201_tx_timeout(dev, 0);
+}
+EXPORT_SYMBOL_GPL(bp_zd1201_tx_timeout);
+#endif
 
 static int zd1201_set_mac_address(struct net_device *dev, void *p)
 {
@@ -1714,7 +1723,12 @@ static const struct net_device_ops zd1201_netdev_ops = {
 	.ndo_open		= zd1201_net_open,
 	.ndo_stop		= zd1201_net_stop,
 	.ndo_start_xmit		= zd1201_hard_start_xmit,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= zd1201_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_zd1201_tx_timeout,
+#endif
+
 	.ndo_set_rx_mode	= zd1201_set_multicast,
 	.ndo_set_mac_address	= zd1201_set_mac_address,
 	.ndo_validate_addr	= eth_validate_addr,

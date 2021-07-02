@@ -278,7 +278,12 @@ static const struct net_device_ops rndis_netdev_ops = {
 	.ndo_open		= usbnet_open,
 	.ndo_stop		= usbnet_stop,
 	.ndo_start_xmit		= usbnet_start_xmit,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= usbnet_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_usbnet_tx_timeout,
+#endif
+
 #if LINUX_VERSION_IS_GEQ(4,11,0)
 	.ndo_get_stats64	= dev_get_tstats64,
 #else

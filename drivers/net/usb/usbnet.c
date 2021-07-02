@@ -1298,6 +1298,15 @@ void usbnet_tx_timeout (struct net_device *net, unsigned int txqueue)
 	if (dev->driver_info->recover)
 		(dev->driver_info->recover)(dev);
 }
+#if LINUX_VERSION_IS_LESS(5,6,0)
+/* Just declare it here to keep sparse happy */
+void bp_usbnet_tx_timeout(struct net_device *dev);
+void bp_usbnet_tx_timeout(struct net_device *dev)
+{
+	usbnet_tx_timeout(dev, 0);
+}
+EXPORT_SYMBOL_GPL(bp_usbnet_tx_timeout);
+#endif
 EXPORT_SYMBOL_GPL(usbnet_tx_timeout);
 
 /*-------------------------------------------------------------------------*/
@@ -1653,7 +1662,12 @@ static const struct net_device_ops usbnet_netdev_ops = {
 	.ndo_open		= usbnet_open,
 	.ndo_stop		= usbnet_stop,
 	.ndo_start_xmit		= usbnet_start_xmit,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= usbnet_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_usbnet_tx_timeout,
+#endif
+
 	.ndo_set_rx_mode	= usbnet_set_rx_mode,
 	.ndo_change_mtu		= usbnet_change_mtu,
 #if LINUX_VERSION_IS_GEQ(4,11,0)

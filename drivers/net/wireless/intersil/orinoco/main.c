@@ -662,6 +662,15 @@ void orinoco_tx_timeout(struct net_device *dev, unsigned int txqueue)
 
 	schedule_work(&priv->reset_work);
 }
+#if LINUX_VERSION_IS_LESS(5,6,0)
+/* Just declare it here to keep sparse happy */
+void bp_orinoco_tx_timeout(struct net_device *dev);
+void bp_orinoco_tx_timeout(struct net_device *dev)
+{
+	orinoco_tx_timeout(dev, 0);
+}
+EXPORT_SYMBOL_GPL(bp_orinoco_tx_timeout);
+#endif
 EXPORT_SYMBOL(orinoco_tx_timeout);
 
 /********************************************************************/
@@ -2136,7 +2145,12 @@ static const struct net_device_ops orinoco_netdev_ops = {
 	.ndo_change_mtu		= orinoco_change_mtu,
 	.ndo_set_mac_address	= eth_mac_addr,
 	.ndo_validate_addr	= eth_validate_addr,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= orinoco_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_orinoco_tx_timeout,
+#endif
+
 };
 
 /* Allocate private data.

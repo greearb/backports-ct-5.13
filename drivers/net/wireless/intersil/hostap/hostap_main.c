@@ -781,6 +781,15 @@ static void prism2_tx_timeout(struct net_device *dev, unsigned int txqueue)
 
 	local->func->schedule_reset(local);
 }
+#if LINUX_VERSION_IS_LESS(5,6,0)
+/* Just declare it here to keep sparse happy */
+void bp_prism2_tx_timeout(struct net_device *dev);
+void bp_prism2_tx_timeout(struct net_device *dev)
+{
+	prism2_tx_timeout(dev, 0);
+}
+EXPORT_SYMBOL_GPL(bp_prism2_tx_timeout);
+#endif
 
 const struct header_ops hostap_80211_ops = {
 	.create		= eth_header,
@@ -812,7 +821,12 @@ static const struct net_device_ops hostap_netdev_ops = {
 	.ndo_do_ioctl		= hostap_ioctl,
 	.ndo_set_mac_address	= prism2_set_mac_address,
 	.ndo_set_rx_mode	= hostap_set_multicast_list,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout 	= prism2_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_prism2_tx_timeout,
+#endif
+
 	.ndo_validate_addr	= eth_validate_addr,
 };
 
@@ -828,7 +842,12 @@ static const struct net_device_ops hostap_mgmt_netdev_ops = {
 	.ndo_do_ioctl		= hostap_ioctl,
 	.ndo_set_mac_address	= prism2_set_mac_address,
 	.ndo_set_rx_mode	= hostap_set_multicast_list,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout 	= prism2_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_prism2_tx_timeout,
+#endif
+
 	.ndo_validate_addr	= eth_validate_addr,
 };
 
@@ -844,7 +863,12 @@ static const struct net_device_ops hostap_master_ops = {
 	.ndo_do_ioctl		= hostap_ioctl,
 	.ndo_set_mac_address	= prism2_set_mac_address,
 	.ndo_set_rx_mode	= hostap_set_multicast_list,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout 	= prism2_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_prism2_tx_timeout,
+#endif
+
 	.ndo_validate_addr	= eth_validate_addr,
 };
 

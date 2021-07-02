@@ -792,7 +792,12 @@ static const struct net_device_ops islpci_netdev_ops = {
 	.ndo_open 		= islpci_open,
 	.ndo_stop		= islpci_close,
 	.ndo_start_xmit		= islpci_eth_transmit,
+#if LINUX_VERSION_IS_GEQ(5,6,0)
 	.ndo_tx_timeout		= islpci_eth_tx_timeout,
+#else
+	.ndo_tx_timeout = bp_islpci_eth_tx_timeout,
+#endif
+
 	.ndo_set_mac_address 	= prism54_set_mac_address,
 	.ndo_validate_addr	= eth_validate_addr,
 };
