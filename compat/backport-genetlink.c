@@ -90,7 +90,7 @@ static void extack_netlink_ack(struct sk_buff *in_skb, struct nlmsghdr *nlh,
 		return;
 	}
 
-	rep = __nlmsg_put(skb, NETLINK_CB(in_skb).portid, nlh->nlmsg_seq,
+	rep = __nlmsg_put(skb, NETLINK_CB_PORTID(in_skb), nlh->nlmsg_seq,
 			  NLMSG_ERROR, payload, flags);
 	errmsg = nlmsg_data(rep);
 	errmsg->error = err;
@@ -119,7 +119,8 @@ static void extack_netlink_ack(struct sk_buff *in_skb, struct nlmsghdr *nlh,
 
 	nlmsg_end(skb, rep);
 
-	netlink_unicast(in_skb->sk, skb, NETLINK_CB(in_skb).portid, MSG_DONTWAIT);
+	netlink_unicast(in_skb->sk, skb, NETLINK_CB_PORTID(in_skb),
+			MSG_DONTWAIT);
 }
 
 static int extack_doit(struct sk_buff *skb, struct genl_info *info)
@@ -339,7 +340,8 @@ void genl_notify(const struct genl_family *family, struct sk_buff *skb,
 	group = __backport_genl_group(family, group);
 	if (group == INVALID_GROUP)
 		return;
-	nlmsg_notify(sk, skb, info->snd_portid, group, report, flags);
+	nlmsg_notify(sk, skb, genl_info_snd_portid(info), group, report,
+		     flags);
 }
 EXPORT_SYMBOL_GPL(genl_notify);
 
@@ -368,7 +370,8 @@ void *genlmsg_put_reply(struct sk_buff *skb,
 			const struct genl_family *family,
 			int flags, u8 cmd)
 {
-	return genlmsg_put(skb, info->snd_portid, info->snd_seq, family,
+	return genlmsg_put(skb, genl_info_snd_portid(info), info->snd_seq,
+			   family,
 			   flags, cmd);
 }
 EXPORT_SYMBOL_GPL(genlmsg_put_reply);
