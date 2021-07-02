@@ -133,7 +133,12 @@ static const struct net_device_ops qmimux_netdev_ops = {
 	.ndo_open        = qmimux_open,
 	.ndo_stop        = qmimux_stop,
 	.ndo_start_xmit  = qmimux_start_xmit,
+#if LINUX_VERSION_IS_GEQ(4,11,0)
 	.ndo_get_stats64 = dev_get_tstats64,
+#else
+	.ndo_get_stats64 = bp_dev_get_tstats64,
+#endif
+
 };
 
 static void qmimux_setup(struct net_device *dev)
@@ -666,7 +671,12 @@ static const struct net_device_ops qmi_wwan_netdev_ops = {
 	.ndo_start_xmit		= usbnet_start_xmit,
 	.ndo_tx_timeout		= usbnet_tx_timeout,
 	.ndo_change_mtu		= usbnet_change_mtu,
+#if LINUX_VERSION_IS_GEQ(4,11,0)
 	.ndo_get_stats64	= dev_get_tstats64,
+#else
+	.ndo_get_stats64 = bp_dev_get_tstats64,
+#endif
+
 	.ndo_set_mac_address	= qmi_wwan_mac_addr,
 	.ndo_validate_addr	= eth_validate_addr,
 };

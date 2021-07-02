@@ -217,7 +217,12 @@ const struct net_device_ops qtnf_netdev_ops = {
 	.ndo_stop = qtnf_netdev_close,
 	.ndo_start_xmit = qtnf_netdev_hard_start_xmit,
 	.ndo_tx_timeout = qtnf_netdev_tx_timeout,
+#if LINUX_VERSION_IS_GEQ(4,11,0)
 	.ndo_get_stats64 = dev_get_tstats64,
+#else
+	.ndo_get_stats64 = bp_dev_get_tstats64,
+#endif
+
 	.ndo_set_mac_address = qtnf_netdev_set_mac_address,
 	.ndo_get_port_parent_id = qtnf_netdev_port_parent_id,
 };

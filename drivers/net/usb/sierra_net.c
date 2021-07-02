@@ -197,7 +197,12 @@ static const struct net_device_ops sierra_net_device_ops = {
 	.ndo_start_xmit         = usbnet_start_xmit,
 	.ndo_tx_timeout         = usbnet_tx_timeout,
 	.ndo_change_mtu         = usbnet_change_mtu,
+#if LINUX_VERSION_IS_GEQ(4,11,0)
 	.ndo_get_stats64        = dev_get_tstats64,
+#else
+	.ndo_get_stats64 = bp_dev_get_tstats64,
+#endif
+
 	.ndo_set_mac_address    = eth_mac_addr,
 	.ndo_validate_addr      = eth_validate_addr,
 };
