@@ -99,7 +99,9 @@ static const struct ethtool_ops cdc_ether_ethtool_ops = {
 	.get_drvinfo		= usbnet_get_drvinfo,
 	.get_msglevel		= usbnet_get_msglevel,
 	.set_msglevel		= usbnet_set_msglevel,
+#if LINUX_VERSION_IS_GEQ(3,5,0)
 	.get_ts_info		= ethtool_op_get_ts_info,
+#endif /* LINUX_VERSION_IS_GEQ(3,5,0) */
 	.get_link_ksettings	= usbnet_get_link_ksettings_internal,
 	.set_link_ksettings	= NULL,
 };
