@@ -1,8 +1,10 @@
 # SPDX-License-Identifier: ISC
 config ATH9K_HW
 	tristate
+	depends on m
 config ATH9K_COMMON
 	tristate
+	depends on m
 	select ATH_COMMON
 config ATH9K_COMMON_DEBUG
 	bool
@@ -20,6 +22,7 @@ config ATH9K_BTCOEX_SUPPORT
 
 config ATH9K
 	tristate "Atheros 802.11n wireless cards support"
+	depends on m
 	depends on MAC80211 && HAS_DMA
 	select MAC80211_LEDS if LEDS_CLASS=y || LEDS_CLASS=MAC80211
 	select ATH9K_HW
@@ -157,6 +160,7 @@ config ATH9K_PCOEM
 
 config ATH9K_PCI_NO_EEPROM
 	tristate "Atheros ath9k pci loader for EEPROM-less chips"
+	depends on m
 	depends on ATH9K_PCI
 	default n
 	help
@@ -173,6 +177,7 @@ config ATH9K_PCI_NO_EEPROM
 
 config ATH9K_HTC
 	tristate "Atheros HTC based wireless cards support"
+	depends on m
 	depends on USB && MAC80211
 	select MAC80211_LEDS if LEDS_CLASS=y || LEDS_CLASS=MAC80211
 	select ATH9K_HW

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 menuconfig RTL_CARDS
 	tristate "Realtek rtlwifi family of devices"
+	depends on m
 	depends on MAC80211 && (PCI || USB)
 	default y
 	help
@@ -13,6 +14,7 @@ if RTL_CARDS
 
 config RTL8192CE
 	tristate "Realtek RTL8192CE/RTL8188CE Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTL8192C_COMMON
 	select RTLWIFI
@@ -25,6 +27,7 @@ config RTL8192CE
 
 config RTL8192SE
 	tristate "Realtek RTL8192SE/RTL8191SE PCIe Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -36,6 +39,7 @@ config RTL8192SE
 
 config RTL8192DE
 	tristate "Realtek RTL8192DE/RTL8188DE PCIe Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -47,6 +51,7 @@ config RTL8192DE
 
 config RTL8723AE
 	tristate "Realtek RTL8723AE PCIe Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -60,6 +65,7 @@ config RTL8723AE
 
 config RTL8723BE
 	tristate "Realtek RTL8723BE PCIe Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -73,6 +79,7 @@ config RTL8723BE
 
 config RTL8188EE
 	tristate "Realtek RTL8188EE Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -84,6 +91,7 @@ config RTL8188EE
 
 config RTL8192EE
 	tristate "Realtek RTL8192EE Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -96,6 +104,7 @@ config RTL8192EE
 
 config RTL8821AE
 	tristate "Realtek RTL8821AE/RTL8812AE Wireless Network Adapter"
+	depends on m
 	depends on PCI
 	select RTLWIFI
 	select RTLWIFI_PCI
@@ -108,6 +117,7 @@ config RTL8821AE
 
 config RTL8192CU
 	tristate "Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter"
+	depends on m
 	depends on USB
 	select RTLWIFI
 	select RTLWIFI_USB
@@ -120,13 +130,16 @@ config RTL8192CU
 
 config RTLWIFI
 	tristate
+	depends on m
 	select FW_LOADER
 
 config RTLWIFI_PCI
 	tristate
+	depends on m
 
 config RTLWIFI_USB
 	tristate
+	depends on m
 
 config RTLWIFI_DEBUG
 	bool "Debugging output for rtlwifi driver family"
@@ -139,16 +152,19 @@ config RTLWIFI_DEBUG
 
 config RTL8192C_COMMON
 	tristate
+	depends on m
 	depends on RTL8192CE || RTL8192CU
 	default y
 
 config RTL8723_COMMON
 	tristate
+	depends on m
 	depends on RTL8723AE || RTL8723BE
 	default y
 
 config RTLBTCOEXIST
 	tristate
+	depends on m
 	depends on RTL8723AE || RTL8723BE || RTL8821AE || RTL8192EE
 	default y
 

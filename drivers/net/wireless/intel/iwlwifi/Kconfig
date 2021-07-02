@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config IWLWIFI
 	tristate "Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi) "
+	depends on m
 	depends on PCI && HAS_IOMEM && CFG80211
 	select FW_LOADER
 	help
@@ -55,6 +56,7 @@ config IWLWIFI_LEDS
 
 config IWLDVM
 	tristate "Intel Wireless WiFi DVM Firmware support"
+	depends on m
 	depends on MAC80211
 	help
 	  This is the driver that supports the DVM firmware. The list
@@ -63,6 +65,7 @@ config IWLDVM
 
 config IWLMVM
 	tristate "Intel Wireless WiFi MVM Firmware support"
+	depends on m
 	select WANT_DEV_COREDUMP
 	depends on MAC80211
 	help

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config ATH6KL
 	tristate "Atheros mobile chipsets support"
+	depends on m
 	depends on CFG80211
 	help
 	  This module adds core support for wireless adapters based on
@@ -13,6 +14,7 @@ config ATH6KL
 
 config ATH6KL_SDIO
 	tristate "Atheros ath6kl SDIO support"
+	depends on m
 	depends on ATH6KL
 	depends on MMC
 	help
@@ -24,6 +26,7 @@ config ATH6KL_SDIO
 
 config ATH6KL_USB
 	tristate "Atheros ath6kl USB support"
+	depends on m
 	depends on ATH6KL
 	depends on USB
 	help

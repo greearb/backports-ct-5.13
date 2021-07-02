@@ -6,6 +6,7 @@ config BCMA_POSSIBLE
 
 menuconfig BCMA
 	tristate "Broadcom specific AMBA"
+	depends on m
 	depends on BCMA_POSSIBLE
 	help
 	  Bus driver for Broadcom specific Advanced Microcontroller Bus

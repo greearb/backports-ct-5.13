@@ -1,5 +1,6 @@
 config BRCMFMAC
 	tristate "Broadcom FullMAC WLAN driver"
+	depends on m
 	depends on CFG80211
 	select BRCMUTIL
 	help

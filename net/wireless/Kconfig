@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config CFG80211
 	tristate "cfg80211 - wireless configuration API"
+	depends on m
 	depends on RFKILL || !RFKILL
 	select FW_LOADER
 	select CRC32
@@ -187,6 +188,7 @@ endif # CFG80211
 
 config LIB80211
 	tristate
+	depends on m
 	default n
 	help
 	  This options enables a library of common routines used
@@ -196,16 +198,19 @@ config LIB80211
 
 config LIB80211_CRYPT_WEP
 	tristate
+	depends on m
 	select CRYPTO_LIB_ARC4
 
 config LIB80211_CRYPT_CCMP
 	tristate
+	depends on m
 	select CRYPTO
 	select CRYPTO_AES
 	select CRYPTO_CCM
 
 config LIB80211_CRYPT_TKIP
 	tristate
+	depends on m
 	select CRYPTO_LIB_ARC4
 
 config LIB80211_DEBUG

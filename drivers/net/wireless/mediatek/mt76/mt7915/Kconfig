@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config MT7915E
 	tristate "MediaTek MT7915E (PCIe) support"
+	depends on m
 	select MT76_CORE
 	depends on MAC80211
 	depends on PCI

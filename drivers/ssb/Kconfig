@@ -6,6 +6,7 @@ config SSB_POSSIBLE
 
 menuconfig SSB
 	tristate "Sonics Silicon Backplane support"
+	depends on m
 	depends on SSB_POSSIBLE
 	help
 	  Support for the Sonics Silicon Backplane bus.

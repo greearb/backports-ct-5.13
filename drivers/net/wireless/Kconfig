@@ -38,6 +38,7 @@ source "drivers/net/wireless/quantenna/Kconfig"
 
 config PCMCIA_RAYCS
 	tristate "Aviator/Raytheon 2.4GHz wireless support"
+	depends on m
 	depends on PCMCIA
 	select WIRELESS_EXT
 	select WEXT_SPY
@@ -54,6 +55,7 @@ config PCMCIA_RAYCS
 
 config PCMCIA_WL3501
 	tristate "Planet WL3501 PCMCIA cards"
+	depends on m
 	depends on CFG80211 && PCMCIA
 	select WIRELESS_EXT
 	select WEXT_SPY
@@ -64,6 +66,7 @@ config PCMCIA_WL3501
 
 config MAC80211_HWSIM
 	tristate "Simulated radio testing tool for mac80211"
+	depends on m
 	depends on MAC80211
 	help
 	  This driver is a developer testing tool that can be used to test
@@ -77,6 +80,7 @@ config MAC80211_HWSIM
 
 config USB_NET_RNDIS_WLAN
 	tristate "Wireless RNDIS USB support"
+	depends on m
 	depends on USB
 	depends on CFG80211
 	select USB_NET_DRIVERS
@@ -106,6 +110,7 @@ config USB_NET_RNDIS_WLAN
 
 config VIRT_WIFI
 	tristate "Wifi wrapper for ethernet drivers"
+	depends on m
 	depends on CFG80211
 	help
 	  This option adds support for ethernet connections to appear as if they

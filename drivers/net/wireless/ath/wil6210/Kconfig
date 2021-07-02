@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config WIL6210
 	tristate "Wilocity 60g WiFi card wil6210 support"
+	depends on m
 	select WANT_DEV_COREDUMP
 	select CRC32
 	depends on CFG80211

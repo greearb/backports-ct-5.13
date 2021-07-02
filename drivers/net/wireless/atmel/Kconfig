@@ -14,6 +14,7 @@ if WLAN_VENDOR_ATMEL
 
 config ATMEL
 	tristate "Atmel at76c50x chipset  802.11b support"
+	depends on m
 	depends on CFG80211 && (PCI || PCMCIA)
 	select WIRELESS_EXT
 	select WEXT_PRIV
@@ -32,6 +33,7 @@ config ATMEL
 
 config PCI_ATMEL
 	tristate "Atmel at76c506 PCI cards"
+	depends on m
 	depends on ATMEL && PCI
 	help
 	  Enable support for PCI and mini-PCI cards containing the
@@ -39,6 +41,7 @@ config PCI_ATMEL
 
 config PCMCIA_ATMEL
 	tristate "Atmel at76c502/at76c504 PCMCIA cards"
+	depends on m
 	depends on ATMEL && PCMCIA
 	select WIRELESS_EXT
 	select FW_LOADER
@@ -49,6 +52,7 @@ config PCMCIA_ATMEL
 
 config AT76C50X_USB
 	tristate "Atmel at76c503/at76c505/at76c505a USB cards"
+	depends on m
 	depends on MAC80211 && USB
 	select FW_LOADER
 	help

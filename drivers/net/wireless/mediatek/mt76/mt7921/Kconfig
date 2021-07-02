@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config MT7921E
 	tristate "MediaTek MT7921E (PCIe) support"
+	depends on m
 	select MT76_CONNAC_LIB
 	select WANT_DEV_COREDUMP
 	depends on MAC80211

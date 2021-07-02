@@ -1,12 +1,14 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config QTNFMAC
 	tristate
+	depends on m
 	depends on QTNFMAC_PCIE
 	default m if QTNFMAC_PCIE=m
 	default y if QTNFMAC_PCIE=y
 
 config QTNFMAC_PCIE
 	tristate "Quantenna QSR1000/QSR2000/QSR10g PCIe support"
+	depends on m
 	default n
 	depends on PCI && CFG80211
 	select QTNFMAC

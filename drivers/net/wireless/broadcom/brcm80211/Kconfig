@@ -1,9 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config BRCMUTIL
 	tristate
+	depends on m
 
 config BRCMSMAC
 	tristate "Broadcom IEEE802.11n PCIe SoftMAC WLAN driver"
+	depends on m
 	depends on MAC80211
 	depends on BCMA_POSSIBLE
 	select BCMA

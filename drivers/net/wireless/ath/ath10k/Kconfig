@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config ATH10K
 	tristate "Atheros 802.11ac wireless cards support"
+	depends on m
 	depends on MAC80211 && HAS_DMA
 	select ATH_COMMON
 	select CRC32
@@ -17,6 +18,7 @@ config ATH10K_CE
 
 config ATH10K_PCI
 	tristate "Atheros ath10k PCI support"
+	depends on m
 	depends on ATH10K && PCI
 	help
 	  This module adds support for PCIE bus
@@ -29,12 +31,14 @@ config ATH10K_AHB
 
 config ATH10K_SDIO
 	tristate "Atheros ath10k SDIO support"
+	depends on m
 	depends on ATH10K && MMC
 	help
 	  This module adds support for SDIO/MMC bus.
 
 config ATH10K_USB
 	tristate "Atheros ath10k USB support (EXPERIMENTAL)"
+	depends on m
 	depends on ATH10K && USB
 	help
 	  This module adds experimental support for USB bus. Currently
@@ -42,6 +46,7 @@ config ATH10K_USB
 
 config ATH10K_SNOC
 	tristate "Qualcomm ath10k SNOC support"
+	depends on m
 	depends on ATH10K
 	depends on ARCH_QCOM || COMPILE_TEST
 	select QCOM_QMI_HELPERS

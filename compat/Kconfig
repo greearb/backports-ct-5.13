@@ -69,6 +69,7 @@ config BPAUTO_BUILD_NLATTR
 
 config BPAUTO_BUILD_CORDIC
 	tristate
+	depends on m
 	depends on !CORDIC
 	depends on KERNEL_3_1
 	default m if BPAUTO_CORDIC

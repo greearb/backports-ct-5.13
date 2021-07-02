@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config MT7603E
 	tristate "MediaTek MT7603E (PCIe) and MT76x8 WLAN support"
+	depends on m
 	select MT76_CORE
 	depends on MAC80211
 	depends on PCI

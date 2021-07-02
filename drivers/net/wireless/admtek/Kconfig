@@ -14,6 +14,7 @@ if WLAN_VENDOR_ADMTEK
 
 config ADM8211
 	tristate "ADMtek ADM8211 support"
+	depends on m
 	depends on MAC80211 && PCI
 	select CRC32
 	select EEPROM_93CX6

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 config ATH11K
 	tristate "Qualcomm Technologies 802.11ax chipset support"
+	depends on m
 	depends on MAC80211 && HAS_DMA
 	depends on CRYPTO_MICHAEL_MIC
 	select ATH_COMMON
@@ -13,6 +14,7 @@ config ATH11K
 
 config ATH11K_AHB
 	tristate "Atheros ath11k AHB support"
+	depends on m
 	depends on ATH11K
 	depends on REMOTEPROC
 	help
@@ -20,6 +22,7 @@ config ATH11K_AHB
 
 config ATH11K_PCI
 	tristate "Atheros ath11k PCI support"
+	depends on m
 	depends on ATH11K && PCI
 	select MHI_BUS
 	select QRTR

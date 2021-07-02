@@ -5,6 +5,7 @@
 
 config IPW2100
 	tristate "Intel PRO/Wireless 2100 Network Connection"
+	depends on m
 	depends on PCI && CFG80211
 	select WIRELESS_EXT
 	select WEXT_SPY
@@ -66,6 +67,7 @@ config IPW2100_DEBUG
 
 config IPW2200
 	tristate "Intel PRO/Wireless 2200BG and 2915ABG Network Connection"
+	depends on m
 	depends on PCI && CFG80211
 	select CFG80211_WEXT_EXPORT
 	select WIRELESS_EXT
@@ -156,6 +158,7 @@ config IPW2200_DEBUG
 
 config LIBIPW
 	tristate
+	depends on m
 	depends on PCI && CFG80211
 	select WIRELESS_EXT
 	select WEXT_SPY

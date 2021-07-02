@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config ATH5K
 	tristate "Atheros 5xxx wireless cards support"
+	depends on m
 	depends on (PCI || ATH25) && MAC80211
 	select ATH_COMMON
 	select MAC80211_LEDS

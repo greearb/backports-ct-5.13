@@ -18,6 +18,7 @@ source "drivers/net/wireless/marvell/mwifiex/Kconfig"
 
 config MWL8K
 	tristate "Marvell 88W8xxx PCI/PCIe Wireless support"
+	depends on m
 	depends on MAC80211 && PCI
 	help
 	  This driver supports Marvell TOPDOG 802.11 wireless cards.

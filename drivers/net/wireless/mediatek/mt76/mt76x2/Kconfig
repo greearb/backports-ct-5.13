@@ -1,10 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config MT76x2_COMMON
 	tristate
+	depends on m
 	select MT76x02_LIB
 
 config MT76x2E
 	tristate "MediaTek MT76x2E (PCIe) support"
+	depends on m
 	select MT76x2_COMMON
 	depends on MAC80211
 	depends on PCI
@@ -17,6 +19,7 @@ config MT76x2E
 
 config MT76x2U
 	tristate "MediaTek MT76x2U (USB) support"
+	depends on m
 	select MT76x2_COMMON
 	select MT76x02_USB
 	depends on MAC80211

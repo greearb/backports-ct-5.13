@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: ISC
 config ATH_COMMON
 	tristate
+	depends on m
 
 config WLAN_VENDOR_ATH
 	bool "Atheros/Qualcomm devices"

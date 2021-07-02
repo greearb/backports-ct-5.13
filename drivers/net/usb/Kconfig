@@ -7,6 +7,7 @@ comment "Host-side USB support is needed for USB Network Adapter support"
 
 menuconfig USB_NET_DRIVERS
 	tristate "USB Network Adapters"
+	depends on m
 	default USB if USB
 	depends on USB && NET
 
@@ -14,6 +15,7 @@ if USB_NET_DRIVERS
 
 config USB_CATC
 	tristate "USB CATC NetMate-based Ethernet device support"
+	depends on m
 	select CRC32
 	help
 	  Say Y if you want to use one of the following 10Mbps USB Ethernet
@@ -33,6 +35,7 @@ config USB_CATC
 
 config USB_KAWETH
 	tristate "USB KLSI KL5USB101-based ethernet device support"
+	depends on m
 	help
 	  Say Y here if you want to use one of the following 10Mbps only
 	  USB Ethernet adapters based on the KLSI KL5KUSB101B chipset:
@@ -72,6 +75,7 @@ config USB_KAWETH
 
 config USB_PEGASUS
 	tristate "USB Pegasus/Pegasus-II based ethernet device support"
+	depends on m
 	select MII
 	help
 	  Say Y here if you know you have Pegasus or Pegasus-II based adapter.
@@ -87,6 +91,7 @@ config USB_PEGASUS
 
 config USB_RTL8150
 	tristate "USB RTL8150 based ethernet device support"
+	depends on m
 	select MII
 	help
 	  Say Y here if you have RTL8150 based usb-ethernet adapter.
@@ -98,6 +103,7 @@ config USB_RTL8150
 
 config USB_RTL8152
 	tristate "Realtek RTL8152/RTL8153 Based USB Ethernet Adapters"
+	depends on m
 	select MII
 	help
 	  This option adds support for Realtek RTL8152 based USB 2.0
@@ -109,6 +115,7 @@ config USB_RTL8152
 
 config USB_LAN78XX
 	tristate "Microchip LAN78XX Based USB Ethernet Adapters"
+	depends on m
 	select MII
 	select PHYLIB
 	select MICROCHIP_PHY
@@ -127,6 +134,7 @@ config USB_LAN78XX
 
 config USB_USBNET
 	tristate "Multi-purpose USB Networking Framework"
+	depends on m
 	select MII
 	help
 	  This driver supports several kinds of network links over USB,
@@ -161,6 +169,7 @@ config USB_USBNET
 
 config USB_NET_AX8817X
 	tristate "ASIX AX88xxx Based USB 2.0 Ethernet Adapters"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	select PHYLIB
@@ -191,6 +200,7 @@ config USB_NET_AX8817X
 
 config USB_NET_AX88179_178A
 	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	select PHYLIB
@@ -209,6 +219,7 @@ config USB_NET_AX88179_178A
 
 config USB_NET_CDCETHER
 	tristate "CDC Ethernet support (smart devices such as cable modems)"
+	depends on m
 	depends on USB_USBNET
 	default y
 	help
@@ -237,6 +248,7 @@ config USB_NET_CDCETHER
 
 config USB_NET_CDC_EEM
 	tristate "CDC EEM support"
+	depends on m
 	depends on USB_USBNET
 	help
 	  This option supports devices conforming to the Communication Device
@@ -251,6 +263,7 @@ config USB_NET_CDC_EEM
 
 config USB_NET_CDC_NCM
 	tristate "CDC NCM support"
+	depends on m
 	depends on USB_USBNET
 	select USB_NET_CDCETHER
 	default y
@@ -271,6 +284,7 @@ config USB_NET_CDC_NCM
 
 config USB_NET_HUAWEI_CDC_NCM
 	tristate "Huawei NCM embedded AT channel support"
+	depends on m
 	depends on USB_USBNET
 	select USB_WDM
 	select USB_NET_CDC_NCM
@@ -286,6 +300,7 @@ config USB_NET_HUAWEI_CDC_NCM
 
 config USB_NET_CDC_MBIM
 	tristate "CDC MBIM support"
+	depends on m
 	depends on USB_USBNET
 	select USB_WDM
 	select USB_NET_CDC_NCM
@@ -304,6 +319,7 @@ config USB_NET_CDC_MBIM
 
 config USB_NET_DM9601
 	tristate "Davicom DM96xx based USB 10/100 ethernet devices"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	help
@@ -312,6 +328,7 @@ config USB_NET_DM9601
 
 config USB_NET_SR9700
 	tristate "CoreChip-sz SR9700 based USB 1.1 10/100 ethernet devices"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	help
@@ -320,6 +337,7 @@ config USB_NET_SR9700
 
 config USB_NET_SR9800
 	tristate "CoreChip-sz SR9800 based USB 2.0 10/100 ethernet devices"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	help
@@ -335,6 +353,7 @@ config USB_NET_SR9800
 
 config USB_NET_SMSC75XX
 	tristate "SMSC LAN75XX based USB 2.0 gigabit ethernet devices"
+	depends on m
 	depends on USB_USBNET
 	select BITREVERSE
 	select CRC16
@@ -345,6 +364,7 @@ config USB_NET_SMSC75XX
 
 config USB_NET_SMSC95XX
 	tristate "SMSC LAN95XX based USB 2.0 10/100 ethernet devices"
+	depends on m
 	depends on USB_USBNET
 	select PHYLIB
 	select SMSC_PHY
@@ -357,6 +377,7 @@ config USB_NET_SMSC95XX
 
 config USB_NET_GL620A
 	tristate "GeneSys GL620USB-A based cables"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you're using a host-to-host cable,
@@ -366,6 +387,7 @@ config USB_NET_GL620A
 
 config USB_NET_NET1080
 	tristate "NetChip 1080 based cables (Laplink, ...)"
+	depends on m
 	default y
 	depends on USB_USBNET
 	help
@@ -375,6 +397,7 @@ config USB_NET_NET1080
 
 config USB_NET_PLUSB
 	tristate "Prolific PL-2301/2302/25A1/27A1 based cables"
+	depends on m
 	# if the handshake/init/reset problems, from original 'plusb',
 	# are ever resolved ... then remove "experimental"
 	depends on USB_USBNET
@@ -384,6 +407,7 @@ config USB_NET_PLUSB
 
 config USB_NET_MCS7830
 	tristate "MosChip MCS7830 based Ethernet adapters"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you're using a 10/100 Ethernet USB2
@@ -392,6 +416,7 @@ config USB_NET_MCS7830
 
 config USB_NET_RNDIS_HOST
 	tristate "Host for RNDIS and ActiveSync devices"
+	depends on m
 	depends on USB_USBNET
 	select USB_NET_CDCETHER
 	help
@@ -407,10 +432,12 @@ config USB_NET_RNDIS_HOST
 
 config USB_NET_CDC_SUBSET_ENABLE
 	tristate
+	depends on m
 	depends on USB_NET_CDC_SUBSET
 
 config USB_NET_CDC_SUBSET
 	tristate "Simple USB Network Links (CDC Ethernet subset)"
+	depends on m
 	depends on USB_USBNET
 	default y
 	help
@@ -487,6 +514,7 @@ config USB_KC2190
 
 config USB_NET_ZAURUS
 	tristate "Sharp Zaurus (stock ROMs) and compatible"
+	depends on m
 	depends on USB_USBNET
 	select USB_NET_CDCETHER
 	select CRC32
@@ -505,6 +533,7 @@ config USB_NET_ZAURUS
 
 config USB_NET_CX82310_ETH
 	tristate "Conexant CX82310 USB ethernet port"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you're using a Conexant CX82310-based ADSL
@@ -513,6 +542,7 @@ config USB_NET_CX82310_ETH
 
 config USB_NET_KALMIA
 	tristate "Samsung Kalmia based LTE USB modem"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you have a Samsung Kalmia based USB modem
@@ -523,6 +553,7 @@ config USB_NET_KALMIA
 
 config USB_NET_QMI_WWAN
 	tristate "QMI WWAN driver for Qualcomm MSM based 3G and LTE modems"
+	depends on m
 	depends on USB_USBNET
 	select USB_WDM
 	help
@@ -545,6 +576,7 @@ config USB_NET_QMI_WWAN
 
 config USB_HSO
 	tristate "Option USB High Speed Mobile Devices"
+	depends on m
 	depends on USB && RFKILL && TTY
 	default n
 	help
@@ -556,6 +588,7 @@ config USB_HSO
 
 config USB_NET_INT51X1
 	tristate "Intellon PLC based usb adapter"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you're using a 14Mb USB-based PLC
@@ -564,6 +597,7 @@ config USB_NET_INT51X1
 
 config USB_CDC_PHONET
 	tristate "CDC Phonet support"
+	depends on m
 	depends on PHONET && USB_USBNET
 	help
 	  Choose this option to support the Phonet interface to a Nokia
@@ -572,6 +606,7 @@ config USB_CDC_PHONET
 
 config USB_IPHETH
 	tristate "Apple iPhone USB Ethernet driver"
+	depends on m
 	default n
 	help
 	  Module used to share Internet connection (tethering) from your
@@ -584,6 +619,7 @@ config USB_IPHETH
 
 config USB_SIERRA_NET
 	tristate "USB-to-WWAN Driver for Sierra Wireless modems"
+	depends on m
 	depends on USB_USBNET
 	help
 	  Choose this option if you have a Sierra Wireless USB-to-WWAN device.
@@ -593,6 +629,7 @@ config USB_SIERRA_NET
 
 config USB_VL600
 	tristate "LG VL600 modem dongle"
+	depends on m
 	depends on USB_NET_CDCETHER && TTY
 	select USB_ACM
 	help
@@ -608,6 +645,7 @@ config USB_VL600
 
 config USB_NET_CH9200
 	tristate "QingHeng CH9200 USB ethernet support"
+	depends on m
 	depends on USB_USBNET
 	select MII
 	help
@@ -619,6 +657,7 @@ config USB_NET_CH9200
 
 config USB_NET_AQC111
 	tristate "Aquantia AQtion USB to 5/2.5GbE Controllers support"
+	depends on m
 	depends on USB_USBNET
 	select CRC32
 	help
@@ -630,6 +669,7 @@ config USB_NET_AQC111
 
 config USB_RTL8153_ECM
 	tristate "RTL8153 ECM support"
+	depends on m
 	depends on USB_NET_CDCETHER && (USB_RTL8152 || USB_RTL8152=n)
 	help
 	  This option supports ECM mode for RTL8153 ethernet adapter, when

@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 config P54_COMMON
 	tristate "Softmac Prism54 support"
+	depends on m
 	depends on MAC80211
 	select FW_LOADER
 	select CRC_CCITT
@@ -16,6 +17,7 @@ config P54_COMMON
 
 config P54_USB
 	tristate "Prism54 USB support"
+	depends on m
 	depends on P54_COMMON && USB
 	select CRC32
 	help
@@ -28,6 +30,7 @@ config P54_USB
 
 config P54_PCI
 	tristate "Prism54 PCI support"
+	depends on m
 	depends on P54_COMMON && PCI
 	help
 	  This driver is for PCI isl38xx based wireless cards.
@@ -42,6 +45,7 @@ config P54_PCI
 
 config P54_SPI
 	tristate "Prism54 SPI (stlc45xx) support"
+	depends on m
 	depends on P54_COMMON && SPI_MASTER
 	help
 	  This driver is for stlc4550 or stlc4560 based wireless chips

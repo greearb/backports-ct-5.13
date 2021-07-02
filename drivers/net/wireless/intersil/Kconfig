@@ -18,6 +18,7 @@ source "drivers/net/wireless/intersil/p54/Kconfig"
 
 config PRISM54
 	tristate 'Intersil Prism GT/Duette/Indigo PCI/Cardbus (DEPRECATED)'
+	depends on m
 	depends on PCI
 	select WIRELESS_EXT
 	select WEXT_SPY
