@@ -665,6 +665,7 @@ static void mwifiex_usb_disconnect(struct usb_interface *intf)
 	usb_put_dev(interface_to_usbdev(intf));
 }
 
+#if LINUX_VERSION_IS_GEQ(4,17,0)
 static void mwifiex_usb_coredump(struct device *dev)
 {
 	struct usb_interface *intf = to_usb_interface(dev);
@@ -673,6 +674,7 @@ static void mwifiex_usb_coredump(struct device *dev)
 	mwifiex_fw_dump_event(mwifiex_get_priv(card->adapter,
 					       MWIFIEX_BSS_ROLE_ANY));
 }
+#endif
 
 static struct usb_driver mwifiex_usb_driver = {
 	.name = "mwifiex_usb",
@@ -683,7 +685,9 @@ static struct usb_driver mwifiex_usb_driver = {
 	.resume = mwifiex_usb_resume,
 	.soft_unbind = 1,
 	.drvwrap.driver = {
+#if LINUX_VERSION_IS_GEQ(4,17,0)
 		.coredump = mwifiex_usb_coredump,
+#endif
 	},
 };
 

@@ -2136,7 +2136,9 @@ static struct pci_driver brcmf_pciedrvr = {
 #ifdef CONFIG_PM
 	.driver.pm = &brcmf_pciedrvr_pm,
 #endif
+#if LINUX_VERSION_IS_GEQ(4,17,0)
 	.driver.coredump = brcmf_dev_coredump,
+#endif
 };
 
 

@@ -1213,7 +1213,9 @@ static struct sdio_driver brcmf_sdmmc_driver = {
 #ifdef CONFIG_PM_SLEEP
 		.pm = &brcmf_sdio_pm_ops,
 #endif	/* CONFIG_PM_SLEEP */
+#if LINUX_VERSION_IS_GEQ(4,17,0)
 		.coredump = brcmf_dev_coredump,
+#endif
 	},
 };
 
