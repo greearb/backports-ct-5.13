@@ -213,10 +213,14 @@ static int wilc_spi_tx(struct wilc *wilc, u8 *b, u32 len)
 		struct spi_transfer tr = {
 			.tx_buf = b,
 			.len = len,
+#if LINUX_VERSION_IS_GEQ(5,5,0)
 			.delay = {
 				.value = 0,
 				.unit = SPI_DELAY_UNIT_USECS
 			},
+#else
+			.delay_usecs = 0,
+#endif /* >= 5.5 */
 		};
 		char *r_buffer = kzalloc(len, GFP_KERNEL);
 
@@ -257,10 +261,14 @@ static int wilc_spi_rx(struct wilc *wilc, u8 *rb, u32 rlen)
 		struct spi_transfer tr = {
 			.rx_buf = rb,
 			.len = rlen,
+#if LINUX_VERSION_IS_GEQ(5,5,0)
 			.delay = {
 				.value = 0,
 				.unit = SPI_DELAY_UNIT_USECS
 			},
+#else
+			.delay_usecs = 0,
+#endif /* >= 5.5 */
 
 		};
 		char *t_buffer = kzalloc(rlen, GFP_KERNEL);
@@ -302,10 +310,14 @@ static int wilc_spi_tx_rx(struct wilc *wilc, u8 *wb, u8 *rb, u32 rlen)
 			.tx_buf = wb,
 			.len = rlen,
 			.bits_per_word = 8,
+#if LINUX_VERSION_IS_GEQ(5,5,0)
 			.delay = {
 				.value = 0,
 				.unit = SPI_DELAY_UNIT_USECS
 			},
+#else
+			.delay_usecs = 0,
+#endif /* >= 5.5 */
 
 		};
 
