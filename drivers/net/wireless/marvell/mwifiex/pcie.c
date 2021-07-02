@@ -559,7 +559,11 @@ static void mwifiex_pcie_reset_done(struct pci_dev *pdev)
 	card->pci_reset_ongoing = false;
 }
 
-static const struct pci_error_handlers mwifiex_pcie_err_handler = {
+static 
+#if LINUX_VERSION_IS_GEQ(3,7,0)
+const 
+#endif /* LINUX_VERSION_IS_GEQ(3,7,0) */
+struct pci_error_handlers mwifiex_pcie_err_handler = {
 	.reset_prepare		= mwifiex_pcie_reset_prepare,
 	.reset_done		= mwifiex_pcie_reset_done,
 };
