@@ -9,6 +9,7 @@
 #include <linux/kernel.h>
 #include <linux/iopoll.h>
 #include <linux/module.h>
+#include <linux/kthread.h>
 
 #include <linux/mmc/host.h>
 #include <linux/mmc/sdio_ids.h>
