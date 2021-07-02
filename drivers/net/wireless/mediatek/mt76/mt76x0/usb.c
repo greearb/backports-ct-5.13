@@ -346,6 +346,8 @@ static struct usb_driver mt76x0_driver = {
 	.resume		= mt76x0_resume,
 	.reset_resume	= mt76x0_resume,
 	.soft_unbind	= 1,
+#if LINUX_VERSION_IS_GEQ(3,5,0)
 	.disable_hub_initiated_lpm = 1,
+#endif
 };
 module_usb_driver(mt76x0_driver);

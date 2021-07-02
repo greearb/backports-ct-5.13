@@ -220,7 +220,9 @@ static struct usb_driver mt7663u_driver = {
 	.reset_resume	= mt7663u_resume,
 #endif /* CONFIG_PM */
 	.soft_unbind	= 1,
+#if LINUX_VERSION_IS_GEQ(3,5,0)
 	.disable_hub_initiated_lpm = 1,
+#endif
 };
 module_usb_driver(mt7663u_driver);
 

@@ -6923,7 +6923,9 @@ static struct usb_driver rtl8xxxu_driver = {
 	.disconnect = rtl8xxxu_disconnect,
 	.id_table = dev_table,
 	.no_dynamic_id = 1,
+#if LINUX_VERSION_IS_GEQ(3,5,0)
 	.disable_hub_initiated_lpm = 1,
+#endif
 };
 
 static int __init rtl8xxxu_module_init(void)

@@ -1089,7 +1089,9 @@ static struct usb_driver ath10k_usb_driver = {
 	.disconnect = ath10k_usb_remove,
 	.id_table = ath10k_usb_ids,
 	.supports_autosuspend = true,
+#if LINUX_VERSION_IS_GEQ(3,5,0)
 	.disable_hub_initiated_lpm = 1,
+#endif
 };
 
 module_usb_driver(ath10k_usb_driver);
