@@ -1029,7 +1029,11 @@ static void __ieee80211_tx_status(struct ieee80211_hw *hw,
 	 */
 	if (!local->monitors && (!send_to_cooked || !local->cooked_mntrs)) {
 		if (status->free_list)
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 			list_add_tail(&skb->list, status->free_list);
+#else
+			__skb_queue_tail(status->free_list, skb);
+#endif
 		else
 			dev_kfree_skb(skb);
 		return;
@@ -1229,7 +1233,11 @@ free:
 
 	ieee80211_report_used_skb(local, skb, false);
 	if (status->free_list)
+#if LINUX_VERSION_IS_GEQ(4,19,0)
 		list_add_tail(&skb->list, status->free_list);
+#else
+		__skb_queue_tail(status->free_list, skb);
+#endif
 	else
 		dev_kfree_skb(skb);
 }
