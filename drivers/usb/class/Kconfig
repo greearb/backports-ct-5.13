@@ -5,6 +5,7 @@
 comment "USB Device Class drivers"
 
 config USB_ACM
+	depends on n
 	tristate "USB Modem (CDC ACM) support"
 	depends on m
 	depends on TTY
@@ -21,6 +22,7 @@ config USB_ACM
 	  module will be called cdc-acm.
 
 config USB_PRINTER
+	depends on n
 	tristate "USB Printer support"
 	depends on m
 	help
@@ -42,6 +44,7 @@ config USB_WDM
 	  module will be called cdc-wdm.
 
 config USB_TMC
+	depends on n
 	tristate "USB Test and Measurement Class support"
 	depends on m
 	help

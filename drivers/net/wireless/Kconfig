@@ -37,6 +37,7 @@ source "drivers/net/wireless/zydas/Kconfig"
 source "drivers/net/wireless/quantenna/Kconfig"
 
 config PCMCIA_RAYCS
+	depends on n
 	tristate "Aviator/Raytheon 2.4GHz wireless support"
 	depends on m
 	depends on PCMCIA
@@ -54,6 +55,7 @@ config PCMCIA_RAYCS
 	  called ray_cs.  If unsure, say N.
 
 config PCMCIA_WL3501
+	depends on n
 	tristate "Planet WL3501 PCMCIA cards"
 	depends on m
 	depends on CFG80211 && PCMCIA
@@ -109,6 +111,7 @@ config USB_NET_RNDIS_WLAN
 	  If you choose to build a module, it'll be called rndis_wlan.
 
 config VIRT_WIFI
+	depends on n
 	tristate "Wifi wrapper for ethernet drivers"
 	depends on m
 	depends on CFG80211
