@@ -70,3 +70,14 @@ $(obj)/oid_registry_data.c: $(src)/../include/linux/backport-oid_registry.h \
 
 quiet_cmd_build_OID_registry = GEN     $@
 	cmd_build_OID_registry = perl $(src)/build_OID_registry $< $@
+cordic-objs += lib-math-cordic.o
+obj-$(CPTCFG_BPAUTO_BUILD_CORDIC) += cordic.o
+compat-$(CPTCFG_BPAUTO_BUILD_WANT_DEV_COREDUMP) += drivers-base-devcoredump.o
+compat-$(CPTCFG_BPAUTO_RHASHTABLE) += lib-rhashtable.o
+compat-$(CPTCFG_BPAUTO_BUCKET_LOCKS) += lib-bucket_locks.o
+compat-$(CPTCFG_BPAUTO_REFCOUNT) += lib-refcount.o
+compat-$(CPTCFG_BPAUTO_BUILD_SYSTEM_DATA_VERIFICATION) += lib-oid_registry.o
+compat-$(CPTCFG_BPAUTO_PUBLIC_KEY) += 
+compat-$(CPTCFG_BPAUTO_ASN1_DECODER) += lib-asn1_decoder.o
+compat-$(CPTCFG_BPAUTO_PKCS7) += 
+compat-$(CPTCFG_BPAUTO_BUILD_CRYPTO_LIB_ARC4) += lib-crypto-arc4.o
