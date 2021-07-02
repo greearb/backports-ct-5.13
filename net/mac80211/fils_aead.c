@@ -1,3 +1,4 @@
+#if LINUX_VERSION_IS_GEQ(4,3,0)
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * FILS AEAD for (Re)Association Request/Response frames
@@ -329,3 +330,4 @@ int fils_decrypt_assoc_resp(struct ieee80211_sub_if_data *sdata,
 	*frame_len -= AES_BLOCK_SIZE;
 	return 0;
 }
+#endif
