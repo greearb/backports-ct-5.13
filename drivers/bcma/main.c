@@ -65,7 +65,12 @@ static struct attribute *bcma_device_attrs[] = {
 	&dev_attr_class.attr,
 	NULL,
 };
+#if LINUX_VERSION_IS_GEQ(3,12,0)
 ATTRIBUTE_GROUPS(bcma_device);
+#else
+#define BP_ATTR_GRP_STRUCT device_attribute
+ATTRIBUTE_GROUPS_BACKPORT(bcma_device);
+#endif
 
 static struct bus_type bcma_bus_type = {
 	.name		= "bcma",
@@ -73,7 +78,12 @@ static struct bus_type bcma_bus_type = {
 	.probe		= bcma_device_probe,
 	.remove		= bcma_device_remove,
 	.uevent		= bcma_device_uevent,
+#if LINUX_VERSION_IS_GEQ(3,12,0)
 	.dev_groups	= bcma_device_groups,
+#else
+	.dev_attrs = bcma_device_dev_attrs,
+#endif
+
 };
 
 static u16 bcma_cc_core_id(struct bcma_bus *bus)
@@ -659,6 +669,7 @@ static int __init bcma_init_bus_register(void)
 	if (bcma_bus_registered)
 		return 0;
 
+	init_bcma_device_attrs();
 	err = bus_register(&bcma_bus_type);
 	if (!err)
 		bcma_bus_registered = 1;
